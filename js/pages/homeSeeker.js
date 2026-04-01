@@ -3,120 +3,124 @@ Router.register('/home', function renderHomeSeeker() {
   const page = el('div', { className: 'app-layout fade-in' });
   page.appendChild(seekerSidebar('/home'));
 
+  const jobs = [
+    { id:1, init:'RO', title:'Recruitment Officer', co:'Metfone', loc:'Phnom Penh', type:'Full-time', salary:'$800', time:'2d ago', bg:'#FDE8E8', color:'#ED1C24', match:92 },
+    { id:2, init:'NE', title:'Network Engineer', co:'Metfone', loc:'Siem Reap', type:'Full-time', salary:'$1,200', time:'3d ago', bg:'#F0F9F8', color:'#00A79D', match:87 },
+    { id:3, init:'MA', title:'Mobile App Developer', co:'Metfone', loc:'Phnom Penh', type:'Contract', salary:'$1,500', time:'5d ago', bg:'#FFF8F0', color:'#E87C1E', match:78 },
+    { id:4, init:'DA', title:'Data Analyst', co:'Metfone', loc:'Battambang', type:'Full-time', salary:'$900', time:'1w ago', bg:'#F7F7F8', color:'#8E8E93', match:74 },
+    { id:5, init:'CS', title:'Customer Success Lead', co:'Metfone', loc:'Phnom Penh', type:'Full-time', salary:'$950', time:'1w ago', bg:'#E8F0FD', color:'#2563EB', match:70 },
+  ];
+
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}
-    <div class="two-col">
-      <div class="col-main">
-        <!-- Hero Profile Card -->
-        <div class="hero-card" style="margin-bottom:24px;display:flex;align-items:center;gap:20px">
-          <div class="avatar avatar-xl" style="background:#FDE8E8;color:#ED1C24;font-weight:700;position:relative">
-            SC
-            <span style="position:absolute;bottom:2px;right:2px;width:12px;height:12px;border-radius:50%;background:#34C759;border:2px solid white"></span>
-          </div>
-          <div style="flex:1">
-            <p style="font-size:12px;color:var(--text-tertiary)">Good morning 👋</p>
-            <h1 style="font-family:var(--font-display);font-size:24px;font-weight:800;margin-bottom:4px">Sokha Chan</h1>
-            <p style="font-size:13px;color:var(--text-secondary)">Job Seeker · Phnom Penh</p>
-          </div>
-          <div style="text-align:right">
-            <span class="badge badge-teal">Profile 85%</span>
-            <div class="progress-bar" style="width:100px;margin-top:6px"><div class="fill" style="width:85%"></div></div>
-          </div>
+    <!-- Compact greeting -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="avatar avatar-lg" style="background:#FDE8E8;color:#ED1C24;font-weight:700;font-size:17px;position:relative">
+          SC
+          <span style="position:absolute;bottom:1px;right:1px;width:10px;height:10px;border-radius:50%;background:#34C759;border:2px solid white"></span>
         </div>
-
-        <!-- Quick Actions 4-grid -->
-        <div class="quick-actions cols-4" style="margin-bottom:24px">
-          <div class="quick-action" onclick="Router.navigate('/jobs')">
-            <div class="qa-icon">🔍</div>
-            <div class="qa-title">Find Jobs</div>
-            <div class="qa-desc">12 new listings</div>
-          </div>
-          <div class="quick-action" onclick="Router.navigate('/applications')">
-            <div class="qa-icon">📋</div>
-            <div class="qa-title">My Apps</div>
-            <div class="qa-desc">5 active</div>
-          </div>
-          <div class="quick-action" onclick="Router.navigate('/chat/ai')">
-            <div class="qa-icon">✦</div>
-            <div class="qa-title">Ask AI</div>
-            <div class="qa-desc">Career advice</div>
-          </div>
-          <div class="quick-action" onclick="Router.navigate('/chat/hr')">
-            <div class="qa-icon">💬</div>
-            <div class="qa-title">Chat HR</div>
-            <div class="qa-desc">1 new message</div>
-          </div>
+        <div>
+          <p style="font-size:12px;color:var(--text-tertiary)">Good morning 👋</p>
+          <h1 style="font-family:var(--font-display);font-size:22px;font-weight:800">Sokha Chan</h1>
         </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="btn-glass" style="padding:8px 16px;font-size:12px" onclick="Router.navigate('/profile')">Profile 85%</button>
+        <button onclick="Router.navigate('/notifications')" style="width:38px;height:38px;border-radius:50%;background:var(--glass-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-size:16px;position:relative;cursor:pointer">
+          🔔<span style="position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--red)"></span>
+        </button>
+      </div>
+    </div>
 
-        <!-- Tabs -->
-        <div class="tab-row">
-          <button class="tab active">Recommended</button>
-          <button class="tab">Recent</button>
-          <button class="tab">Saved</button>
-        </div>
+    <!-- Stats strip -->
+    <div style="display:flex;gap:10px;margin-bottom:28px">
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer" onclick="Router.navigate('/applications')">
+        <div style="width:36px;height:36px;border-radius:12px;background:rgba(237,28,36,0.08);display:flex;align-items:center;justify-content:center;font-size:15px">📋</div>
+        <div><p style="font-family:var(--font-display);font-size:20px;font-weight:800">5</p><p style="font-size:11px;color:var(--text-tertiary)">Applied</p></div>
+      </div>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer" onclick="Router.navigate('/tracking')">
+        <div style="width:36px;height:36px;border-radius:12px;background:rgba(0,167,157,0.08);display:flex;align-items:center;justify-content:center;font-size:15px">📍</div>
+        <div><p style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--teal)">2</p><p style="font-size:11px;color:var(--text-tertiary)">Interviews</p></div>
+      </div>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:12px;padding:14px 18px">
+        <div style="width:36px;height:36px;border-radius:12px;background:rgba(232,124,30,0.08);display:flex;align-items:center;justify-content:center;font-size:15px">🎉</div>
+        <div><p style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--orange)">1</p><p style="font-size:11px;color:var(--text-tertiary)">Offer</p></div>
+      </div>
+    </div>
 
-        <!-- Job Cards -->
-        <div class="stagger-children" style="display:flex;flex-direction:column;gap:12px">
-          ${[
-            { init: 'RO', title: 'Recruitment Officer', co: 'Metfone', loc: 'Phnom Penh', type: 'Full-time', salary: '$800/mo', time: '2d ago', bg: '#FDE8E8', color: '#ED1C24', match: '92%' },
-            { init: 'NE', title: 'Network Engineer', co: 'Metfone', loc: 'Siem Reap', type: 'Full-time', salary: '$1,200/mo', time: '3d ago', bg: '#F0F9F8', color: '#00A79D', match: '87%' },
-            { init: 'MA', title: 'Mobile App Developer', co: 'Metfone', loc: 'Phnom Penh', type: 'Contract', salary: '$1,500/mo', time: '5d ago', bg: '#FFF8F0', color: '#E87C1E', match: '78%' },
-            { init: 'DA', title: 'Data Analyst', co: 'Metfone', loc: 'Battambang', type: 'Full-time', salary: '$900/mo', time: '1w ago', bg: '#F7F7F8', color: '#8E8E93', match: '74%' },
-          ].map(j => `
-            <div class="card" style="display:flex;align-items:center;gap:16px;cursor:pointer" onclick="Router.navigate('/jobs/1')">
-              <div class="avatar avatar-md" style="background:${j.bg};color:${j.color}">${j.init}</div>
-              <div style="flex:1">
-                <h3 style="font-size:14px;font-weight:600;margin-bottom:2px">${j.title}</h3>
-                <p style="font-size:12px;color:var(--text-tertiary)">${j.co} · ${j.loc} · ${j.type}</p>
-              </div>
-              <div style="text-align:right">
-                <p style="font-size:14px;font-weight:700;color:var(--red)">${j.salary}</p>
-                <p style="font-size:11px;color:var(--text-tertiary)">${j.time}</p>
-              </div>
-              <span class="badge badge-teal">${j.match}</span>
+    <!-- Search bar -->
+    <div class="card" style="display:flex;align-items:center;gap:12px;padding:10px 18px;margin-bottom:24px">
+      <span style="font-size:16px;color:var(--text-tertiary)">🔍</span>
+      <input id="jobSearch" type="text" placeholder="Search positions, skills, locations…" style="flex:1;border:none;background:none;font-size:14px;outline:none;color:var(--black)">
+      <button class="btn-glass" style="padding:6px 14px;font-size:11px" onclick="Router.navigate('/chat/ai')">✦ AI</button>
+    </div>
+
+    <!-- Section: Active Applications -->
+    <div style="margin-bottom:32px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <h2 style="font-family:var(--font-display);font-size:16px;font-weight:700">Active Applications</h2>
+        <a href="#/applications" style="font-size:12px;font-weight:600;color:var(--teal)">View all →</a>
+      </div>
+      <div style="display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px">
+        ${[
+          { title:'Recruitment Officer', status:'In Review', badge:'badge-red', progress:25 },
+          { title:'Network Engineer', status:'Shortlisted', badge:'badge-teal', progress:50 },
+          { title:'Mobile App Dev', status:'Interview', badge:'badge-orange', progress:75 },
+        ].map(a => `
+          <div class="card" style="min-width:200px;flex-shrink:0;padding:16px;cursor:pointer" onclick="Router.navigate('/tracking')">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+              <p style="font-size:13px;font-weight:600">${a.title}</p>
             </div>
-          `).join('')}
+            <div style="height:4px;border-radius:2px;background:var(--border);margin-bottom:8px"><div style="height:100%;width:${a.progress}%;border-radius:2px;background:var(--teal)"></div></div>
+            <span class="badge ${a.badge}" style="font-size:10px">${a.status}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Section: Recommended Jobs -->
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <h2 style="font-family:var(--font-display);font-size:16px;font-weight:700">Recommended for You</h2>
+        <div class="tab-row" style="margin-bottom:0;gap:4px">
+          <button class="tab active" style="padding:6px 14px;font-size:11px">Best Match</button>
+          <button class="tab" style="padding:6px 14px;font-size:11px">Recent</button>
+          <button class="tab" style="padding:6px 14px;font-size:11px">Saved</button>
         </div>
       </div>
 
-      <!-- Right Panel -->
-      <div class="col-side">
-        <!-- Profile Summary -->
-        <div class="card card-lg" style="margin-bottom:16px;text-align:center">
-          <div class="avatar avatar-lg" style="background:#FDE8E8;color:#ED1C24;font-weight:700;margin:0 auto 10px">SC</div>
-          <p style="font-size:15px;font-weight:700">Sokha Chan</p>
-          <p style="font-size:12px;color:var(--text-tertiary);margin-bottom:12px">Job Seeker · Phnom Penh</p>
-          <div style="display:flex;justify-content:center;gap:16px;margin-bottom:12px">
-            <div style="text-align:center"><div style="font-family:var(--font-display);font-size:18px;font-weight:700">5</div><div style="font-size:10px;color:var(--text-tertiary)">Applied</div></div>
-            <div style="text-align:center"><div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--teal)">2</div><div style="font-size:10px;color:var(--text-tertiary)">Interviews</div></div>
-            <div style="text-align:center"><div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--orange)">1</div><div style="font-size:10px;color:var(--text-tertiary)">Offers</div></div>
-          </div>
-          <button class="btn btn-glass" style="width:100%" onclick="Router.navigate('/profile')">View Profile</button>
-        </div>
-
-        <!-- Application Status -->
-        <div class="card card-lg">
-          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:14px">Application Status</h3>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:13px">Recruitment Officer</span>
-              <span class="badge badge-red">In Review</span>
+      <div id="jobList" class="stagger-children" style="display:flex;flex-direction:column;gap:8px">
+        ${jobs.map(j => `
+          <div class="card job-card" data-title="${j.title.toLowerCase()}" style="display:flex;align-items:center;gap:14px;padding:14px 18px;cursor:pointer" onclick="Router.navigate('/jobs/${j.id}')">
+            <div style="width:40px;height:40px;border-radius:12px;background:${j.bg};color:${j.color};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">${j.init}</div>
+            <div style="flex:1;min-width:0">
+              <p style="font-size:14px;font-weight:600;margin-bottom:2px">${j.title}</p>
+              <p style="font-size:11px;color:var(--text-tertiary)">${j.co} · ${j.loc} · ${j.type}</p>
             </div>
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:13px">Network Engineer</span>
-              <span class="badge badge-teal">Shortlisted</span>
+            <div style="text-align:right;flex-shrink:0">
+              <p style="font-size:14px;font-weight:700;color:var(--black)">${j.salary}<span style="font-size:10px;color:var(--text-tertiary);font-weight:400">/mo</span></p>
+              <p style="font-size:10px;color:var(--text-tertiary);margin-top:2px">${j.time}</p>
             </div>
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:13px">Mobile App Dev</span>
-              <span class="badge badge-orange">Interview</span>
+            <div style="width:38px;height:38px;border-radius:50%;background:${j.match >= 85 ? 'rgba(0,167,157,0.08)' : 'rgba(142,142,147,0.08)'};display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <span style="font-size:11px;font-weight:700;color:${j.match >= 85 ? 'var(--teal)' : 'var(--text-tertiary)'}">${j.match}%</span>
             </div>
-          </div>
-          <button class="btn btn-dark" style="width:100%;margin-top:16px;font-size:13px;padding:12px" onclick="Router.navigate('/applications')">View All Applications</button>
-        </div>
+          </div>`).join('')}
       </div>
     </div>`;
 
   page.appendChild(main);
   initTabs(page);
+
+  /* Live search filter */
+  setTimeout(() => {
+    const input = document.getElementById('jobSearch');
+    if (input) input.addEventListener('input', () => {
+      const q = input.value.toLowerCase();
+      document.querySelectorAll('.job-card').forEach(c => {
+        c.style.display = c.dataset.title.includes(q) ? '' : 'none';
+      });
+    });
+  });
+
   return page;
 });
