@@ -1,0 +1,62 @@
+/* Metfone Smart HR — Design Tokens */
+:root {
+  /* Brand colors */
+  --red: #ED1C24;
+  --teal: #00A79D;
+  --orange: #E87C1E;
+  --red-light: #FDE8E8;
+  --red-bg: #FFF0F0;
+  --teal-light: #F0F9F8;
+  --teal-bg: #C9EDE9;
+  --orange-light: #FFF8F0;
+  --orange-bg: #F0CFB0;
+
+  /* Gradient stops */
+  --grad-1: #FDE8E8;
+  --grad-2: #F9C8C0;
+  --grad-3: #F2A88E;
+  --grad-4: #C9EDE9;
+
+  /* Neutrals */
+  --black: #1C1C1E;
+  --text: #3C3C43;
+  --text-secondary: #6B6871;
+  --text-tertiary: #8E8E93;
+  --text-placeholder: #C7C7CC;
+  --border: rgba(255, 255, 255, 0.5);
+  --border-solid: #E5E5EA;
+  --border-light: #D1D1D6;
+  --bg-primary: #F0F2F6;
+  --bg-sidebar: rgba(255, 255, 255, 0.55);
+  --bg-white: #FFFFFF;
+  --green: #34C759;
+  --danger: #FF3B30;
+
+  /* Glass design tokens */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-heavy: rgba(255, 255, 255, 0.72);
+  --glass-bg-light: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --glass-border-subtle: rgba(255, 255, 255, 0.3);
+  --glass-blur: blur(20px);
+  --glass-blur-heavy: blur(40px);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.08);
+  --glass-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.04);
+
+  /* Typography */
+  --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-text: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+  /* Spacing */
+  --sidebar-width: 260px;
+  --content-padding: 40px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  /* Mobile nav */
+  --bottom-nav-height: 72px;
+}
