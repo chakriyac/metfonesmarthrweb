@@ -44,12 +44,13 @@ Router.register('/applications', function renderMyApplications() {
           <button class="tab">History</button>
         </div>
 
-        <div class="table-header" style="grid-template-columns:2fr 1fr 80px 100px 60px">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+        <div class="table-header" style="grid-template-columns:2fr 1fr 80px 100px 60px;min-width:500px">
           <span>POSITION</span><span>COMPANY</span><span>DATE</span><span>STATUS</span><span>ACTION</span>
         </div>
 
         ${apps.map(a => `
-          <div class="table-row" style="grid-template-columns:2fr 1fr 80px 100px 60px">
+          <div class="table-row" style="grid-template-columns:2fr 1fr 80px 100px 60px;min-width:500px">
             <div style="display:flex;align-items:center;gap:12px">
               <div class="avatar avatar-sm" style="background:${a.avatar};color:${a.avatarText};font-size:9px">${a.init}</div>
               <div>
@@ -63,6 +64,7 @@ Router.register('/applications', function renderMyApplications() {
             <a href="#/tracking" style="font-size:12px;font-weight:600;color:var(--teal)">${a.status === 'Closed' ? 'View' : 'Track →'}</a>
           </div>
         `).join('')}
+        </div><!-- end scroll wrap -->
       </div>
 
       <div class="col-side">

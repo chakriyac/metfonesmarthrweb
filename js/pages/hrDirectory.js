@@ -75,8 +75,10 @@ Router.register('/hr/directory', function renderHrDirectory() {
         `).join('')}
       </div>
 
+      <!-- Table (scrollable on mobile) -->
+      <div class="dir-table-wrap" style="overflow-x:auto;-webkit-overflow-scrolling:touch">
       <!-- Table header -->
-      <div style="display:grid;grid-template-columns:44px 1fr 1fr 100px 80px 70px 80px;gap:12px;padding:8px 20px;font-size:11px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.5px">
+      <div style="display:grid;grid-template-columns:44px 1fr 1fr 100px 80px 70px 80px;gap:12px;padding:8px 20px;font-size:11px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.5px;min-width:600px">
         <span></span>
         <span>EMPLOYEE</span>
         <span>DEPARTMENT / ROLE</span>
@@ -89,7 +91,7 @@ Router.register('/hr/directory', function renderHrDirectory() {
       <!-- Employee rows -->
       <div id="emp-list" class="stagger-children" style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
         ${employees.map(e => `
-          <div class="card emp-row" data-name="${e.name.toLowerCase()}" data-email="${e.email}" data-pos="${e.pos.toLowerCase()}" data-dept="${e.dept}" data-loc="${e.location}" data-status="${e.status}" style="display:grid;grid-template-columns:44px 1fr 1fr 100px 80px 70px 80px;gap:12px;align-items:center;padding:14px 20px;border-radius:16px;cursor:pointer;transition:all 0.2s">
+          <div class="card emp-row" data-name="${e.name.toLowerCase()}" data-email="${e.email}" data-pos="${e.pos.toLowerCase()}" data-dept="${e.dept}" data-loc="${e.location}" data-status="${e.status}" style="display:grid;grid-template-columns:44px 1fr 1fr 100px 80px 70px 80px;gap:12px;align-items:center;padding:14px 20px;border-radius:16px;cursor:pointer;transition:all 0.2s;min-width:600px">
             <div style="width:40px;height:40px;border-radius:50%;background:${e.avatar};color:${e.color};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.5)">${e.init}</div>
 
             <div style="min-width:0">
@@ -114,6 +116,7 @@ Router.register('/hr/directory', function renderHrDirectory() {
           </div>
         `).join('')}
       </div>
+      </div><!-- end dir-table-wrap -->
 
       <!-- Count -->
       <p id="emp-count" style="font-size:12px;color:var(--text-tertiary);margin-top:16px;margin-bottom:40px">Showing ${employees.length} of ${employees.length} employees</p>
