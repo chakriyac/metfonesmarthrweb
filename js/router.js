@@ -90,11 +90,9 @@ function logout() {
 function seekerSidebar(active) {
   const navItems = [
     { icon: '🏠', label: 'Home', route: '/home' },
-    { icon: '', label: 'Applications', route: '/applications' },
+    { icon: '📋', label: 'Applications', route: '/applications' },
     { icon: '📍', label: 'Tracking', route: '/tracking' },
-    { icon: '🔔', label: 'Notifications', route: '/notifications' },
-    { icon: '💬', label: 'Messages', route: '/chat/hr' },
-    { icon: '👤', label: 'Profile', route: '/profile' },
+    { icon: '', label: 'Profile', route: '/profile' },
   ];
   return sidebarTemplate(navItems, active, {
     initials: 'SC', name: 'Sokha Chan', role: 'Job Seeker',

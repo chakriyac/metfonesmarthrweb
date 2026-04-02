@@ -5,7 +5,7 @@ Router.register('/tracking', function renderTracking() {
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}
-    <div style="max-width:700px">
+    <div style="max-width:860px;margin:0 auto">
       <!-- Job Header -->
       <div class="card" style="display:flex;align-items:center;gap:14px;padding:16px 20px;margin-bottom:20px">
         <div class="logo-glass" style="width:42px;height:42px;border-radius:50%">

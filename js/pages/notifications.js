@@ -13,7 +13,7 @@ Router.register('/notifications', function renderNotifications() {
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}
-    <div style="max-width:800px">
+    <div style="max-width:860px;margin:0 auto">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
         <div>
           <h1 style="font-family:var(--font-display);font-size:24px;font-weight:700">Notifications</h1>

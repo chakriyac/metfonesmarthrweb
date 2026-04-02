@@ -5,7 +5,7 @@ Router.register('/jobs/:id', function renderJobDetail() {
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}
-    <div style="max-width:700px">
+    <div style="max-width:860px;margin:0 auto">
       <!-- Hero -->
       <div class="hero-card" style="margin-bottom:20px;padding:28px 32px">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">

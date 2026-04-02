@@ -13,7 +13,7 @@ Router.register('/applications', function renderMyApplications() {
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}
-    <div style="max-width:800px">
+    <div style="max-width:860px;margin:0 auto">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
         <h1 style="font-family:var(--font-display);font-size:22px;font-weight:700">My Applications</h1>
         <button class="btn-glass" style="font-size:12px;padding:8px 14px" onclick="Router.navigate('/home')">Browse Jobs</button>

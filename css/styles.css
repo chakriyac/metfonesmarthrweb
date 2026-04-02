@@ -622,8 +622,8 @@ ul, ol { list-style: none; }
   /* ── Core layout ── */
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
-  .main-content { margin-left: 0; padding: 20px 16px 100px; }
-  .bottom-nav { display: flex; }
+  .main-content { margin-left: 0; padding: 20px 16px 32px; }
+  .bottom-nav { display: none; }
   .mobile-menu-btn { display: flex; }
 
   /* ── Auth screens ── */

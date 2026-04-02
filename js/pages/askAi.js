@@ -5,7 +5,7 @@ Router.register('/chat/ai', function renderAskAi() {
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}
-    <div style="max-width:700px;display:flex;flex-direction:column;height:calc(100vh - 64px)">
+    <div style="max-width:860px;margin:0 auto;display:flex;flex-direction:column;height:calc(100vh - 64px)">
       <!-- Header -->
       <div class="card" style="display:flex;align-items:center;gap:12px;padding:14px 20px;margin-bottom:12px">
         <div class="avatar avatar-md" style="background:linear-gradient(135deg,#ED1C24,#E87C1E);color:white;font-weight:700">AI</div>
