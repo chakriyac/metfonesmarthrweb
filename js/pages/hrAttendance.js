@@ -15,10 +15,10 @@ Router.register('/hr/attendance', function renderHrAttendance() {
         <!-- Real-time Metrics -->
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px">
           ${[
-            { num: '287', label: 'Checked In', icon: '✅', bg: '#E8F5E9', color: 'var(--green)' },
+            { num: '287', label: 'Checked In', icon: '✅', bg: '#F0F9F8', color: 'var(--teal)' },
             { num: '12', label: 'Late Arrivals', icon: '⚠️', bg: '#FFF8F0', color: 'var(--orange)' },
             { num: '5', label: 'Not Checked In', icon: '❌', bg: '#FDE8E8', color: 'var(--red)' },
-            { num: '8', label: 'On Leave', icon: '📅', bg: '#E8F4FD', color: '#007AFF' },
+            { num: '8', label: 'On Leave', icon: '📅', bg: '#F0F9F8', color: '#00A79D' },
           ].map(m => `
             <div class="card" style="text-align:center;padding:20px 12px">
               <div style="width:40px;height:40px;border-radius:50%;background:${m.bg};margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:18px">${m.icon}</div>
@@ -47,7 +47,7 @@ Router.register('/hr/attendance', function renderHrAttendance() {
           ${[
             { priority: 'Urgent', color: 'var(--red)', bg: '#FDE8E8', border: '#ED1C24', msg: 'Call Dara — Not checked in yet, usually arrives by 8:00 AM', icon: '🚨' },
             { priority: 'Warning', color: 'var(--orange)', bg: '#FFF8F0', border: '#E87C1E', msg: 'Sokha late 3× this week — Recommend 1-on-1 conversation', icon: '⚠️' },
-            { priority: 'Info', color: '#007AFF', bg: '#E8F4FD', border: '#007AFF', msg: 'IT Dept: 95% checked in — Above average attendance today', icon: 'ℹ️' },
+            { priority: 'Info', color: '#00A79D', bg: '#F0F9F8', border: '#00A79D', msg: 'IT Dept: 95% checked in — Above average attendance today', icon: 'ℹ️' },
           ].map(a => `
             <div class="card" style="border-left:4px solid ${a.border};display:flex;align-items:center;gap:12px">
               <span style="font-size:18px">${a.icon}</span>
@@ -64,7 +64,7 @@ Router.register('/hr/attendance', function renderHrAttendance() {
         <div class="stagger-children" style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px">
           ${[
             { init: 'DS', name: 'Dara Sous', dept: 'Sales', note: 'Expected 8:00 AM', action: 'Call to check', bg: '#FDE8E8', color: '#ED1C24' },
-            { init: 'RK', name: 'Rathana Kim', dept: 'Marketing', note: 'Has called in sick (approved)', action: '', bg: '#E8F4FD', color: '#007AFF' },
+            { init: 'RK', name: 'Rathana Kim', dept: 'Marketing', note: 'Has called in sick (approved)', action: '', bg: '#F0F9F8', color: '#00A79D' },
           ].map(e => `
             <div class="card" style="display:flex;align-items:center;gap:14px">
               <div class="avatar avatar-sm" style="background:${e.bg};color:${e.color}">${e.init}</div>
@@ -102,9 +102,9 @@ Router.register('/hr/attendance', function renderHrAttendance() {
         </div>
         <div class="stagger-children" style="display:flex;flex-direction:column;gap:8px">
           ${[
-            { init: 'SM', name: 'Sopheak Meas', dept: 'IT', time: '8:05 AM', bg: '#E8F5E9', color: '#34C759' },
-            { init: 'CL', name: 'Chanthy Lim', dept: 'Sales', time: '7:55 AM', bg: '#E8F5E9', color: '#34C759' },
-            { init: 'VN', name: 'Vanna Nob', dept: 'HR', time: '8:00 AM', bg: '#E8F5E9', color: '#34C759' },
+            { init: 'SM', name: 'Sopheak Meas', dept: 'IT', time: '8:05 AM', bg: '#F0F9F8', color: '#00A79D' },
+            { init: 'CL', name: 'Chanthy Lim', dept: 'Sales', time: '7:55 AM', bg: '#F0F9F8', color: '#00A79D' },
+            { init: 'VN', name: 'Vanna Nob', dept: 'HR', time: '8:00 AM', bg: '#F0F9F8', color: '#00A79D' },
           ].map(e => `
             <div class="card" style="display:flex;align-items:center;gap:14px">
               <div class="avatar avatar-sm" style="background:${e.bg};color:${e.color}">${e.init}</div>
@@ -112,7 +112,7 @@ Router.register('/hr/attendance', function renderHrAttendance() {
                 <p style="font-size:13px;font-weight:600">${e.name}</p>
                 <p style="font-size:11px;color:var(--text-tertiary)">${e.dept}</p>
               </div>
-              <span style="font-size:12px;color:var(--green);font-weight:600">${e.time}</span>
+              <span style="font-size:12px;color:var(--teal);font-weight:600">${e.time}</span>
             </div>
           `).join('')}
         </div>
@@ -135,7 +135,7 @@ Router.register('/hr/attendance', function renderHrAttendance() {
                   <span style="font-size:12px;color:var(--text-tertiary)">${d.present}/${d.total} (${d.pct}%)</span>
                 </div>
                 <div style="height:6px;border-radius:3px;background:var(--border)">
-                  <div style="height:100%;width:${d.pct}%;border-radius:3px;background:${d.pct === 100 ? 'var(--green)' : d.pct >= 93 ? 'var(--teal)' : 'var(--orange)'}"></div>
+                  <div style="height:100%;width:${d.pct}%;border-radius:3px;background:${d.pct === 100 ? 'var(--teal)' : d.pct >= 93 ? 'var(--teal)' : 'var(--orange)'}"></div>
                 </div>
               </div>
             `).join('')}

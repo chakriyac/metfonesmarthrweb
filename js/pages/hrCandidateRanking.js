@@ -41,7 +41,7 @@ Router.register('/hr/candidates/rank', function renderHrCandidateRanking() {
     {
       init: 'SL', name: 'Sreyleak Lim', job: 'Mobile App Developer',
       overall: 80, experience: 75, skills: 85, education: 82, requirements: 78,
-      bg: '#F7F7F8', color: '#8E8E93', status: 'In Review', badge: 'badge-red',
+      bg: '#F7F7F8', color: '#A7A9AB', status: 'In Review', badge: 'badge-red',
       exp: '2 yrs · Flutter, Firebase',
       edu: 'B.Sc. Computer Science · NUM',
       match: ['Flutter experience', 'Firebase expertise'],
@@ -50,7 +50,7 @@ Router.register('/hr/candidates/rank', function renderHrCandidateRanking() {
     {
       init: 'KV', name: 'Kosal Vann', job: 'Recruitment Officer',
       overall: 78, experience: 72, skills: 80, education: 85, requirements: 76,
-      bg: '#F7F7F8', color: '#8E8E93', status: 'In Review', badge: 'badge-red',
+      bg: '#F7F7F8', color: '#A7A9AB', status: 'In Review', badge: 'badge-red',
       exp: '1 yr · Admin assistant',
       edu: 'B.A. Management · RULE',
       match: ['Office administration', 'Khmer & English'],
@@ -59,7 +59,7 @@ Router.register('/hr/candidates/rank', function renderHrCandidateRanking() {
     {
       init: 'PT', name: 'Pheakdey Thun', job: 'Network Engineer',
       overall: 72, experience: 68, skills: 75, education: 78, requirements: 70,
-      bg: '#F7F7F8', color: '#8E8E93', status: 'In Review', badge: 'badge-red',
+      bg: '#F7F7F8', color: '#A7A9AB', status: 'In Review', badge: 'badge-red',
       exp: '1 yr · Junior network admin',
       edu: 'B.Eng. Telecom · NPIC',
       match: ['Basic networking', 'Linux administration'],
@@ -68,7 +68,7 @@ Router.register('/hr/candidates/rank', function renderHrCandidateRanking() {
     {
       init: 'VT', name: 'Vanna Tith', job: 'Data Analyst',
       overall: 70, experience: 65, skills: 78, education: 72, requirements: 68,
-      bg: '#F7F7F8', color: '#8E8E93', status: 'In Review', badge: 'badge-red',
+      bg: '#F7F7F8', color: '#A7A9AB', status: 'In Review', badge: 'badge-red',
       exp: '1 yr · Data entry, Excel reporting',
       edu: 'B.Sc. Statistics · RUPP',
       match: ['Excel proficiency', 'SQL basics'],
@@ -77,7 +77,7 @@ Router.register('/hr/candidates/rank', function renderHrCandidateRanking() {
     {
       init: 'MS', name: 'Mony Sam', job: 'Recruitment Officer',
       overall: 65, experience: 60, skills: 68, education: 70, requirements: 62,
-      bg: '#F7F7F8', color: '#8E8E93', status: 'New', badge: 'badge-gray',
+      bg: '#F7F7F8', color: '#A7A9AB', status: 'New', badge: 'badge-gray',
       exp: 'Fresh graduate',
       edu: 'B.A. HR Management · UC',
       match: ['HR degree', 'Internship experience'],
@@ -118,7 +118,7 @@ Router.register('/hr/candidates/rank', function renderHrCandidateRanking() {
           <div style="font-size:12px;color:var(--text-tertiary)">Total Candidates</div>
         </div>
         <div class="card" style="padding:18px 20px;border-radius:20px;text-align:center">
-          <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--green)">${candidates.filter(c => c.overall >= 90).length}</div>
+          <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--teal)">${candidates.filter(c => c.overall >= 90).length}</div>
           <div style="font-size:12px;color:var(--text-tertiary)">Top Matches (90%+)</div>
         </div>
         <div class="card" style="padding:18px 20px;border-radius:20px;text-align:center">
@@ -160,7 +160,7 @@ Router.register('/hr/candidates/rank', function renderHrCandidateRanking() {
                   ${[
                     { label: 'Experience', val: c.experience, color: 'var(--teal)' },
                     { label: 'Skills', val: c.skills, color: 'var(--orange)' },
-                    { label: 'Education', val: c.education, color: 'var(--green)' },
+                    { label: 'Education', val: c.education, color: 'var(--teal)' },
                     { label: 'Requirements', val: c.requirements, color: 'var(--red)' },
                   ].map(s => `
                     <div>
@@ -198,10 +198,10 @@ Router.register('/hr/candidates/rank', function renderHrCandidateRanking() {
                 <div style="position:relative;width:56px;height:56px;margin-bottom:6px">
                   <svg width="56" height="56" viewBox="0 0 56 56" style="transform:rotate(-90deg)">
                     <circle cx="28" cy="28" r="23" fill="none" stroke="rgba(0,0,0,0.04)" stroke-width="5"/>
-                    <circle cx="28" cy="28" r="23" fill="none" stroke="${c.overall >= 90 ? 'var(--green)' : c.overall >= 75 ? 'var(--teal)' : 'var(--orange)'}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${2 * Math.PI * 23}" stroke-dashoffset="${2 * Math.PI * 23 * (1 - c.overall / 100)}"/>
+                    <circle cx="28" cy="28" r="23" fill="none" stroke="${c.overall >= 90 ? 'var(--teal)' : c.overall >= 75 ? 'var(--teal)' : 'var(--orange)'}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${2 * Math.PI * 23}" stroke-dashoffset="${2 * Math.PI * 23 * (1 - c.overall / 100)}"/>
                   </svg>
                   <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
-                    <span style="font-family:var(--font-display);font-size:16px;font-weight:800;color:${c.overall >= 90 ? 'var(--green)' : c.overall >= 75 ? 'var(--teal)' : 'var(--orange)'}">${c.overall}</span>
+                    <span style="font-family:var(--font-display);font-size:16px;font-weight:800;color:${c.overall >= 90 ? 'var(--teal)' : c.overall >= 75 ? 'var(--teal)' : 'var(--orange)'}">${c.overall}</span>
                   </div>
                 </div>
                 <span style="font-size:10px;color:var(--text-tertiary);font-weight:600">SCORE</span>

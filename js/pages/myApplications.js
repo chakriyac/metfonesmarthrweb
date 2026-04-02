@@ -7,8 +7,8 @@ Router.register('/applications', function renderMyApplications() {
     { pos: 'Recruitment Officer', co: 'Metfone', loc: 'Phnom Penh', type: 'Full-time', date: 'Dec 2', status: 'In Review', badge: 'badge-red', avatar: '#FDE8E8', avatarText: '#ED1C24', init: 'RO' },
     { pos: 'Network Engineer', co: 'Metfone', loc: 'Siem Reap', type: 'Full-time', date: 'Nov 25', status: 'Shortlisted', badge: 'badge-teal', avatar: '#F0F9F8', avatarText: '#00A79D', init: 'NE' },
     { pos: 'Mobile App Developer', co: 'Metfone', loc: 'Phnom Penh', type: 'Contract', date: 'Nov 18', status: 'Interview', badge: 'badge-orange', avatar: '#FFF8F0', avatarText: '#E87C1E', init: 'MA' },
-    { pos: 'Data Analyst', co: 'Metfone', loc: 'Battambang', type: 'Full-time', date: 'Nov 10', status: 'In Review', badge: 'badge-red', avatar: '#F7F7F8', avatarText: '#8E8E93', init: 'DA' },
-    { pos: 'IT Support Specialist', co: 'Metfone', loc: 'Phnom Penh', type: 'Full-time', date: 'Oct 28', status: 'Closed', badge: 'badge-gray', avatar: '#F7F7F8', avatarText: '#8E8E93', init: 'IT' },
+    { pos: 'Data Analyst', co: 'Metfone', loc: 'Battambang', type: 'Full-time', date: 'Nov 10', status: 'In Review', badge: 'badge-red', avatar: '#F7F7F8', avatarText: '#A7A9AB', init: 'DA' },
+    { pos: 'IT Support Specialist', co: 'Metfone', loc: 'Phnom Penh', type: 'Full-time', date: 'Oct 28', status: 'Closed', badge: 'badge-gray', avatar: '#F7F7F8', avatarText: '#A7A9AB', init: 'IT' },
   ];
 
   const main = el('div', { className: 'main-content' });
@@ -29,7 +29,7 @@ Router.register('/applications', function renderMyApplications() {
           <div class="label">IN REVIEW</div>
         </div>
         <div class="stat-card">
-          <div class="number" style="color:var(--teal)">1</div>
+          <div class="number" style="color:var(--red)">1</div>
           <div class="label">SHORTLISTED</div>
         </div>
         <div class="stat-card">
@@ -60,7 +60,7 @@ Router.register('/applications', function renderMyApplications() {
             <span style="font-size:13px;color:var(--text-secondary)">${a.co}</span>
             <span style="font-size:12px;color:var(--text-tertiary)">${a.date}</span>
             <span class="badge ${a.badge}">${a.status}</span>
-            <a href="#/tracking" style="font-size:12px;font-weight:600;color:var(--teal)">${a.status === 'Closed' ? 'View' : 'Track →'}</a>
+            <a href="#/tracking" style="font-size:12px;font-weight:600;color:var(--red)">${a.status === 'Closed' ? 'View' : 'Track →'}</a>
           </div>
         `).join('')}
       </div>

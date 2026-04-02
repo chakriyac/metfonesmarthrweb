@@ -20,7 +20,7 @@ Router.register('/notifications', function renderNotifications() {
         </div>
         <div style="display:flex;align-items:center;gap:12px">
           <span class="badge badge-red" style="font-size:11px;font-weight:700">4</span>
-          <a href="#" style="font-size:13px;color:var(--teal);font-weight:600">Mark all as read</a>
+          <a href="#" style="font-size:13px;color:var(--red);font-weight:600">Mark all as read</a>
         </div>
       </div>
 

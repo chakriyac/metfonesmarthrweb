@@ -1,9 +1,14 @@
 /* Metfone Smart HR — Design Tokens */
 :root {
-  /* Brand colors */
+  /* ─── Metfone Brand Colors ─── */
   --red: #ED1C24;
+  --deep-red: #BE1E2D;
   --teal: #00A79D;
   --orange: #E87C1E;
+  --mint: #9ED6C4;
+  --brand-gray: #A7A9AB;
+
+  /* Brand tints */
   --red-light: #FDE8E8;
   --red-bg: #FFF0F0;
   --teal-light: #F0F9F8;
@@ -11,7 +16,12 @@
   --orange-light: #FFF8F0;
   --orange-bg: #F0CFB0;
 
-  /* Gradient stops */
+  /* Brand gradients */
+  --brand-gradient: linear-gradient(135deg, #ED1C24, #E87C1E);
+  --brand-gradient-soft: linear-gradient(135deg, rgba(237,28,36,0.08), rgba(232,124,30,0.05));
+  --brand-gradient-teal: linear-gradient(135deg, #00A79D, #9ED6C4);
+
+  /* Gradient stops (warm Metfone) */
   --grad-1: #FDE8E8;
   --grad-2: #F9C8C0;
   --grad-3: #F2A88E;
@@ -26,7 +36,7 @@
   --border: rgba(255, 255, 255, 0.5);
   --border-solid: #E5E5EA;
   --border-light: #D1D1D6;
-  --bg-primary: #F0F2F6;
+  --bg-primary: #F5F4F3;
   --bg-sidebar: rgba(255, 255, 255, 0.55);
   --bg-white: #FFFFFF;
   --green: #34C759;

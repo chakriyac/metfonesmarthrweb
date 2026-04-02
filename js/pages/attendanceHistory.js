@@ -35,7 +35,7 @@ Router.register('/employee/attendance', function renderAttendanceHistory() {
         </div>
 
         <div class="stats-row" style="margin-bottom:24px">
-          <div class="stat-card"><div class="number" style="color:var(--green)">22</div><div class="label">Days Present</div></div>
+          <div class="stat-card"><div class="number" style="color:var(--teal)">22</div><div class="label">Days Present</div></div>
           <div class="stat-card"><div class="number" style="color:var(--teal)">176h</div><div class="label">Total Hours</div></div>
           <div class="stat-card"><div class="number" style="color:var(--orange)">95%</div><div class="label">On Time</div></div>
         </div>
@@ -64,7 +64,7 @@ Router.register('/employee/attendance', function renderAttendanceHistory() {
           <h3 style="font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:12px">Insights</h3>
           <div style="display:flex;flex-direction:column;gap:12px">
             ${[
-              { icon: '🎉', title: 'Great attendance!', desc: '95% on-time this month', color: 'var(--green)' },
+              { icon: '🎉', title: 'Great attendance!', desc: '95% on-time this month', color: 'var(--teal)' },
               { icon: '⏰', title: '1 late arrival', desc: 'Mar 27 — 8:25 AM (25 min)', color: 'var(--orange)' },
               { icon: '💪', title: 'Overtime hours', desc: '1h 58m extra this month', color: 'var(--teal)' },
             ].map(i => `

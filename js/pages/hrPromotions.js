@@ -19,7 +19,7 @@ Router.register('/hr/promotions', function renderHrPromotions() {
       matchPositions: [
         { pos: 'Mobile Team Lead', match: 92, matched: ['4+ yrs mobile dev', 'Flutter/Swift', 'Architecture design'], partial: ['Team management'] },
       ],
-      bg: 'rgba(0,167,157,0.08)', color: 'var(--teal)', avatar: '#E0F7F5'
+      bg: 'rgba(0,167,157,0.08)', color: 'var(--teal)', avatar: '#F0F9F8'
     },
     {
       init: 'VN', name: 'Vanna Nob', currentRole: 'HR Assistant', dept: 'HR', tenure: '4 yrs',
@@ -29,7 +29,7 @@ Router.register('/hr/promotions', function renderHrPromotions() {
       matchPositions: [
         { pos: 'Recruitment Officer', match: 88, matched: ['3+ yrs HR experience', 'Communication skills', 'Khmer & English'], partial: ['Leadership'] },
       ],
-      bg: 'rgba(52,199,89,0.08)', color: 'var(--green)', avatar: '#E8F5E9'
+      bg: 'rgba(0,167,157,0.08)', color: 'var(--teal)', avatar: '#F0F9F8'
     },
     {
       init: 'SP', name: 'Sokha Pen', currentRole: 'IT Support', dept: 'IT', tenure: '3 yrs',
@@ -102,7 +102,7 @@ Router.register('/hr/promotions', function renderHrPromotions() {
           <div style="font-size:12px;color:var(--text-tertiary)">Total Staff</div>
         </div>
         <div class="card" style="padding:18px 20px;border-radius:20px;text-align:center">
-          <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--green)">${ranked.filter(s => Math.max(...s.matchPositions.map(m => m.match)) >= 80).length}</div>
+          <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--teal)">${ranked.filter(s => Math.max(...s.matchPositions.map(m => m.match)) >= 80).length}</div>
           <div style="font-size:12px;color:var(--text-tertiary)">Strong Matches (80%+)</div>
         </div>
         <div class="card" style="padding:18px 20px;border-radius:20px;text-align:center">
@@ -116,7 +116,7 @@ Router.register('/hr/promotions', function renderHrPromotions() {
       </div>
 
       <!-- AI insight banner -->
-      <div class="card" style="background:linear-gradient(135deg,rgba(0,167,157,0.08),rgba(52,199,89,0.08));border-left:4px solid var(--teal);margin-bottom:28px;display:flex;gap:14px;align-items:center;padding:20px 24px;border-radius:18px">
+      <div class="card" style="background:linear-gradient(135deg,rgba(0,167,157,0.08),rgba(0,167,157,0.08));border-left:4px solid var(--teal);margin-bottom:28px;display:flex;gap:14px;align-items:center;padding:20px 24px;border-radius:18px">
         <span style="font-size:28px">🤖</span>
         <div>
           <p style="font-size:14px;font-weight:700;color:var(--teal);margin-bottom:2px">AI Promotion Insights</p>
@@ -152,7 +152,7 @@ Router.register('/hr/promotions', function renderHrPromotions() {
                   </div>
                   <div style="text-align:right;flex-shrink:0">
                     <p style="font-size:11px;color:var(--text-tertiary)">Performance</p>
-                    <p style="font-size:18px;font-weight:800;color:${s.performance >= 90 ? 'var(--green)' : s.performance >= 80 ? 'var(--teal)' : 'var(--orange)'}">${s.performance}%</p>
+                    <p style="font-size:18px;font-weight:800;color:${s.performance >= 90 ? 'var(--teal)' : s.performance >= 80 ? 'var(--teal)' : 'var(--orange)'}">${s.performance}%</p>
                   </div>
                 </div>
 
@@ -172,17 +172,17 @@ Router.register('/hr/promotions', function renderHrPromotions() {
                       <div style="position:relative;width:50px;height:50px">
                         <svg width="50" height="50" viewBox="0 0 50 50" style="transform:rotate(-90deg)">
                           <circle cx="25" cy="25" r="20" fill="none" stroke="rgba(0,0,0,0.04)" stroke-width="5"/>
-                          <circle cx="25" cy="25" r="20" fill="none" stroke="${mp.match >= 80 ? 'var(--green)' : mp.match >= 65 ? 'var(--teal)' : 'var(--orange)'}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${2 * Math.PI * 20}" stroke-dashoffset="${2 * Math.PI * 20 * (1 - mp.match / 100)}"/>
+                          <circle cx="25" cy="25" r="20" fill="none" stroke="${mp.match >= 80 ? 'var(--teal)' : mp.match >= 65 ? 'var(--teal)' : 'var(--orange)'}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${2 * Math.PI * 20}" stroke-dashoffset="${2 * Math.PI * 20 * (1 - mp.match / 100)}"/>
                         </svg>
                         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
-                          <span style="font-size:13px;font-weight:800;color:${mp.match >= 80 ? 'var(--green)' : mp.match >= 65 ? 'var(--teal)' : 'var(--orange)'}">${mp.match}%</span>
+                          <span style="font-size:13px;font-weight:800;color:${mp.match >= 80 ? 'var(--teal)' : mp.match >= 65 ? 'var(--teal)' : 'var(--orange)'}">${mp.match}%</span>
                         </div>
                       </div>
                     </div>
 
                     <!-- Requirement matching -->
                     <div style="display:flex;flex-wrap:wrap;gap:6px">
-                      ${mp.matched.map(r => `<span style="font-size:10px;padding:4px 10px;border-radius:20px;background:rgba(52,199,89,0.08);color:var(--green);border:1px solid rgba(52,199,89,0.15)">✓ ${r}</span>`).join('')}
+                      ${mp.matched.map(r => `<span style="font-size:10px;padding:4px 10px;border-radius:20px;background:rgba(0,167,157,0.08);color:var(--teal);border:1px solid rgba(0,167,157,0.15)">✓ ${r}</span>`).join('')}
                       ${mp.partial.map(r => `<span style="font-size:10px;padding:4px 10px;border-radius:20px;background:rgba(232,124,30,0.08);color:var(--orange);border:1px solid rgba(232,124,30,0.15)">◐ ${r}</span>`).join('')}
                     </div>
                   </div>
@@ -261,7 +261,7 @@ Router.register('/hr/promotions', function renderHrPromotions() {
         const pos = btn.dataset.pos;
         if (confirm('Promote ' + name + ' to ' + pos + '?\n\nThis will create a promotion record and notify the employee.')) {
           btn.textContent = '✓ Promoted';
-          btn.style.background = 'var(--green)';
+          btn.style.background = 'var(--teal)';
           btn.disabled = true;
         }
       });

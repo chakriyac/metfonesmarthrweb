@@ -58,7 +58,7 @@ Router.register('/employee/payslip', function renderPayslip() {
             `).join('')}
             <div style="border-top:1px solid var(--border);padding-top:10px;display:flex;justify-content:space-between">
               <span style="font-size:13px;font-weight:700">Total Earnings</span>
-              <span style="font-size:14px;font-weight:800;color:var(--green)">$2,800.00</span>
+              <span style="font-size:14px;font-weight:800;color:var(--teal)">$2,800.00</span>
             </div>
           </div>
         </div>
@@ -89,7 +89,7 @@ Router.register('/employee/payslip', function renderPayslip() {
           <h3 style="font-size:12px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.8px;margin-bottom:12px">📅 ATTENDANCE SUMMARY</h3>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
             <div style="text-align:center">
-              <div style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--green)">22</div>
+              <div style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--teal)">22</div>
               <p style="font-size:11px;color:var(--text-tertiary)">Days Worked</p>
             </div>
             <div style="text-align:center">

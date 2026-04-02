@@ -9,8 +9,8 @@ Router.register('/hr/applications', function renderHrApplications() {
       badge: 'badge-red', badgeText: 'Urgent',
       candidates: [
         { init: 'SR', name: 'Sokha Rith', score: 92, status: 'In Review', badge: 'badge-red', bg: '#FDE8E8', color: '#ED1C24', date: 'Dec 2' },
-        { init: 'KV', name: 'Kosal Vann', score: 78, status: 'In Review', badge: 'badge-red', bg: '#F7F7F8', color: '#8E8E93', date: 'Dec 1' },
-        { init: 'MS', name: 'Mony Sam', score: 65, status: 'New', badge: 'badge-gray', bg: '#F7F7F8', color: '#8E8E93', date: 'Nov 30' },
+        { init: 'KV', name: 'Kosal Vann', score: 78, status: 'In Review', badge: 'badge-red', bg: '#F7F7F8', color: '#A7A9AB', date: 'Dec 1' },
+        { init: 'MS', name: 'Mony Sam', score: 65, status: 'New', badge: 'badge-gray', bg: '#F7F7F8', color: '#A7A9AB', date: 'Nov 30' },
       ]
     },
     {
@@ -18,7 +18,7 @@ Router.register('/hr/applications', function renderHrApplications() {
       badge: 'badge-teal', badgeText: 'Active',
       candidates: [
         { init: 'DS', name: 'Dara Sophal', score: 88, status: 'Shortlisted', badge: 'badge-teal', bg: '#F0F9F8', color: '#00A79D', date: 'Nov 28' },
-        { init: 'PT', name: 'Pheakdey Thun', score: 72, status: 'In Review', badge: 'badge-red', bg: '#F7F7F8', color: '#8E8E93', date: 'Nov 26' },
+        { init: 'PT', name: 'Pheakdey Thun', score: 72, status: 'In Review', badge: 'badge-red', bg: '#F7F7F8', color: '#A7A9AB', date: 'Nov 26' },
       ]
     },
     {
@@ -26,14 +26,14 @@ Router.register('/hr/applications', function renderHrApplications() {
       badge: 'badge-orange', badgeText: 'Interview',
       candidates: [
         { init: 'PK', name: 'Piseth Keo', score: 95, status: 'Interview', badge: 'badge-orange', bg: '#FFF8F0', color: '#E87C1E', date: 'Nov 25' },
-        { init: 'SL', name: 'Sreyleak Lim', score: 80, status: 'In Review', badge: 'badge-red', bg: '#F7F7F8', color: '#8E8E93', date: 'Nov 22' },
+        { init: 'SL', name: 'Sreyleak Lim', score: 80, status: 'In Review', badge: 'badge-red', bg: '#F7F7F8', color: '#A7A9AB', date: 'Nov 22' },
       ]
     },
     {
       title: 'Data Analyst', dept: 'Business Intelligence', slots: '1 position · 1 applicant',
       badge: 'badge-gray', badgeText: 'New',
       candidates: [
-        { init: 'VT', name: 'Vanna Tith', score: 70, status: 'In Review', badge: 'badge-red', bg: '#F7F7F8', color: '#8E8E93', date: 'Nov 20' },
+        { init: 'VT', name: 'Vanna Tith', score: 70, status: 'In Review', badge: 'badge-red', bg: '#F7F7F8', color: '#A7A9AB', date: 'Nov 20' },
       ]
     },
   ];
@@ -71,7 +71,7 @@ Router.register('/hr/applications', function renderHrApplications() {
                 </div>
                 <p style="font-size:12px;color:var(--text-tertiary)">${pos.dept} · ${pos.slots}</p>
               </div>
-              <a href="#/hr/dashboard" style="font-size:12px;font-weight:600;color:var(--teal)">Manage →</a>
+              <a href="#/hr/dashboard" style="font-size:12px;font-weight:600;color:var(--red)">Manage →</a>
             </div>
             ${pos.candidates.map((c, i) => `
               <div class="candidate-row" onclick="Router.navigate('/hr/applications/1')">
@@ -82,7 +82,7 @@ Router.register('/hr/applications', function renderHrApplications() {
                   <p style="font-size:11px;color:var(--text-tertiary)">Applied ${c.date}</p>
                 </div>
                 <div style="text-align:right">
-                  <div style="font-size:14px;font-weight:700;color:${c.score >= 90 ? 'var(--green)' : c.score >= 75 ? 'var(--teal)' : 'var(--text-secondary)'}">${c.score}%</div>
+                  <div style="font-size:14px;font-weight:700;color:${c.score >= 90 ? 'var(--teal)' : c.score >= 75 ? 'var(--teal)' : 'var(--text-secondary)'}">${c.score}%</div>
                   <span class="badge ${c.badge}" style="font-size:10px">${c.status}</span>
                 </div>
               </div>

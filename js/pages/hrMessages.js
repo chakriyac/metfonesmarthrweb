@@ -5,19 +5,19 @@ Router.register('/hr/messages', function renderHrMessages() {
 
   const conversations = [
     { id:1, name:'Sokha Chan', initials:'SC', role:'Senior Network Engineer', status:'applied', unread:3, lastMsg:'Thank you! I have attached my updated CV as requested.', time:'10:42 AM', online:true, color:'#FDE8E8', textColor:'#ED1C24' },
-    { id:2, name:'Vanna Ros', initials:'VR', role:'Marketing Coordinator', status:'interview', unread:1, lastMsg:'Could you confirm the interview time for Thursday?', time:'9:15 AM', online:true, color:'#E8F0FD', textColor:'#2563EB' },
+    { id:2, name:'Vanna Ros', initials:'VR', role:'Marketing Coordinator', status:'interview', unread:1, lastMsg:'Could you confirm the interview time for Thursday?', time:'9:15 AM', online:true, color:'#FFF8F0', textColor:'#E87C1E' },
     { id:3, name:'Bopha Meas', initials:'BM', role:'Finance Analyst', status:'shortlisted', unread:0, lastMsg:'I will prepare the presentation as discussed.', time:'Yesterday', online:false, color:'#F0F9F8', textColor:'#00A79D' },
-    { id:4, name:'Piseth Keo', initials:'PK', role:'Software Developer', status:'applied', unread:5, lastMsg:'Hi, I wanted to follow up on my application status.', time:'Yesterday', online:true, color:'#FFF3E0', textColor:'#E87C1E' },
-    { id:5, name:'Chantrea Nhem', initials:'CN', role:'UI/UX Designer', status:'offer', unread:0, lastMsg:'I accept the offer! When should I start?', time:'Mon', online:false, color:'#F3E8FD', textColor:'#7C3AED' },
-    { id:6, name:'Dara Pich', initials:'DP', role:'Customer Service Lead', status:'interview', unread:2, lastMsg:'Is there a dress code for the in-person interview?', time:'Mon', online:false, color:'#E8FDE8', textColor:'#16A34A' },
-    { id:7, name:'Kunthea Ly', initials:'KL', role:'HR Assistant', status:'applied', unread:0, lastMsg:'I have 3 years of experience in HR operations.', time:'Sun', online:false, color:'#FDE8F3', textColor:'#DB2777' },
-    { id:8, name:'Ratana Sim', initials:'RS', role:'Data Analyst', status:'shortlisted', unread:0, lastMsg:'Thank you for the update, looking forward to the next step.', time:'Apr 28', online:false, color:'#E8F4FD', textColor:'#0891B2' },
-    { id:9, name:'Sophal Tep', initials:'ST', role:'Project Manager', status:'applied', unread:1, lastMsg:'Could you let me know the salary range for this role?', time:'Apr 27', online:false, color:'#FDF2E8', textColor:'#CA8A04' },
-    { id:10, name:'Nary Kong', initials:'NK', role:'QA Engineer', status:'interview', unread:0, lastMsg:'The technical test went well, I submitted it on time.', time:'Apr 26', online:false, color:'#E8EDFD', textColor:'#4F46E5' },
+    { id:4, name:'Piseth Keo', initials:'PK', role:'Software Developer', status:'applied', unread:5, lastMsg:'Hi, I wanted to follow up on my application status.', time:'Yesterday', online:true, color:'#FFF8F0', textColor:'#E87C1E' },
+    { id:5, name:'Chantrea Nhem', initials:'CN', role:'UI/UX Designer', status:'offer', unread:0, lastMsg:'I accept the offer! When should I start?', time:'Mon', online:false, color:'#F0F9F8', textColor:'#00A79D' },
+    { id:6, name:'Dara Pich', initials:'DP', role:'Customer Service Lead', status:'interview', unread:2, lastMsg:'Is there a dress code for the in-person interview?', time:'Mon', online:false, color:'#F0F9F8', textColor:'#00A79D' },
+    { id:7, name:'Kunthea Ly', initials:'KL', role:'HR Assistant', status:'applied', unread:0, lastMsg:'I have 3 years of experience in HR operations.', time:'Sun', online:false, color:'#FDE8E8', textColor:'#ED1C24' },
+    { id:8, name:'Ratana Sim', initials:'RS', role:'Data Analyst', status:'shortlisted', unread:0, lastMsg:'Thank you for the update, looking forward to the next step.', time:'Apr 28', online:false, color:'#FFF8F0', textColor:'#E87C1E' },
+    { id:9, name:'Sophal Tep', initials:'ST', role:'Project Manager', status:'applied', unread:1, lastMsg:'Could you let me know the salary range for this role?', time:'Apr 27', online:false, color:'#FDE8E8', textColor:'#ED1C24' },
+    { id:10, name:'Nary Kong', initials:'NK', role:'QA Engineer', status:'interview', unread:0, lastMsg:'The technical test went well, I submitted it on time.', time:'Apr 26', online:false, color:'#F0F9F8', textColor:'#00A79D' },
   ];
 
   const statusLabel = s => ({ applied:'Applied', interview:'Interview', shortlisted:'Shortlisted', offer:'Offer Sent' }[s] || s);
-  const statusColor = s => ({ applied:'var(--teal)', interview:'var(--orange)', shortlisted:'#2563EB', offer:'var(--green)' }[s] || 'var(--text-tertiary)');
+  const statusColor = s => ({ applied:'var(--teal)', interview:'var(--orange)', shortlisted:'var(--red)', offer:'var(--green)' }[s] || 'var(--text-tertiary)');
 
   const main = el('div', { className: 'main-content' });
 
@@ -54,7 +54,7 @@ Router.register('/hr/messages', function renderHrMessages() {
         <p style="font-size:12px;color:var(--text-tertiary)">Unread</p>
         <p style="font-size:22px;font-weight:800;color:var(--red)">${totalUnread}</p>
       </div>
-      <div class="stat-card" style="border-left:4px solid var(--green)">
+      <div class="stat-card" style="border-left:4px solid var(--teal)">
         <p style="font-size:12px;color:var(--text-tertiary)">Online Now</p>
         <p style="font-size:22px;font-weight:800;color:var(--green)">${conversations.filter(c=>c.online).length}</p>
       </div>

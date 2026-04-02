@@ -28,7 +28,7 @@ Router.register('/hr/profile', function renderHrProfile() {
           <div class="stat-card"><div class="number" style="color:var(--red)">48</div><div class="label">Reviews Done</div></div>
           <div class="stat-card"><div class="number" style="color:var(--teal)">23</div><div class="label">Hires Made</div></div>
           <div class="stat-card"><div class="number" style="color:var(--orange)">4.8</div><div class="label">Avg Rating</div></div>
-          <div class="stat-card"><div class="number" style="color:var(--green)">96%</div><div class="label">Completion</div></div>
+          <div class="stat-card"><div class="number" style="color:var(--teal)">96%</div><div class="label">Completion</div></div>
         </div>
 
         <!-- Contact Info -->
@@ -101,7 +101,7 @@ Router.register('/hr/profile', function renderHrProfile() {
               { action: 'Reviewed application', detail: 'Sokha Rith — Recruitment Officer', time: '2h ago', color: 'var(--red)' },
               { action: 'Scheduled interview', detail: 'Dara Sophal — Network Engineer', time: '5h ago', color: 'var(--teal)' },
               { action: 'Posted new job', detail: 'Mobile App Developer', time: '1d ago', color: 'var(--orange)' },
-              { action: 'Sent offer letter', detail: 'Chanthy Mao — Data Analyst', time: '2d ago', color: 'var(--green)' },
+              { action: 'Sent offer letter', detail: 'Chanthy Mao — Data Analyst', time: '2d ago', color: 'var(--teal)' },
             ].map(a => `
               <div style="display:flex;gap:10px">
                 <div style="width:8px;height:8px;border-radius:50%;background:${a.color};flex-shrink:0;margin-top:5px"></div>

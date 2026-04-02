@@ -10,9 +10,9 @@ Router.register('/employee/profile', function renderStaffProfile() {
       <div class="col-main">
         <!-- Hero -->
         <div class="hero-card" style="margin-bottom:24px;display:flex;align-items:center;gap:20px">
-          <div class="avatar avatar-xl" style="background:#E8F5E9;color:#34C759;font-weight:700;font-size:22px;position:relative">
+          <div class="avatar avatar-xl" style="background:#F0F9F8;color:#00A79D;font-weight:700;font-size:22px;position:relative">
             VN
-            <span style="position:absolute;bottom:2px;right:2px;width:12px;height:12px;border-radius:50%;background:#34C759;border:2px solid white"></span>
+            <span style="position:absolute;bottom:2px;right:2px;width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid white"></span>
             <div style="position:absolute;bottom:-4px;right:-4px;width:24px;height:24px;border-radius:50%;background:var(--glass-bg);backdrop-filter:var(--glass-blur);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer">📷</div>
           </div>
           <div style="flex:1">
@@ -36,7 +36,7 @@ Router.register('/employee/profile', function renderStaffProfile() {
         <!-- Stats -->
         <div class="stats-row" style="margin-bottom:24px">
           <div class="stat-card"><div class="number" style="color:var(--teal)">160h</div><div class="label">Hours</div></div>
-          <div class="stat-card"><div class="number" style="color:var(--green)">22</div><div class="label">Present</div></div>
+          <div class="stat-card"><div class="number" style="color:var(--teal)">22</div><div class="label">Present</div></div>
           <div class="stat-card"><div class="number" style="color:var(--orange)">3 yrs</div><div class="label">Tenure</div></div>
           <div class="stat-card"><div class="number" style="color:var(--red)">4.8</div><div class="label">Rating</div></div>
         </div>
@@ -85,7 +85,7 @@ Router.register('/employee/profile', function renderStaffProfile() {
               <p style="font-size:11px;color:var(--text-tertiary)">Hours Worked</p>
             </div>
             <div class="card" style="text-align:center;padding:16px">
-              <div style="font-size:20px;font-weight:800;color:var(--green)">22</div>
+              <div style="font-size:20px;font-weight:800;color:var(--teal)">22</div>
               <p style="font-size:11px;color:var(--text-tertiary)">Present</p>
             </div>
             <div class="card" style="text-align:center;padding:16px">

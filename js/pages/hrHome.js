@@ -76,7 +76,7 @@ Router.register('/hr/home', function renderHrHome() {
         <div class="section-header"><h2>My Tasks</h2></div>
         <div style="display:flex;flex-direction:column;gap:8px">
           <div class="card" style="display:flex;align-items:center;gap:12px">
-            <span style="width:24px;height:24px;border-radius:50%;background:#34C759;color:white;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">✓</span>
+            <span style="width:24px;height:24px;border-radius:50%;background:#00A79D;color:white;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">✓</span>
             <div style="flex:1">
               <p style="font-size:13px;font-weight:500;text-decoration:line-through;color:var(--text-tertiary)">Review Sokha's application – Recruitment Officer</p>
             </div>

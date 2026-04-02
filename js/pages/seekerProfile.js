@@ -17,8 +17,8 @@ Router.register('/profile', function renderSeekerProfile() {
     ],
     skills: ['Customer Service','Communication','Khmer (Native)','English (Fluent)','MS Office','CRM Systems','Recruitment','Team Collaboration'],
     languages: [
-      { lang:'Khmer', level:'Native', pct:100 },
-      { lang:'English', level:'Fluent', pct:85 },
+      { id:1, lang:'Khmer', level:'Native', pct:100 },
+      { id:2, lang:'English', level:'Fluent', pct:85 },
     ],
     certifications: [
       { id:1, name:'Customer Success Fundamentals', issuer:'Coursera', year:'2023' },
@@ -29,7 +29,7 @@ Router.register('/profile', function renderSeekerProfile() {
     ],
   };
 
-  let nextExpId = 3, nextEduId = 2, nextCertId = 2;
+  let nextExpId = 3, nextEduId = 2, nextCertId = 2, nextLangId = 3;
 
   const main = el('div', { className: 'main-content' });
 
@@ -41,10 +41,25 @@ Router.register('/profile', function renderSeekerProfile() {
       <div class="card" style="display:flex;align-items:center;gap:16px;padding:20px 24px;margin-bottom:20px">
         <div class="avatar avatar-lg" style="background:#FDE8E8;color:#ED1C24;font-weight:700;font-size:18px;flex-shrink:0">${profile.initials}</div>
         <div style="flex:1;min-width:0">
-          <h1 style="font-family:var(--font-display);font-size:20px;font-weight:800;margin-bottom:2px">${profile.name}</h1>
-          <p style="font-size:12px;color:var(--text-tertiary)">${profile.location}</p>
+          <div id="headerDisplay">
+            <div style="display:flex;align-items:center;gap:8px">
+              <h1 style="font-family:var(--font-display);font-size:20px;font-weight:800;margin-bottom:2px">${profile.name}</h1>
+              <button id="editHeaderBtn" style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:600">Edit</button>
+            </div>
+            <p style="font-size:12px;color:var(--text-tertiary)">${profile.location}</p>
+          </div>
+          <div id="headerEdit" style="display:none">
+            <div style="display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+              <div style="flex:1;min-width:120px"><label style="font-size:10px;color:var(--text-tertiary);display:block;margin-bottom:2px">Full Name</label><input id="editName" value="${profile.name}" style="width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;background:var(--glass-bg)"></div>
+              <div style="width:70px"><label style="font-size:10px;color:var(--text-tertiary);display:block;margin-bottom:2px">Initials</label><input id="editInitials" value="${profile.initials}" maxlength="3" style="width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;background:var(--glass-bg);text-align:center"></div>
+            </div>
+            <div style="display:flex;gap:6px;justify-content:flex-end">
+              <button id="cancelHeaderEdit" class="btn-glass" style="padding:5px 12px;font-size:11px">Cancel</button>
+              <button id="saveHeaderEdit" class="btn-dark" style="padding:5px 12px;font-size:11px">Save</button>
+            </div>
+          </div>
           <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-            <div style="flex:1;max-width:140px;height:5px;border-radius:3px;background:var(--border)"><div style="height:100%;width:${completeness}%;border-radius:3px;background:linear-gradient(90deg,var(--teal),var(--green))"></div></div>
+            <div style="flex:1;max-width:140px;height:5px;border-radius:3px;background:var(--border)"><div style="height:100%;width:${completeness}%;border-radius:3px;background:linear-gradient(90deg,var(--teal),var(--mint))"></div></div>
             <span style="font-size:11px;color:var(--text-tertiary)">${completeness}%</span>
           </div>
         </div>
@@ -62,23 +77,24 @@ Router.register('/profile', function renderSeekerProfile() {
         <button id="cvUploadBtn" class="btn-dark" style="padding:8px 18px;font-size:12px;flex-shrink:0">Choose File</button>
         <div id="cvExtracting" style="display:none;position:absolute;inset:0;background:var(--glass-bg);backdrop-filter:blur(8px);border-radius:inherit;display:none;align-items:center;justify-content:center;gap:10px">
           <div style="width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin 1s linear infinite"></div>
-          <span style="font-size:12px;font-weight:600;color:var(--teal)">Extracting…</span>
+          <span style="font-size:12px;font-weight:600;color:var(--red)">Extracting…</span>
         </div>
         <div id="cvSuccess" style="display:none;position:absolute;inset:0;background:var(--glass-bg);backdrop-filter:blur(8px);border-radius:inherit;align-items:center;justify-content:center;padding:0 20px">
-          <p id="cvExtractSummary" style="font-size:12px;color:var(--green);font-weight:600;text-align:center"></p>
+          <p id="cvExtractSummary" style="font-size:12px;color:var(--teal);font-weight:600;text-align:center"></p>
         </div>
       </div>
 
       <!-- Documents -->
       ${profile.documents.length ? `
       <div style="display:flex;gap:10px;margin-bottom:20px;overflow-x:auto;-webkit-overflow-scrolling:touch">
-        ${profile.documents.map(d => `
+        ${profile.documents.map((d, i) => `
           <div class="card" style="display:flex;align-items:center;gap:10px;padding:12px 16px;min-width:200px;flex-shrink:0">
             <span style="font-size:16px">📎</span>
             <div style="flex:1;min-width:0">
               <p style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.name}</p>
               <p style="font-size:10px;color:var(--text-tertiary)">${d.size} · ${d.date}</p>
             </div>
+            <button class="remove-doc" data-idx="${i}" style="background:none;border:none;font-size:11px;cursor:pointer;color:var(--text-tertiary);padding:2px;line-height:1">✕</button>
           </div>`).join('')}
       </div>` : ''}
 
@@ -86,7 +102,7 @@ Router.register('/profile', function renderSeekerProfile() {
       <div class="card" style="padding:18px 22px;margin-bottom:14px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
           <h3 style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.8px">ABOUT</h3>
-          <button class="edit-section-btn" data-section="about" style="font-size:11px;color:var(--teal);background:none;border:none;cursor:pointer;font-weight:600">Edit</button>
+          <button class="edit-section-btn" data-section="about" style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:600">Edit</button>
         </div>
         <div id="aboutDisplay"><p style="font-size:13px;color:var(--text-secondary);line-height:1.6">${profile.about}</p></div>
         <div id="aboutEdit" style="display:none">
@@ -102,7 +118,7 @@ Router.register('/profile', function renderSeekerProfile() {
       <div class="card" style="padding:18px 22px;margin-bottom:14px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
           <h3 style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.8px">CONTACT</h3>
-          <button class="edit-section-btn" data-section="contact" style="font-size:11px;color:var(--teal);background:none;border:none;cursor:pointer;font-weight:600">Edit</button>
+          <button class="edit-section-btn" data-section="contact" style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:600">Edit</button>
         </div>
         <div id="contactDisplay">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
@@ -132,7 +148,7 @@ Router.register('/profile', function renderSeekerProfile() {
       <div class="card" style="padding:18px 22px;margin-bottom:14px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
           <h3 style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.8px">EXPERIENCE</h3>
-          <button id="addExpBtn" style="font-size:11px;color:var(--teal);background:none;border:none;cursor:pointer;font-weight:600">+ Add</button>
+          <button id="addExpBtn" style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:600">+ Add</button>
         </div>
         <div id="addExpForm" style="display:none;margin-bottom:14px;padding:14px;border:1px dashed var(--teal);border-radius:12px">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
@@ -163,7 +179,7 @@ Router.register('/profile', function renderSeekerProfile() {
       <div class="card" style="padding:18px 22px;margin-bottom:14px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
           <h3 style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.8px">EDUCATION</h3>
-          <button id="addEduBtn" style="font-size:11px;color:var(--teal);background:none;border:none;cursor:pointer;font-weight:600">+ Add</button>
+          <button id="addEduBtn" style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:600">+ Add</button>
         </div>
         <div id="addEduForm" style="display:none;margin-bottom:14px;padding:14px;border:1px dashed var(--teal);border-radius:12px">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
@@ -194,7 +210,7 @@ Router.register('/profile', function renderSeekerProfile() {
       <div class="card" style="padding:18px 22px;margin-bottom:14px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
           <h3 style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.8px">SKILLS</h3>
-          <button id="addSkillBtn" style="font-size:11px;color:var(--teal);background:none;border:none;cursor:pointer;font-weight:600">+ Add</button>
+          <button id="addSkillBtn" style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:600">+ Add</button>
         </div>
         <div id="addSkillForm" style="display:none;margin-bottom:10px">
           <div style="display:flex;gap:6px;align-items:center">
@@ -214,7 +230,7 @@ Router.register('/profile', function renderSeekerProfile() {
         <div class="card" style="padding:18px 22px">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
             <h3 style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.8px">CERTIFICATIONS</h3>
-            <button id="addCertBtn" style="font-size:11px;color:var(--teal);background:none;border:none;cursor:pointer;font-weight:600">+ Add</button>
+            <button id="addCertBtn" style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:600">+ Add</button>
           </div>
           <div id="addCertForm" style="display:none;margin-bottom:12px;padding:12px;border:1px dashed var(--teal);border-radius:10px">
             <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:6px">
@@ -242,13 +258,37 @@ Router.register('/profile', function renderSeekerProfile() {
 
         <!-- Languages -->
         <div class="card" style="padding:18px 22px">
-          <h3 style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.8px;margin-bottom:14px">LANGUAGES</h3>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+            <h3 style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.8px">LANGUAGES</h3>
+            <button id="addLangBtn" style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;font-weight:600">+ Add</button>
+          </div>
+          <div id="addLangForm" style="display:none;margin-bottom:12px;padding:12px;border:1px dashed var(--teal);border-radius:10px">
+            <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:6px">
+              <input id="newLangName" placeholder="Language *" style="width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;background:var(--glass-bg)">
+              <div style="display:flex;gap:6px">
+                <select id="newLangLevel" style="flex:1;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;background:var(--glass-bg)">
+                  <option value="Basic">Basic</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Fluent" selected>Fluent</option>
+                  <option value="Native">Native</option>
+                </select>
+                <input id="newLangPct" type="number" min="10" max="100" value="70" placeholder="%" style="width:60px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;background:var(--glass-bg);text-align:center">
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;justify-content:flex-end">
+              <button id="cancelAddLang" class="btn-glass" style="padding:5px 10px;font-size:11px">Cancel</button>
+              <button id="saveAddLang" class="btn-dark" style="padding:5px 10px;font-size:11px">Add</button>
+            </div>
+          </div>
           <div style="display:flex;flex-direction:column;gap:12px">
             ${profile.languages.map(l => `
               <div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
                   <span style="font-size:12px;font-weight:600">${l.lang}</span>
-                  <span style="font-size:10px;color:var(--text-tertiary)">${l.level}</span>
+                  <div style="display:flex;align-items:center;gap:6px">
+                    <span style="font-size:10px;color:var(--text-tertiary)">${l.level}</span>
+                    <button class="remove-item" data-type="lang" data-id="${l.id}" style="background:none;border:none;font-size:11px;cursor:pointer;color:var(--text-tertiary);padding:0;line-height:1">✕</button>
+                  </div>
                 </div>
                 <div style="height:5px;border-radius:3px;background:var(--border)"><div style="height:100%;width:${l.pct}%;border-radius:3px;background:var(--teal)"></div></div>
               </div>`).join('')}
@@ -291,7 +331,7 @@ Router.register('/profile', function renderSeekerProfile() {
           ['Project Management','Stakeholder Communication','Agile Methodology','Risk Assessment'].forEach(s => {
             if (!profile.skills.includes(s)) profile.skills.push(s);
           });
-          profile.languages.push({ lang:'Chinese', level:'Basic', pct:30 });
+          profile.languages.push({ id: nextLangId++, lang:'Chinese', level:'Basic', pct:30 });
           profile.documents.unshift({ name: file.name, size: (file.size / 1024 / 1024).toFixed(1) + ' MB', date: 'Apr 2026' });
           document.getElementById('cvExtracting').style.display = 'none';
           document.getElementById('cvSuccess').style.display = 'flex';
@@ -395,7 +435,7 @@ Router.register('/profile', function renderSeekerProfile() {
       render();
     };
 
-    /* Remove experience / education / certification */
+    /* Remove experience / education / certification / language */
     document.querySelectorAll('.remove-item').forEach(btn => {
       btn.onclick = () => {
         const type = btn.dataset.type;
@@ -403,8 +443,50 @@ Router.register('/profile', function renderSeekerProfile() {
         if (type === 'exp') profile.experience = profile.experience.filter(e => e.id !== id);
         else if (type === 'edu') profile.education = profile.education.filter(e => e.id !== id);
         else if (type === 'cert') profile.certifications = profile.certifications.filter(c => c.id !== id);
+        else if (type === 'lang') profile.languages = profile.languages.filter(l => l.id !== id);
         render();
       };
+    });
+
+    /* Edit Profile Header (name / initials) */
+    const editHeaderBtn = document.getElementById('editHeaderBtn');
+    if (editHeaderBtn) editHeaderBtn.onclick = () => {
+      document.getElementById('headerDisplay').style.display = 'none';
+      document.getElementById('headerEdit').style.display = 'block';
+    };
+    const cancelHeader = document.getElementById('cancelHeaderEdit');
+    if (cancelHeader) cancelHeader.onclick = () => {
+      document.getElementById('headerDisplay').style.display = '';
+      document.getElementById('headerEdit').style.display = 'none';
+    };
+    const saveHeader = document.getElementById('saveHeaderEdit');
+    if (saveHeader) saveHeader.onclick = () => {
+      const n = document.getElementById('editName').value.trim();
+      const i = document.getElementById('editInitials').value.trim();
+      if (n) profile.name = n;
+      if (i) profile.initials = i;
+      render();
+    };
+
+    /* Add Language */
+    const addLangBtn = document.getElementById('addLangBtn');
+    const addLangForm = document.getElementById('addLangForm');
+    if (addLangBtn) addLangBtn.onclick = () => addLangForm.style.display = addLangForm.style.display === 'none' ? 'block' : 'none';
+    const cancelLang = document.getElementById('cancelAddLang');
+    if (cancelLang) cancelLang.onclick = () => addLangForm.style.display = 'none';
+    const saveLang = document.getElementById('saveAddLang');
+    if (saveLang) saveLang.onclick = () => {
+      const name = document.getElementById('newLangName').value.trim();
+      if (!name) return;
+      const level = document.getElementById('newLangLevel').value;
+      const pct = Math.min(100, Math.max(10, +document.getElementById('newLangPct').value || 70));
+      profile.languages.push({ id: nextLangId++, lang: name, level: level, pct: pct });
+      render();
+    };
+
+    /* Remove document */
+    document.querySelectorAll('.remove-doc').forEach(btn => {
+      btn.onclick = (e) => { e.stopPropagation(); profile.documents.splice(+btn.dataset.idx, 1); render(); };
     });
   }
 

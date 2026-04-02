@@ -15,8 +15,8 @@ Router.register('/hr/dashboard', function renderHrDashboard() {
         <div class="hero-card" style="margin-bottom:20px">
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px">
             ${[
-              { num: '12', label: 'Active Jobs', sub: '↑ 3 this week', subColor: 'var(--green)' },
-              { num: '48', label: 'Total Applications', sub: '↑ 8 new today', subColor: 'var(--green)' },
+              { num: '12', label: 'Active Jobs', sub: '↑ 3 this week', subColor: 'var(--teal)' },
+              { num: '48', label: 'Total Applications', sub: '↑ 8 new today', subColor: 'var(--teal)' },
               { num: '7', label: 'Interviews This Week', sub: '3 today', subColor: 'var(--text-tertiary)' },
               { num: '3', label: 'Pending Offers', sub: '2 accepted', subColor: 'var(--teal)' },
             ].map((s, i) => `

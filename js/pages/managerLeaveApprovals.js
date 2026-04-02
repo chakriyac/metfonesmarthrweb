@@ -4,9 +4,9 @@ Router.register('/manager/leave', function renderManagerLeaveApprovals() {
   page.appendChild(managerSidebar('/manager/leave'));
 
   const requests = [
-    { init: 'PC', name: 'Pisey Chea', dept: 'IT', type: 'Annual Leave', dates: 'Apr 12–14, 2026', days: 3, reason: 'Family event in Kampot', submitted: '2 hours ago', bg: '#E8F4FD', color: '#007AFF' },
+    { init: 'PC', name: 'Pisey Chea', dept: 'IT', type: 'Annual Leave', dates: 'Apr 12–14, 2026', days: 3, reason: 'Family event in Kampot', submitted: '2 hours ago', bg: '#F0F9F8', color: '#00A79D' },
     { init: 'SM', name: 'Sokha Meng', dept: 'Marketing', type: 'Sick Leave', dates: 'Apr 8, 2026', days: 1, reason: 'Medical appointment', submitted: 'Yesterday', bg: '#FFF8F0', color: '#E87C1E' },
-    { init: 'VL', name: 'Veasna Lim', dept: 'Operations', type: 'Personal Leave', dates: 'Apr 20, 2026', days: 1, reason: 'Personal errand', submitted: '3 days ago', bg: '#F7F7F8', color: '#8E8E93' },
+    { init: 'VL', name: 'Veasna Lim', dept: 'Operations', type: 'Personal Leave', dates: 'Apr 20, 2026', days: 1, reason: 'Personal errand', submitted: '3 days ago', bg: '#F7F7F8', color: '#A7A9AB' },
   ];
 
   const main = el('div', { className: 'main-content' });
@@ -20,7 +20,7 @@ Router.register('/manager/leave', function renderManagerLeaveApprovals() {
 
         <div class="stats-row" style="margin-bottom:24px">
           <div class="stat-card"><div class="number" style="color:var(--orange)">3</div><div class="label">Pending</div></div>
-          <div class="stat-card"><div class="number" style="color:var(--green)">12</div><div class="label">Approved</div></div>
+          <div class="stat-card"><div class="number" style="color:var(--teal)">12</div><div class="label">Approved</div></div>
           <div class="stat-card"><div class="number" style="color:var(--red)">2</div><div class="label">Rejected</div></div>
           <div class="stat-card"><div class="number" style="color:var(--teal)">17</div><div class="label">Total</div></div>
         </div>

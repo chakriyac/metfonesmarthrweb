@@ -74,7 +74,7 @@ Router.register('/hr/applications/:id', function renderHrAppDetail() {
               <p style="font-size:13px;font-weight:600">Sokha_Rith_CV.pdf</p>
               <p style="font-size:11px;color:var(--text-tertiary)">2.4 MB</p>
             </div>
-            <a href="#" style="font-size:12px;font-weight:600;color:var(--teal)">Download</a>
+            <a href="#" style="font-size:12px;font-weight:600;color:var(--red)">Download</a>
           </div>
         </div>
       </div>

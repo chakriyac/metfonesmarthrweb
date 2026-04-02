@@ -27,7 +27,7 @@ Router.register('/employee/leave', function renderLeaveManagement() {
         <!-- Leave Balance -->
         <div class="hero-card" style="margin-bottom:24px;display:flex;align-items:center;justify-content:space-around;padding:28px 24px">
           <div style="text-align:center">
-            <div style="width:90px;height:90px;border-radius:50%;border:6px solid var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 8px">
+            <div style="width:90px;height:90px;border-radius:50%;border:6px solid var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 8px">
               <span style="font-family:var(--font-display);font-size:28px;font-weight:800">12</span>
               <span style="font-size:10px;color:var(--text-tertiary)">days</span>
             </div>
@@ -48,7 +48,7 @@ Router.register('/employee/leave', function renderLeaveManagement() {
         <div style="margin-bottom:12px">
           <p style="font-size:12px;color:var(--text-tertiary);margin-bottom:6px">Annual Leave Balance: 12 / 18 days (66% remaining)</p>
           <div style="height:8px;border-radius:4px;background:var(--border)">
-            <div style="height:100%;width:66%;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--green))"></div>
+            <div style="height:100%;width:66%;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--mint))"></div>
           </div>
         </div>
 
@@ -62,7 +62,7 @@ Router.register('/employee/leave', function renderLeaveManagement() {
         <div class="stagger-children" style="display:flex;flex-direction:column;gap:8px">
           ${requests.map(r => `
             <div class="card" style="display:flex;align-items:center;gap:14px">
-              <div style="width:40px;height:40px;border-radius:10px;background:${r.status === 'Approved' ? '#E8F5E9' : r.status === 'Pending' ? '#FFF8F0' : '#FDE8E8'};display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">
+              <div style="width:40px;height:40px;border-radius:10px;background:${r.status === 'Approved' ? '#F0F9F8' : r.status === 'Pending' ? '#FFF8F0' : '#FDE8E8'};display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">
                 ${r.type === 'Annual Leave' ? '🏖️' : r.type === 'Sick Leave' ? '🏥' : '📋'}
               </div>
               <div style="flex:1;min-width:0">

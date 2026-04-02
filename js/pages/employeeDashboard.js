@@ -12,8 +12,8 @@ Router.register('/employee/dashboard', function renderEmployeeDashboard() {
         <div class="hero-card" style="margin-bottom:24px;padding:32px 36px;border-radius:24px">
           <div style="display:flex;align-items:center;gap:20px">
             <div style="position:relative;flex-shrink:0">
-              <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(52,199,89,0.15),rgba(0,167,157,0.12));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:var(--green);border:2px solid rgba(255,255,255,0.6)">VN</div>
-              <span style="position:absolute;bottom:2px;right:2px;width:14px;height:14px;border-radius:50%;background:var(--green);border:3px solid white;box-shadow:0 0 8px rgba(52,199,89,0.4)"></span>
+              <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(0,167,157,0.15),rgba(0,167,157,0.12));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:var(--teal);border:2px solid rgba(255,255,255,0.6)">VN</div>
+              <span style="position:absolute;bottom:2px;right:2px;width:14px;height:14px;border-radius:50%;background:var(--green);border:3px solid white;box-shadow:0 0 8px rgba(0,167,157,0.4)"></span>
             </div>
             <div style="flex:1">
               <p style="font-size:12px;color:var(--text-tertiary);margin-bottom:4px;letter-spacing:0.5px">WELCOME BACK</p>
@@ -34,7 +34,7 @@ Router.register('/employee/dashboard', function renderEmployeeDashboard() {
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px">
           ${[
             { num: '12', label: 'Leave Days', color: 'var(--teal)', bg: 'rgba(0,167,157,0.06)', icon: '🏖️' },
-            { num: '160h', label: 'Hours This Month', color: 'var(--green)', bg: 'rgba(52,199,89,0.06)', icon: '⏱️' },
+            { num: '160h', label: 'Hours This Month', color: 'var(--teal)', bg: 'rgba(0,167,157,0.06)', icon: '⏱️' },
             { num: '$2,450', label: 'Last Payslip', color: 'var(--orange)', bg: 'rgba(232,124,30,0.06)', icon: '💰' },
             { num: '95%', label: 'Attendance', color: 'var(--red)', bg: 'rgba(237,28,36,0.06)', icon: '📊' },
           ].map(s => `
@@ -55,7 +55,7 @@ Router.register('/employee/dashboard', function renderEmployeeDashboard() {
           ${[
             { icon: '💰', title: 'View Payslip', desc: 'March 2026', route: '/employee/payslip', gradient: 'linear-gradient(135deg,rgba(232,124,30,0.08),rgba(232,124,30,0.02))' },
             { icon: '🏖️', title: 'Request Leave', desc: '12 days left', route: '/employee/leave', gradient: 'linear-gradient(135deg,rgba(0,167,157,0.08),rgba(0,167,157,0.02))' },
-            { icon: '📅', title: 'Attendance', desc: 'History & records', route: '/employee/attendance', gradient: 'linear-gradient(135deg,rgba(52,199,89,0.08),rgba(52,199,89,0.02))' },
+            { icon: '📅', title: 'Attendance', desc: 'History & records', route: '/employee/attendance', gradient: 'linear-gradient(135deg,rgba(0,167,157,0.08),rgba(0,167,157,0.02))' },
             { icon: '🤖', title: 'Ask HR AI', desc: 'Get instant help', route: '/chat/ai', gradient: 'linear-gradient(135deg,rgba(237,28,36,0.08),rgba(237,28,36,0.02))' },
           ].map(q => `
             <div class="card" style="padding:22px 20px;border-radius:20px;cursor:pointer;background:${q.gradient}" onclick="Router.navigate('${q.route}')">
@@ -70,9 +70,9 @@ Router.register('/employee/dashboard', function renderEmployeeDashboard() {
         <div class="section-header"><h2>Recent Activity</h2></div>
         <div class="stagger-children" style="display:flex;flex-direction:column;gap:10px">
           ${[
-            { icon: '✅', bg: 'rgba(52,199,89,0.08)', color: '#34C759', title: 'Checked in', detail: 'Metfone HQ · GPS Verified', time: 'Today 8:05 AM' },
+            { icon: '✅', bg: 'rgba(0,167,157,0.08)', color: '#00A79D', title: 'Checked in', detail: 'Metfone HQ · GPS Verified', time: 'Today 8:05 AM' },
             { icon: '💰', bg: 'rgba(232,124,30,0.08)', color: '#E87C1E', title: 'Payslip available', detail: 'March 2026 — $2,450 net', time: 'Mar 28' },
-            { icon: '✅', bg: 'rgba(52,199,89,0.08)', color: '#34C759', title: 'Leave approved', detail: 'Annual leave · Apr 10–12 (3 days)', time: 'Mar 25' },
+            { icon: '✅', bg: 'rgba(0,167,157,0.08)', color: '#00A79D', title: 'Leave approved', detail: 'Annual leave · Apr 10–12 (3 days)', time: 'Mar 25' },
             { icon: '📅', bg: 'rgba(0,167,157,0.08)', color: '#00A79D', title: 'Attendance perfect', detail: 'March week 4 — 100% on time', time: 'Mar 24' },
           ].map(a => `
             <div class="card" style="display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:18px">
@@ -97,10 +97,10 @@ Router.register('/employee/dashboard', function renderEmployeeDashboard() {
           <div style="position:relative;width:100px;height:100px;margin:0 auto 16px">
             <svg width="100" height="100" viewBox="0 0 100 100" style="transform:rotate(-90deg)">
               <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,0.04)" stroke-width="8"/>
-              <circle cx="50" cy="50" r="42" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s ease"/>
+              <circle cx="50" cy="50" r="42" fill="none" stroke="var(--teal)" stroke-width="8" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s ease"/>
             </svg>
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
-              <span style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--green)">8h</span>
+              <span style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--teal)">8h</span>
             </div>
           </div>
 

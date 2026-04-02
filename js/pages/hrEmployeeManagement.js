@@ -46,7 +46,7 @@ Router.register('/hr/employees', function renderHrEmployeeManagement() {
           ${[
             { label: 'High Risk', count: 8, pct: '85%+', color: 'var(--red)', bg: '#FDE8E8' },
             { label: 'Medium Risk', count: 15, pct: '50–85%', color: 'var(--orange)', bg: '#FFF8F0' },
-            { label: 'Low Risk', count: 212, pct: '<50%', color: 'var(--green)', bg: '#E8F5E9' },
+            { label: 'Low Risk', count: 212, pct: '<50%', color: 'var(--teal)', bg: '#F0F9F8' },
           ].map(r => `
             <div class="card" style="text-align:center;padding:20px">
               <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:${r.color}">${r.count}</div>
@@ -56,7 +56,7 @@ Router.register('/hr/employees', function renderHrEmployeeManagement() {
           `).join('')}
         </div>
 
-        <div class="card" style="background:linear-gradient(135deg,rgba(0,167,157,0.1),rgba(52,199,89,0.1));border-left:4px solid var(--teal);margin-bottom:24px;display:flex;gap:12px;align-items:center">
+        <div class="card" style="background:linear-gradient(135deg,rgba(0,167,157,0.1),rgba(0,167,157,0.1));border-left:4px solid var(--teal);margin-bottom:24px;display:flex;gap:12px;align-items:center">
           <span style="font-size:24px">💰</span>
           <div>
             <p style="font-size:14px;font-weight:700;color:var(--teal)">Potential savings: $900,000/year</p>
@@ -118,7 +118,7 @@ Router.register('/hr/employees', function renderHrEmployeeManagement() {
           <h3 style="font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:12px">Recent Actions</h3>
           <div style="display:flex;flex-direction:column;gap:12px">
             ${[
-              { action: 'Retention bonus offered', emp: 'Chanthy Lim', result: 'Risk reduced 85% → 45%', time: '2 days ago', color: 'var(--green)' },
+              { action: 'Retention bonus offered', emp: 'Chanthy Lim', result: 'Risk reduced 85% → 45%', time: '2 days ago', color: 'var(--teal)' },
               { action: 'Career discussion scheduled', emp: 'Rathana Kim', result: 'Pending meeting', time: 'Yesterday', color: 'var(--orange)' },
               { action: 'Workload redistributed', emp: 'Sokha Pen', result: 'Overtime -40%', time: '1 week ago', color: 'var(--teal)' },
             ].map(a => `

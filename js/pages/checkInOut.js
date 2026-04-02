@@ -17,7 +17,7 @@ Router.register('/employee/checkin', function renderCheckInOut() {
         <div class="hero-card" style="text-align:center;padding:32px 24px;margin-bottom:24px">
           <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px">
             <span style="width:10px;height:10px;border-radius:50%;background:var(--green);animation:pulse 2s infinite"></span>
-            <span style="font-size:13px;font-weight:600;color:var(--green)">Currently Working</span>
+            <span style="font-size:13px;font-weight:600;color:var(--teal)">Currently Working</span>
           </div>
           <div id="live-clock" style="font-family:var(--font-display);font-size:48px;font-weight:800;letter-spacing:2px;margin-bottom:8px">08:15:32</div>
           <p style="font-size:12px;color:var(--text-tertiary)">Elapsed time since check-in</p>
@@ -25,7 +25,7 @@ Router.register('/employee/checkin', function renderCheckInOut() {
           <div style="display:flex;justify-content:center;gap:32px;margin:20px 0">
             <div>
               <p style="font-size:11px;color:var(--text-tertiary)">Check In</p>
-              <p style="font-size:16px;font-weight:700;color:var(--green)">8:05 AM</p>
+              <p style="font-size:16px;font-weight:700;color:var(--teal)">8:05 AM</p>
             </div>
             <div style="width:1px;background:rgba(255,255,255,0.35)"></div>
             <div>
@@ -49,7 +49,7 @@ Router.register('/employee/checkin', function renderCheckInOut() {
         <div class="section-header"><h2>Weekly Summary</h2></div>
         <div class="stats-row" style="margin-bottom:24px">
           <div class="stat-card"><div class="number" style="color:var(--teal)">40h 15m</div><div class="label">Total Hours</div></div>
-          <div class="stat-card"><div class="number" style="color:var(--green)">8h 03m</div><div class="label">Avg / Day</div></div>
+          <div class="stat-card"><div class="number" style="color:var(--teal)">8h 03m</div><div class="label">Avg / Day</div></div>
           <div class="stat-card"><div class="number" style="color:var(--red)">0</div><div class="label">Absent</div></div>
           <div class="stat-card"><div class="number" style="color:var(--orange)">1</div><div class="label">Late</div></div>
         </div>
@@ -89,7 +89,7 @@ Router.register('/employee/checkin', function renderCheckInOut() {
                 <span style="font-size:12px;font-weight:600">8h 15m / 8h</span>
               </div>
               <div style="height:8px;border-radius:4px;background:var(--border)">
-                <div style="height:100%;width:100%;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--green))"></div>
+                <div style="height:100%;width:100%;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--mint))"></div>
               </div>
             </div>
             <div>

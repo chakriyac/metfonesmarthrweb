@@ -5,6 +5,18 @@ Router.register('/login/staff', function renderStaffLogin() {
     <div class="bg-rings"><span></span><span></span><span></span></div>
     <div class="bg-orb bg-orb-1"></div>
     <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+
+    <svg class="auth-mesh" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="rgba(237,28,36,0.05)" fill="none" stroke-width="0.8">
+        <path d="M100,200 Q200,100 350,180 T600,150" class="mesh-line ml-1"/>
+        <path d="M50,400 Q250,300 400,380 T750,350" class="mesh-line ml-2"/>
+        <path d="M150,600 Q300,500 500,560 T780,520" class="mesh-line ml-3"/>
+        <circle cx="350" cy="180" r="3" fill="rgba(237,28,36,0.06)" class="mesh-dot md-1"/>
+        <circle cx="400" cy="380" r="2.5" fill="rgba(0,167,157,0.05)" class="mesh-dot md-2"/>
+        <circle cx="500" cy="560" r="3" fill="rgba(232,124,30,0.05)" class="mesh-dot md-3"/>
+      </g>
+    </svg>
 
     <div class="auth-card">
       <!-- Back -->
@@ -40,7 +52,7 @@ Router.register('/login/staff', function renderStaffLogin() {
         else Router.navigate('/hr/dashboard');
       ">Sign In</button>
 
-      <p style="text-align:center"><a href="#" style="font-size:13px;color:var(--teal);text-decoration:underline">Need access? Contact HR admin</a></p>
+      <p style="text-align:center"><a href="#" style="font-size:13px;color:var(--red);text-decoration:underline">Need access? Contact HR admin</a></p>
     </div>`;
   return page;
 });

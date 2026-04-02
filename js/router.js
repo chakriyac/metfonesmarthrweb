@@ -2,6 +2,7 @@
 const Router = {
   routes: {},
   current: null,
+  _transitioning: false,
 
   register(path, renderFn) {
     this.routes[path] = renderFn;
@@ -14,25 +15,58 @@ const Router = {
   _resolve() {
     const hash = window.location.hash.slice(1) || '/';
     const app = document.getElementById('app');
+    let renderFn = null;
+    let args = [];
+
     if (this.routes[hash]) {
-      this.current = hash;
-      app.innerHTML = '';
-      app.appendChild(this.routes[hash]());
-      window.scrollTo(0, 0);
-      return;
-    }
-    for (const pattern of Object.keys(this.routes)) {
-      const regex = new RegExp('^' + pattern.replace(/:[^/]+/g, '([^/]+)') + '$');
-      const match = hash.match(regex);
-      if (match) {
-        this.current = hash;
-        app.innerHTML = '';
-        app.appendChild(this.routes[pattern](...match.slice(1)));
-        window.scrollTo(0, 0);
-        return;
+      renderFn = this.routes[hash];
+    } else {
+      for (const pattern of Object.keys(this.routes)) {
+        const regex = new RegExp('^' + pattern.replace(/:[^/]+/g, '([^/]+)') + '$');
+        const match = hash.match(regex);
+        if (match) {
+          renderFn = this.routes[pattern];
+          args = match.slice(1);
+          break;
+        }
       }
     }
-    this.navigate('/');
+
+    if (!renderFn) { this.navigate('/'); return; }
+    if (this._transitioning) return;
+
+    const oldContent = app.firstElementChild;
+    const newPage = renderFn(...args);
+
+    /* Smooth cross-fade transition */
+    if (oldContent && !document.hidden) {
+      this._transitioning = true;
+      oldContent.style.transition = 'opacity 0.18s ease-out, transform 0.18s ease-out';
+      oldContent.style.opacity = '0';
+      oldContent.style.transform = 'translateY(6px)';
+
+      setTimeout(() => {
+        this.current = hash;
+        app.innerHTML = '';
+        newPage.classList.add('page-enter');
+        app.appendChild(newPage);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            newPage.classList.remove('page-enter');
+            newPage.classList.add('page-enter-active');
+            this._transitioning = false;
+          });
+        });
+      }, 180);
+    } else {
+      this.current = hash;
+      app.innerHTML = '';
+      newPage.classList.add('page-enter-active');
+      app.appendChild(newPage);
+      window.scrollTo(0, 0);
+    }
   },
 
   start() {

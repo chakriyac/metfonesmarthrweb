@@ -5,23 +5,23 @@ Router.register('/hr/directory', function renderHrDirectory() {
 
   const employees = [
     { init: 'DS', name: 'Dara Samnang', email: 'dara.s@metfone.com.kh', phone: '+855 12 300 001', pos: 'HR Officer', dept: 'HR', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Jan 2021', tenure: '5 yrs', status: 'Active', perf: 93, avatar: '#F0F9F8', color: '#00A79D' },
-    { init: 'VN', name: 'Vanna Nob', email: 'vanna.n@metfone.com.kh', phone: '+855 12 300 002', pos: 'HR Assistant', dept: 'HR', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Mar 2022', tenure: '4 yrs', status: 'Active', perf: 91, avatar: '#E8F5E9', color: '#34C759' },
-    { init: 'CL', name: 'Chanthy Lim', email: 'chanthy.l@metfone.com.kh', phone: '+855 12 300 003', pos: 'Senior Developer', dept: 'IT', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Feb 2021', tenure: '5 yrs', status: 'Active', perf: 94, avatar: '#E0F7F5', color: '#00A79D' },
+    { init: 'VN', name: 'Vanna Nob', email: 'vanna.n@metfone.com.kh', phone: '+855 12 300 002', pos: 'HR Assistant', dept: 'HR', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Mar 2022', tenure: '4 yrs', status: 'Active', perf: 91, avatar: '#F0F9F8', color: '#00A79D' },
+    { init: 'CL', name: 'Chanthy Lim', email: 'chanthy.l@metfone.com.kh', phone: '+855 12 300 003', pos: 'Senior Developer', dept: 'IT', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Feb 2021', tenure: '5 yrs', status: 'Active', perf: 94, avatar: '#F0F9F8', color: '#00A79D' },
     { init: 'RK', name: 'Rathana Kim', email: 'rathana.k@metfone.com.kh', phone: '+855 12 300 004', pos: 'Marketing Lead', dept: 'Marketing', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Jun 2022', tenure: '4 yrs', status: 'Active', perf: 88, avatar: '#FDE8E8', color: '#ED1C24' },
     { init: 'SP', name: 'Sokha Pen', email: 'sokha.p@metfone.com.kh', phone: '+855 12 300 005', pos: 'IT Support', dept: 'IT', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Aug 2023', tenure: '3 yrs', status: 'Active', perf: 85, avatar: '#FFF8F0', color: '#E87C1E' },
-    { init: 'PT', name: 'Pheakdey Thun', email: 'pheakdey.t@metfone.com.kh', phone: '+855 12 300 006', pos: 'Accountant', dept: 'Finance', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'May 2023', tenure: '3 yrs', status: 'Active', perf: 82, avatar: '#F7F7F8', color: '#8E8E93' },
-    { init: 'SM', name: 'Sopheap Meas', email: 'sopheap.m@metfone.com.kh', phone: '+855 12 300 007', pos: 'Manager', dept: 'IT', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Jan 2020', tenure: '6 yrs', status: 'Active', perf: 96, avatar: '#E8F5E9', color: '#34C759' },
+    { init: 'PT', name: 'Pheakdey Thun', email: 'pheakdey.t@metfone.com.kh', phone: '+855 12 300 006', pos: 'Accountant', dept: 'Finance', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'May 2023', tenure: '3 yrs', status: 'Active', perf: 82, avatar: '#F7F7F8', color: '#A7A9AB' },
+    { init: 'SM', name: 'Sopheap Meas', email: 'sopheap.m@metfone.com.kh', phone: '+855 12 300 007', pos: 'Manager', dept: 'IT', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Jan 2020', tenure: '6 yrs', status: 'Active', perf: 96, avatar: '#F0F9F8', color: '#00A79D' },
     { init: 'KC', name: 'Kosal Chan', email: 'kosal.c@metfone.com.kh', phone: '+855 12 300 008', pos: 'Network Engineer', dept: 'IT', type: 'Full-Time', location: 'Siem Reap', joined: 'Apr 2022', tenure: '4 yrs', status: 'Active', perf: 87, avatar: '#F0F9F8', color: '#00A79D' },
-    { init: 'LS', name: 'Leakhena Sok', email: 'leakhena.s@metfone.com.kh', phone: '+855 12 300 009', pos: 'Finance Officer', dept: 'Finance', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Sep 2021', tenure: '5 yrs', status: 'Active', perf: 90, avatar: '#E0F7F5', color: '#00A79D' },
+    { init: 'LS', name: 'Leakhena Sok', email: 'leakhena.s@metfone.com.kh', phone: '+855 12 300 009', pos: 'Finance Officer', dept: 'Finance', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Sep 2021', tenure: '5 yrs', status: 'Active', perf: 90, avatar: '#F0F9F8', color: '#00A79D' },
     { init: 'NV', name: 'Nary Vong', email: 'nary.v@metfone.com.kh', phone: '+855 12 300 010', pos: 'Customer Service Rep', dept: 'Customer Service', type: 'Full-Time', location: 'Battambang', joined: 'Nov 2023', tenure: '2 yrs', status: 'Active', perf: 79, avatar: '#FFF8F0', color: '#E87C1E' },
     { init: 'BC', name: 'Bopha Chea', email: 'bopha.c@metfone.com.kh', phone: '+855 12 300 011', pos: 'UI/UX Designer', dept: 'IT', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Jul 2022', tenure: '4 yrs', status: 'Active', perf: 92, avatar: '#FDE8E8', color: '#ED1C24' },
-    { init: 'TS', name: 'Theary Sun', email: 'theary.s@metfone.com.kh', phone: '+855 12 300 012', pos: 'Data Analyst', dept: 'Business Intelligence', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Feb 2024', tenure: '2 yrs', status: 'Active', perf: 84, avatar: '#E8F5E9', color: '#34C759' },
-    { init: 'MH', name: 'Mony Heng', email: 'mony.h@metfone.com.kh', phone: '+855 12 300 013', pos: 'Content Writer', dept: 'Marketing', type: 'Part-Time', location: 'Remote', joined: 'Oct 2024', tenure: '1 yr', status: 'Active', perf: 76, avatar: '#F7F7F8', color: '#8E8E93' },
+    { init: 'TS', name: 'Theary Sun', email: 'theary.s@metfone.com.kh', phone: '+855 12 300 012', pos: 'Data Analyst', dept: 'Business Intelligence', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Feb 2024', tenure: '2 yrs', status: 'Active', perf: 84, avatar: '#F0F9F8', color: '#00A79D' },
+    { init: 'MH', name: 'Mony Heng', email: 'mony.h@metfone.com.kh', phone: '+855 12 300 013', pos: 'Content Writer', dept: 'Marketing', type: 'Part-Time', location: 'Remote', joined: 'Oct 2024', tenure: '1 yr', status: 'Active', perf: 76, avatar: '#F7F7F8', color: '#A7A9AB' },
     { init: 'PL', name: 'Pisey Leng', email: 'pisey.l@metfone.com.kh', phone: '+855 12 300 014', pos: 'QA Engineer', dept: 'IT', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Mar 2023', tenure: '3 yrs', status: 'Active', perf: 86, avatar: '#F0F9F8', color: '#00A79D' },
     { init: 'SY', name: 'Sothea Yim', email: 'sothea.y@metfone.com.kh', phone: '+855 12 300 015', pos: 'Sales Executive', dept: 'Sales', type: 'Full-Time', location: 'Sihanoukville', joined: 'Jun 2023', tenure: '3 yrs', status: 'On Leave', perf: 81, avatar: '#FFF8F0', color: '#E87C1E' },
-    { init: 'KT', name: 'Kunthea Tep', email: 'kunthea.t@metfone.com.kh', phone: '+855 12 300 016', pos: 'Payroll Specialist', dept: 'Finance', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Jan 2022', tenure: '4 yrs', status: 'Active', perf: 89, avatar: '#E0F7F5', color: '#00A79D' },
-    { init: 'DV', name: 'Davith Var', email: 'davith.v@metfone.com.kh', phone: '+855 12 300 017', pos: 'Security Officer', dept: 'Operations', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'May 2020', tenure: '6 yrs', status: 'Active', perf: 83, avatar: '#F7F7F8', color: '#8E8E93' },
-    { init: 'CR', name: 'Chantha Ros', email: 'chantha.r@metfone.com.kh', phone: '+855 12 300 018', pos: 'Intern', dept: 'HR', type: 'Internship', location: 'Phnom Penh HQ', joined: 'Jan 2026', tenure: '3 mos', status: 'Active', perf: 74, avatar: '#E8F5E9', color: '#34C759' },
+    { init: 'KT', name: 'Kunthea Tep', email: 'kunthea.t@metfone.com.kh', phone: '+855 12 300 016', pos: 'Payroll Specialist', dept: 'Finance', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'Jan 2022', tenure: '4 yrs', status: 'Active', perf: 89, avatar: '#F0F9F8', color: '#00A79D' },
+    { init: 'DV', name: 'Davith Var', email: 'davith.v@metfone.com.kh', phone: '+855 12 300 017', pos: 'Security Officer', dept: 'Operations', type: 'Full-Time', location: 'Phnom Penh HQ', joined: 'May 2020', tenure: '6 yrs', status: 'Active', perf: 83, avatar: '#F7F7F8', color: '#A7A9AB' },
+    { init: 'CR', name: 'Chantha Ros', email: 'chantha.r@metfone.com.kh', phone: '+855 12 300 018', pos: 'Intern', dept: 'HR', type: 'Internship', location: 'Phnom Penh HQ', joined: 'Jan 2026', tenure: '3 mos', status: 'Active', perf: 74, avatar: '#F0F9F8', color: '#00A79D' },
   ];
 
   const departments = [...new Set(employees.map(e => e.dept))].sort();
@@ -62,7 +62,7 @@ Router.register('/hr/directory', function renderHrDirectory() {
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:28px">
         ${[
           { num: employees.length, label: 'Total Staff', color: 'var(--teal)', icon: '👥' },
-          { num: employees.filter(e => e.status === 'Active').length, label: 'Active', color: 'var(--green)', icon: '✅' },
+          { num: employees.filter(e => e.status === 'Active').length, label: 'Active', color: 'var(--teal)', icon: '✅' },
           { num: employees.filter(e => e.status === 'On Leave').length, label: 'On Leave', color: 'var(--orange)', icon: '🏖️' },
           { num: departments.length, label: 'Departments', color: 'var(--red)', icon: '🏢' },
           { num: locations.length, label: 'Locations', color: 'var(--text-secondary)', icon: '📍' },
@@ -109,7 +109,7 @@ Router.register('/hr/directory', function renderHrDirectory() {
             <span style="font-size:12px;color:var(--text-secondary)">${e.tenure}</span>
 
             <div>
-              <span style="font-size:14px;font-weight:700;color:${e.perf >= 90 ? 'var(--green)' : e.perf >= 80 ? 'var(--teal)' : 'var(--orange)'}">${e.perf}%</span>
+              <span style="font-size:14px;font-weight:700;color:${e.perf >= 90 ? 'var(--teal)' : e.perf >= 80 ? 'var(--teal)' : 'var(--orange)'}">${e.perf}%</span>
             </div>
 
             <span class="badge ${e.status === 'Active' ? 'badge-green' : e.status === 'On Leave' ? 'badge-orange' : 'badge-gray'}" style="font-size:10px;padding:4px 10px;justify-self:start">${e.status}</span>
