@@ -13,75 +13,37 @@ Router.register('/home', function renderHomeSeeker() {
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}
-    <!-- Compact greeting -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px">
-      <div style="display:flex;align-items:center;gap:14px">
-        <div class="avatar avatar-lg" style="background:#FDE8E8;color:#ED1C24;font-weight:700;font-size:17px;position:relative">
+    <!-- Slim greeting row -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="avatar avatar-md" style="background:#FDE8E8;color:#ED1C24;font-weight:700;font-size:14px;position:relative">
           SC
-          <span style="position:absolute;bottom:1px;right:1px;width:10px;height:10px;border-radius:50%;background:#34C759;border:2px solid white"></span>
+          <span style="position:absolute;bottom:0;right:0;width:9px;height:9px;border-radius:50%;background:#34C759;border:2px solid white"></span>
         </div>
         <div>
-          <p style="font-size:12px;color:var(--text-tertiary)">Good morning 👋</p>
-          <h1 style="font-family:var(--font-display);font-size:22px;font-weight:800">Sokha Chan</h1>
+          <p style="font-size:11px;color:var(--text-tertiary)">Good morning 👋</p>
+          <h1 style="font-family:var(--font-display);font-size:18px;font-weight:800">Sokha Chan</h1>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:12px">
-        <button class="btn-glass" style="padding:8px 16px;font-size:12px" onclick="Router.navigate('/profile')">Profile 85%</button>
-        <button onclick="Router.navigate('/notifications')" style="width:38px;height:38px;border-radius:50%;background:var(--glass-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-size:16px;position:relative;cursor:pointer">
-          🔔<span style="position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--red)"></span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="btn-glass" style="padding:6px 14px;font-size:11px" onclick="Router.navigate('/profile')">Profile 85%</button>
+        <button onclick="Router.navigate('/notifications')" style="width:34px;height:34px;border-radius:50%;background:var(--glass-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-size:14px;position:relative;cursor:pointer">
+          🔔<span style="position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--red)"></span>
         </button>
       </div>
     </div>
 
-    <!-- Stats strip -->
-    <div style="display:flex;gap:10px;margin-bottom:28px">
-      <div class="card" style="flex:1;display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer" onclick="Router.navigate('/applications')">
-        <div style="width:36px;height:36px;border-radius:12px;background:rgba(237,28,36,0.08);display:flex;align-items:center;justify-content:center;font-size:15px">📋</div>
-        <div><p style="font-family:var(--font-display);font-size:20px;font-weight:800">5</p><p style="font-size:11px;color:var(--text-tertiary)">Applied</p></div>
-      </div>
-      <div class="card" style="flex:1;display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer" onclick="Router.navigate('/tracking')">
-        <div style="width:36px;height:36px;border-radius:12px;background:rgba(0,167,157,0.08);display:flex;align-items:center;justify-content:center;font-size:15px">📍</div>
-        <div><p style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--teal)">2</p><p style="font-size:11px;color:var(--text-tertiary)">Interviews</p></div>
-      </div>
-      <div class="card" style="flex:1;display:flex;align-items:center;gap:12px;padding:14px 18px">
-        <div style="width:36px;height:36px;border-radius:12px;background:rgba(232,124,30,0.08);display:flex;align-items:center;justify-content:center;font-size:15px">🎉</div>
-        <div><p style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--orange)">1</p><p style="font-size:11px;color:var(--text-tertiary)">Offer</p></div>
-      </div>
-    </div>
-
     <!-- Search bar -->
-    <div class="card" style="display:flex;align-items:center;gap:12px;padding:10px 18px;margin-bottom:24px">
+    <div class="card" style="display:flex;align-items:center;gap:12px;padding:10px 18px;margin-bottom:20px">
       <span style="font-size:16px;color:var(--text-tertiary)">🔍</span>
       <input id="jobSearch" type="text" placeholder="Search positions, skills, locations…" style="flex:1;border:none;background:none;font-size:14px;outline:none;color:var(--black)">
       <button class="btn-glass" style="padding:6px 14px;font-size:11px" onclick="Router.navigate('/chat/ai')">✦ AI</button>
     </div>
 
-    <!-- Section: Active Applications -->
+    <!-- Jobs section (primary) -->
     <div style="margin-bottom:32px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-        <h2 style="font-family:var(--font-display);font-size:16px;font-weight:700">Active Applications</h2>
-        <a href="#/applications" style="font-size:12px;font-weight:600;color:var(--teal)">View all →</a>
-      </div>
-      <div style="display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px">
-        ${[
-          { title:'Recruitment Officer', status:'In Review', badge:'badge-red', progress:25 },
-          { title:'Network Engineer', status:'Shortlisted', badge:'badge-teal', progress:50 },
-          { title:'Mobile App Dev', status:'Interview', badge:'badge-orange', progress:75 },
-        ].map(a => `
-          <div class="card" style="min-width:200px;flex-shrink:0;padding:16px;cursor:pointer" onclick="Router.navigate('/tracking')">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-              <p style="font-size:13px;font-weight:600">${a.title}</p>
-            </div>
-            <div style="height:4px;border-radius:2px;background:var(--border);margin-bottom:8px"><div style="height:100%;width:${a.progress}%;border-radius:2px;background:var(--teal)"></div></div>
-            <span class="badge ${a.badge}" style="font-size:10px">${a.status}</span>
-          </div>`).join('')}
-      </div>
-    </div>
-
-    <!-- Section: Recommended Jobs -->
-    <div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-        <h2 style="font-family:var(--font-display);font-size:16px;font-weight:700">Recommended for You</h2>
+        <h2 style="font-family:var(--font-display);font-size:16px;font-weight:700">Jobs for You</h2>
         <div class="tab-row" style="margin-bottom:0;gap:4px">
           <button class="tab active" style="padding:6px 14px;font-size:11px">Best Match</button>
           <button class="tab" style="padding:6px 14px;font-size:11px">Recent</button>
@@ -105,6 +67,42 @@ Router.register('/home', function renderHomeSeeker() {
               <span style="font-size:11px;font-weight:700;color:${j.match >= 85 ? 'var(--teal)' : 'var(--text-tertiary)'}">${j.match}%</span>
             </div>
           </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Active Applications (secondary) -->
+    <div style="margin-bottom:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <h2 style="font-family:var(--font-display);font-size:16px;font-weight:700">Active Applications</h2>
+        <a href="#/applications" style="font-size:12px;font-weight:600;color:var(--teal)">View all →</a>
+      </div>
+      <div style="display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px">
+        ${[
+          { title:'Recruitment Officer', status:'In Review', badge:'badge-red', progress:25 },
+          { title:'Network Engineer', status:'Shortlisted', badge:'badge-teal', progress:50 },
+          { title:'Mobile App Dev', status:'Interview', badge:'badge-orange', progress:75 },
+        ].map(a => `
+          <div class="card" style="min-width:200px;flex-shrink:0;padding:16px;cursor:pointer" onclick="Router.navigate('/tracking')">
+            <p style="font-size:13px;font-weight:600;margin-bottom:10px">${a.title}</p>
+            <div style="height:4px;border-radius:2px;background:var(--border);margin-bottom:8px"><div style="height:100%;width:${a.progress}%;border-radius:2px;background:var(--teal)"></div></div>
+            <span class="badge ${a.badge}" style="font-size:10px">${a.status}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Stats strip (compact) -->
+    <div style="display:flex;gap:10px">
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer" onclick="Router.navigate('/applications')">
+        <span style="font-size:14px">📋</span>
+        <div><p style="font-family:var(--font-display);font-size:18px;font-weight:800">5</p><p style="font-size:10px;color:var(--text-tertiary)">Applied</p></div>
+      </div>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer" onclick="Router.navigate('/tracking')">
+        <span style="font-size:14px">📍</span>
+        <div><p style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--teal)">2</p><p style="font-size:10px;color:var(--text-tertiary)">Interviews</p></div>
+      </div>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:10px;padding:12px 16px">
+        <span style="font-size:14px">🎉</span>
+        <div><p style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--orange)">1</p><p style="font-size:10px;color:var(--text-tertiary)">Offer</p></div>
       </div>
     </div>`;
 
