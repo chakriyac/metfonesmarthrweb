@@ -13,38 +13,37 @@ Router.register('/applications', function renderMyApplications() {
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}
-    <div class="two-col">
-      <div class="col-main">
-        <div class="page-header">
-          <h1>My Applications</h1>
-          <p>View and manage all your applications</p>
-        </div>
+    <div style="max-width:800px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h1 style="font-family:var(--font-display);font-size:22px;font-weight:700">My Applications</h1>
+        <button class="btn-glass" style="font-size:12px;padding:8px 14px" onclick="Router.navigate('/home')">Browse Jobs</button>
+      </div>
 
-        <div class="stats-row" style="margin-bottom:20px">
-          <div class="stat-card" style="background:linear-gradient(135deg,var(--grad-1),var(--grad-4))">
-            <div class="number">5</div>
-            <div class="label">TOTAL</div>
-          </div>
-          <div class="stat-card">
-            <div class="number" style="color:var(--red)">2</div>
-            <div class="label">IN REVIEW</div>
-          </div>
-          <div class="stat-card">
-            <div class="number" style="color:var(--teal)">1</div>
-            <div class="label">SHORTLISTED</div>
-          </div>
-          <div class="stat-card">
-            <div class="number" style="color:var(--orange)">1</div>
-            <div class="label">SCHEDULED</div>
-          </div>
+      <div class="stats-row" style="margin-bottom:20px">
+        <div class="stat-card" style="background:linear-gradient(135deg,var(--grad-1),var(--grad-4))">
+          <div class="number">5</div>
+          <div class="label">TOTAL</div>
         </div>
-
-        <div class="tab-row">
-          <button class="tab active">Ongoing</button>
-          <button class="tab">History</button>
+        <div class="stat-card">
+          <div class="number" style="color:var(--red)">2</div>
+          <div class="label">IN REVIEW</div>
         </div>
+        <div class="stat-card">
+          <div class="number" style="color:var(--teal)">1</div>
+          <div class="label">SHORTLISTED</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="color:var(--orange)">1</div>
+          <div class="label">INTERVIEW</div>
+        </div>
+      </div>
 
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+      <div class="tab-row">
+        <button class="tab active">Ongoing</button>
+        <button class="tab">History</button>
+      </div>
+
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
         <div class="table-header" style="grid-template-columns:2fr 1fr 80px 100px 60px;min-width:500px">
           <span>POSITION</span><span>COMPANY</span><span>DATE</span><span>STATUS</span><span>ACTION</span>
         </div>
@@ -64,18 +63,6 @@ Router.register('/applications', function renderMyApplications() {
             <a href="#/tracking" style="font-size:12px;font-weight:600;color:var(--teal)">${a.status === 'Closed' ? 'View' : 'Track →'}</a>
           </div>
         `).join('')}
-        </div><!-- end scroll wrap -->
-      </div>
-
-      <div class="col-side">
-        <div class="card card-lg">
-          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:16px">Quick Actions</h3>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <button class="btn btn-dark" style="width:100%;font-size:13px;padding:12px 20px" onclick="Router.navigate('/chat/ai')">✦ Ask AI about applications</button>
-            <button class="btn-glass" style="width:100%" onclick="Router.navigate('/chat/hr')">💬 Chat with HR</button>
-            <button class="btn-glass" style="width:100%" onclick="Router.navigate('/home')">🔍 Browse more jobs</button>
-          </div>
-        </div>
       </div>
     </div>`;
 
