@@ -1,7 +1,7 @@
 /* ─── Job Detail Page ─── */
 Router.register('/jobs/:id', function renderJobDetail() {
   const page = el('div', { className: 'app-layout fade-in' });
-  page.appendChild(seekerSidebar('/jobs'));
+  page.appendChild(seekerSidebar('/home'));
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}

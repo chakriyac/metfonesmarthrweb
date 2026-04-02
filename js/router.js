@@ -90,8 +90,7 @@ function logout() {
 function seekerSidebar(active) {
   const navItems = [
     { icon: '🏠', label: 'Home', route: '/home' },
-    { icon: '💼', label: 'Jobs', route: '/jobs' },
-    { icon: '📋', label: 'Applications', route: '/applications' },
+    { icon: '', label: 'Applications', route: '/applications' },
     { icon: '📍', label: 'Tracking', route: '/tracking' },
     { icon: '🔔', label: 'Notifications', route: '/notifications' },
     { icon: '💬', label: 'Messages', route: '/chat/hr' },
