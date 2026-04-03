@@ -235,7 +235,13 @@ Router.register('/home', function renderHomeSeeker() {
 
     </div>`;
 
-    bindEvents();
+    if (main.isConnected) {
+      bindEvents();
+    } else {
+      new MutationObserver(function(_, obs) {
+        if (main.isConnected) { obs.disconnect(); bindEvents(); }
+      }).observe(document.documentElement, { childList: true, subtree: true });
+    }
   }
 
   function bindEvents() {

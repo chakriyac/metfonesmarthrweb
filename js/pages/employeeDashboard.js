@@ -85,6 +85,53 @@ Router.register('/employee/dashboard', function renderEmployeeDashboard() {
             </div>
           `).join('')}
         </div>
+
+        <!-- Perfect Attendance Leaderboard -->
+        <div style="margin-top:28px">
+          <div class="section-header"><h2>Perfect Attendance</h2></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+            ${[
+              { month: 'January', color: '#ED1C24', bg: 'rgba(237,28,36,0.06)', staff: [
+                { initials: 'SC', name: 'Sokha Chea', dept: 'IT', days: '22/22', pct: 100 },
+                { initials: 'DP', name: 'Dara Pich', dept: 'Finance', days: '22/22', pct: 100 },
+                { initials: 'VN', name: 'Vanna Nob', dept: 'HR', days: '22/22', pct: 100 },
+              ]},
+              { month: 'February', color: '#00A79D', bg: 'rgba(0,167,157,0.06)', staff: [
+                { initials: 'VN', name: 'Vanna Nob', dept: 'HR', days: '20/20', pct: 100 },
+                { initials: 'KR', name: 'Kosal Rin', dept: 'Sales', days: '20/20', pct: 100 },
+                { initials: 'SL', name: 'Srey Leak', dept: 'Marketing', days: '20/20', pct: 100 },
+              ]},
+              { month: 'March', color: '#E87C1E', bg: 'rgba(232,124,30,0.06)', staff: [
+                { initials: 'DP', name: 'Dara Pich', dept: 'Finance', days: '23/23', pct: 100 },
+                { initials: 'VN', name: 'Vanna Nob', dept: 'HR', days: '23/23', pct: 100 },
+                { initials: 'TH', name: 'Thy Horn', dept: 'Support', days: '23/23', pct: 100 },
+              ]},
+            ].map(m => `
+              <div class="card" style="padding:20px;border-radius:20px;overflow:hidden;position:relative">
+                <div style="position:absolute;top:0;left:0;right:0;height:4px;background:${m.color}"></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+                  <div style="width:32px;height:32px;border-radius:10px;background:${m.bg};display:flex;align-items:center;justify-content:center;font-size:15px">🏆</div>
+                  <div>
+                    <p style="font-size:13px;font-weight:700;color:var(--black)">${m.month}</p>
+                    <p style="font-size:10px;color:var(--text-tertiary)">100% Attendance</p>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  ${m.staff.map((s, i) => `
+                  <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:${i === 0 ? m.bg : 'rgba(0,0,0,0.015)'};border-radius:12px;${i === 0 ? 'border:1px solid ' + m.color + '22' : ''}">
+                    <span style="font-size:11px;font-weight:800;color:${i === 0 ? m.color : 'var(--text-tertiary)'};width:16px;text-align:center">${i + 1}</span>
+                    <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,${m.color}20,${m.color}10);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:${m.color};flex-shrink:0">${s.initials}</div>
+                    <div style="flex:1;min-width:0">
+                      <p style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</p>
+                      <p style="font-size:10px;color:var(--text-tertiary)">${s.dept}</p>
+                    </div>
+                    <span style="font-size:10px;font-weight:700;color:${m.color};background:${m.bg};padding:3px 8px;border-radius:8px;white-space:nowrap">${s.days}</span>
+                  </div>`).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
       </div>
 
       <!-- Right sidebar -->

@@ -1,7 +1,7 @@
 /* ─── HR Create / Post Job Page ─── */
 Router.register('/hr/jobs/create', function renderHrJobCreate() {
   const page = el('div', { className: 'app-layout fade-in' });
-  page.appendChild(hrSidebar('/hr/jobs/create'));
+  page.appendChild(hrSidebar('/hr/jobs'));
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}
@@ -114,7 +114,7 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
         </div>
 
         <!-- Benefits -->
-        <div class="card card-lg" style="border-radius:24px;padding:28px;margin-bottom:24px">
+        <div class="card card-lg" style="border-radius:24px;padding:28px;margin-bottom:16px">
           <h3 style="font-size:12px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.8px;margin-bottom:16px">BENEFITS & PERKS</h3>
           <div id="benefits-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
             ${[
@@ -136,9 +136,123 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
           </div>
         </div>
 
+        <!-- Photo Attachment -->
+        <div class="card card-lg" style="border-radius:24px;padding:28px;margin-bottom:16px">
+          <h3 style="font-size:12px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.8px;margin-bottom:16px">COVER IMAGE & ATTACHMENTS</h3>
+          <div id="photo-drop-zone" style="border:2px dashed var(--glass-border);border-radius:20px;padding:32px 20px;text-align:center;cursor:pointer;transition:all 0.3s;background:var(--glass-bg)">
+            <div style="font-size:40px;margin-bottom:8px">🖼️</div>
+            <p style="font-size:13px;font-weight:700;margin-bottom:4px">Upload Cover Image</p>
+            <p style="font-size:11px;color:var(--text-tertiary)">This image will appear on social media shares · JPG, PNG · Max 5MB</p>
+            <input type="file" id="photo-file-input" accept="image/*" style="display:none">
+          </div>
+          <div id="photo-preview" style="display:none;margin-top:12px;position:relative">
+            <img id="photo-preview-img" style="width:100%;border-radius:16px;max-height:200px;object-fit:cover">
+            <button id="photo-remove" style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.6);color:#fff;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">✕</button>
+          </div>
+        </div>
+
+        <!-- Schedule & Publish Options -->
+        <div class="card card-lg" style="border-radius:24px;padding:28px;margin-bottom:16px">
+          <h3 style="font-size:12px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.8px;margin-bottom:16px">PUBLISH OPTIONS</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+            <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(0,167,157,0.04);border:1.5px solid var(--glass-border);cursor:pointer;transition:all 0.2s" id="opt-publish-now">
+              <input type="radio" name="publish-mode" value="now" checked style="accent-color:var(--teal);width:16px;height:16px">
+              <span style="font-size:18px">🚀</span>
+              <div style="flex:1">
+                <p style="font-size:13px;font-weight:600">Publish Now</p>
+                <p style="font-size:11px;color:var(--text-tertiary)">Job goes live immediately</p>
+              </div>
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,0.4);border:1.5px solid var(--glass-border);cursor:pointer;transition:all 0.2s" id="opt-schedule">
+              <input type="radio" name="publish-mode" value="schedule" style="accent-color:var(--teal);width:16px;height:16px">
+              <span style="font-size:18px">📅</span>
+              <div style="flex:1">
+                <p style="font-size:13px;font-weight:600">Schedule Post</p>
+                <p style="font-size:11px;color:var(--text-tertiary)">Set a date & time to auto-publish</p>
+              </div>
+            </label>
+          </div>
+          <div id="schedule-fields" style="display:none;margin-bottom:16px;padding:16px;border-radius:16px;background:rgba(232,124,30,0.04);border:1px solid rgba(232,124,30,0.15)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div class="input-group">
+                <label>📅 Publish Date</label>
+                <input type="date" id="schedule-date">
+              </div>
+              <div class="input-group">
+                <label>🕐 Publish Time</label>
+                <input type="time" id="schedule-time" value="09:00">
+              </div>
+            </div>
+            <p style="font-size:10px;color:var(--orange);margin-top:8px;font-weight:600">⏰ Job will be automatically published at the scheduled time</p>
+          </div>
+        </div>
+
+        <!-- Social Media Sharing -->
+        <div class="card card-lg" style="border-radius:24px;padding:28px;margin-bottom:24px">
+          <h3 style="font-size:12px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.8px;margin-bottom:6px">SHARE TO SOCIAL MEDIA</h3>
+          <p style="font-size:11px;color:var(--text-tertiary);margin-bottom:16px">Post this job automatically to your company's social pages</p>
+
+          <!-- LinkedIn -->
+          <div class="social-share-card" style="padding:16px;border-radius:16px;border:1.5px solid var(--glass-border);margin-bottom:10px;transition:all 0.2s">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <div style="width:36px;height:36px;border-radius:10px;background:#0A66C2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800">in</div>
+              <div style="flex:1">
+                <p style="font-size:13px;font-weight:700">LinkedIn</p>
+                <p style="font-size:10px;color:var(--text-tertiary)">Metfone Cambodia · 12.5K followers</p>
+              </div>
+              <label style="position:relative;width:44px;height:24px">
+                <input type="checkbox" id="share-linkedin" style="display:none">
+                <span class="toggle-track" style="position:absolute;left:0;top:0;width:44px;height:24px;border-radius:12px;background:var(--glass-border);transition:0.3s;cursor:pointer"></span>
+                <span class="toggle-thumb" style="position:absolute;left:2px;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2);cursor:pointer"></span>
+              </label>
+            </div>
+            <div id="linkedin-custom" style="display:none">
+              <textarea id="linkedin-caption" placeholder="Customize your LinkedIn post caption…" style="width:100%;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:10px 14px;font-size:12px;min-height:60px;resize:vertical;font-family:var(--font-text);color:var(--black);margin-bottom:6px"></textarea>
+              <p style="font-size:10px;color:var(--text-tertiary)">🔗 Cover image + job link will be attached automatically</p>
+            </div>
+          </div>
+
+          <!-- Facebook -->
+          <div class="social-share-card" style="padding:16px;border-radius:16px;border:1.5px solid var(--glass-border);margin-bottom:10px;transition:all 0.2s">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <div style="width:36px;height:36px;border-radius:10px;background:#1877F2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:800">f</div>
+              <div style="flex:1">
+                <p style="font-size:13px;font-weight:700">Facebook Page</p>
+                <p style="font-size:10px;color:var(--text-tertiary)">Metfone Careers · 45.2K followers</p>
+              </div>
+              <label style="position:relative;width:44px;height:24px">
+                <input type="checkbox" id="share-facebook" style="display:none">
+                <span class="toggle-track" style="position:absolute;left:0;top:0;width:44px;height:24px;border-radius:12px;background:var(--glass-border);transition:0.3s;cursor:pointer"></span>
+                <span class="toggle-thumb" style="position:absolute;left:2px;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2);cursor:pointer"></span>
+              </label>
+            </div>
+            <div id="facebook-custom" style="display:none">
+              <textarea id="facebook-caption" placeholder="Customize your Facebook post caption…" style="width:100%;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:10px 14px;font-size:12px;min-height:60px;resize:vertical;font-family:var(--font-text);color:var(--black);margin-bottom:6px"></textarea>
+              <p style="font-size:10px;color:var(--text-tertiary)">📷 Cover image + job description will be posted directly to your Page</p>
+            </div>
+          </div>
+
+          <!-- Telegram -->
+          <div class="social-share-card" style="padding:16px;border-radius:16px;border:1.5px solid var(--glass-border);transition:all 0.2s">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:36px;height:36px;border-radius:10px;background:#2AABEE;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px">✈</div>
+              <div style="flex:1">
+                <p style="font-size:13px;font-weight:700">Telegram Channel</p>
+                <p style="font-size:10px;color:var(--text-tertiary)">@MetfoneJobs · 8.1K subscribers</p>
+              </div>
+              <label style="position:relative;width:44px;height:24px">
+                <input type="checkbox" id="share-telegram" style="display:none">
+                <span class="toggle-track" style="position:absolute;left:0;top:0;width:44px;height:24px;border-radius:12px;background:var(--glass-border);transition:0.3s;cursor:pointer"></span>
+                <span class="toggle-thumb" style="position:absolute;left:2px;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2);cursor:pointer"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
         <!-- Action buttons -->
-        <div style="display:flex;gap:12px;justify-content:flex-end;margin-bottom:40px">
-          <button class="btn-glass" style="padding:14px 28px;font-size:14px" onclick="Router.navigate('/hr/dashboard')">Save as Draft</button>
+        <div style="display:flex;gap:12px;justify-content:flex-end;margin-bottom:40px;flex-wrap:wrap">
+          <button class="btn-glass" style="padding:14px 28px;font-size:14px" onclick="Router.navigate('/hr/jobs')">📋 View All Posts</button>
+          <button class="btn-glass" style="padding:14px 28px;font-size:14px" id="save-draft-btn">Save as Draft</button>
           <button class="btn-dark" id="publish-btn" style="padding:14px 36px;font-size:14px;font-weight:700;border-radius:var(--radius-pill)">
             🚀 Publish Job
           </button>
@@ -181,9 +295,66 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
             </div>
           </div>
 
-          <div style="padding:14px;border-radius:14px;background:rgba(0,167,157,0.06);border:1px solid rgba(0,167,157,0.12)">
+          <div style="padding:14px;border-radius:14px;background:rgba(0,167,157,0.06);border:1px solid rgba(0,167,157,0.12);margin-bottom:14px">
             <p style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px">🤖 AI Matching</p>
             <p style="font-size:11px;color:var(--text-tertiary);line-height:1.5">Candidates will be automatically ranked based on experience, skills, and job requirements.</p>
+          </div>
+
+          <!-- Social sharing status -->
+          <div id="preview-social" style="display:flex;flex-direction:column;gap:6px">
+            <p style="font-size:10px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.5px;margin-bottom:2px">SHARE TO</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap" id="preview-social-icons">
+              <span style="font-size:10px;color:var(--text-tertiary);padding:3px 8px;border-radius:6px;background:var(--glass-bg);border:1px solid var(--glass-border)">No platforms selected</span>
+            </div>
+          </div>
+
+          <!-- Cover image preview -->
+          <div id="preview-cover" style="display:none;margin-top:12px">
+            <p style="font-size:10px;font-weight:700;color:var(--text-tertiary);margin-bottom:6px">COVER IMAGE</p>
+            <img id="preview-cover-img" style="width:100%;border-radius:12px;max-height:120px;object-fit:cover">
+          </div>
+        </div>
+
+        <!-- ═══════════ AI Assistant Chat ═══════════ -->
+        <div class="card card-lg" style="border-radius:24px;padding:0;overflow:hidden;margin-top:16px;position:sticky;top:420px;display:flex;flex-direction:column;max-height:480px">
+          <!-- Header -->
+          <div style="padding:14px 18px;background:linear-gradient(135deg,var(--red),var(--teal));color:#fff;display:flex;align-items:center;gap:10px">
+            <div style="width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:16px">🤖</div>
+            <div style="flex:1">
+              <p style="font-size:13px;font-weight:700">AI Job Assistant</p>
+              <p style="font-size:9px;opacity:0.8">● Ask me to help fill any field</p>
+            </div>
+            <button id="ai-clear-chat" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:24px;height:24px;border-radius:8px;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center">🗑</button>
+          </div>
+
+          <!-- Messages -->
+          <div id="ai-job-messages" style="flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-height:180px;max-height:240px;background:rgba(255,255,255,0.3)">
+            <div style="display:flex;gap:8px;align-items:flex-start">
+              <div style="width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,var(--red),var(--teal));display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🤖</div>
+              <div style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:0 12px 12px 12px;padding:10px 12px;max-width:90%;font-size:11px;line-height:1.6;color:var(--text-primary)">
+                <p>Hi! I can help you fill out this job posting. Try:</p>
+                <ul style="margin:4px 0 0 14px;font-size:10px;color:var(--text-secondary);line-height:1.8">
+                  <li>Suggest a description for [job title]</li>
+                  <li>What requirements for a [role]?</li>
+                  <li>Suggest benefits & salary range</li>
+                  <li>Write a full job post for me</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Suggestion Chips -->
+          <div id="ai-job-chips" style="padding:6px 12px;display:flex;gap:4px;overflow-x:auto;border-top:1px solid var(--glass-border);flex-shrink:0">
+            <button class="ai-prompt-chip ai-job-chip" data-prompt="Suggest a job description" style="font-size:10px;padding:4px 10px">📝 Description</button>
+            <button class="ai-prompt-chip ai-job-chip" data-prompt="Suggest key requirements" style="font-size:10px;padding:4px 10px">📋 Requirements</button>
+            <button class="ai-prompt-chip ai-job-chip" data-prompt="Suggest preferred skills" style="font-size:10px;padding:4px 10px">⚡ Skills</button>
+            <button class="ai-prompt-chip ai-job-chip" data-prompt="Fill all fields for me" style="font-size:10px;padding:4px 10px">✨ Fill All</button>
+          </div>
+
+          <!-- Input -->
+          <div style="padding:10px 12px;border-top:1px solid var(--glass-border);display:flex;gap:6px;align-items:center;flex-shrink:0">
+            <input type="text" id="ai-job-input" placeholder="Ask AI to help fill fields…" style="flex:1;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:8px 12px;font-size:12px;outline:none">
+            <button id="ai-job-send" style="width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,var(--red),var(--teal));border:none;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center">➤</button>
           </div>
         </div>
       </div>
@@ -228,7 +399,94 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
       }
     });
 
-    // Publish button
+    /* ─── Photo Upload ─── */
+    const photoZone = page.querySelector('#photo-drop-zone');
+    const photoInput = page.querySelector('#photo-file-input');
+    const photoPreview = page.querySelector('#photo-preview');
+    const photoImg = page.querySelector('#photo-preview-img');
+    let uploadedPhoto = null;
+
+    photoZone.addEventListener('click', () => photoInput.click());
+    photoZone.addEventListener('dragover', e => { e.preventDefault(); photoZone.style.borderColor = 'var(--teal)'; });
+    photoZone.addEventListener('dragleave', () => { photoZone.style.borderColor = 'var(--glass-border)'; });
+    photoZone.addEventListener('drop', e => {
+      e.preventDefault(); photoZone.style.borderColor = 'var(--glass-border)';
+      const f = Array.from(e.dataTransfer.files).find(f => f.type.startsWith('image/'));
+      if (f) showPhoto(f);
+    });
+    photoInput.addEventListener('change', () => { if (photoInput.files[0]) showPhoto(photoInput.files[0]); });
+
+    function showPhoto(file) {
+      uploadedPhoto = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        photoImg.src = e.target.result;
+        photoPreview.style.display = 'block';
+        photoZone.style.display = 'none';
+        // Update sidebar preview
+        const pcv = page.querySelector('#preview-cover');
+        pcv.style.display = 'block';
+        page.querySelector('#preview-cover-img').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+    page.querySelector('#photo-remove').addEventListener('click', () => {
+      uploadedPhoto = null; photoPreview.style.display = 'none'; photoZone.style.display = 'block';
+      page.querySelector('#preview-cover').style.display = 'none';
+    });
+
+    /* ─── Schedule Toggle ─── */
+    const scheduleFields = page.querySelector('#schedule-fields');
+    page.querySelectorAll('input[name="publish-mode"]').forEach(r => {
+      r.addEventListener('change', () => {
+        scheduleFields.style.display = r.value === 'schedule' && r.checked ? 'block' : 'none';
+        const pubBtn = page.querySelector('#publish-btn');
+        if (r.value === 'schedule' && r.checked) {
+          pubBtn.innerHTML = '📅 Schedule Post';
+        } else {
+          pubBtn.innerHTML = '🚀 Publish Job';
+        }
+      });
+    });
+
+    /* ─── Social Sharing Toggles ─── */
+    function updateSocialPreview() {
+      const li = page.querySelector('#share-linkedin').checked;
+      const fb = page.querySelector('#share-facebook').checked;
+      const tg = page.querySelector('#share-telegram').checked;
+      page.querySelector('#linkedin-custom').style.display = li ? 'block' : 'none';
+      page.querySelector('#facebook-custom').style.display = fb ? 'block' : 'none';
+      const icons = [];
+      if (li) icons.push('<span style="font-size:10px;padding:3px 10px;border-radius:6px;background:rgba(10,102,194,0.1);color:#0A66C2;font-weight:600">in LinkedIn</span>');
+      if (fb) icons.push('<span style="font-size:10px;padding:3px 10px;border-radius:6px;background:rgba(24,119,242,0.1);color:#1877F2;font-weight:600">f Facebook</span>');
+      if (tg) icons.push('<span style="font-size:10px;padding:3px 10px;border-radius:6px;background:rgba(42,171,238,0.1);color:#2AABEE;font-weight:600">✈ Telegram</span>');
+      page.querySelector('#preview-social-icons').innerHTML = icons.length > 0 ? icons.join('') : '<span style="font-size:10px;color:var(--text-tertiary);padding:3px 8px;border-radius:6px;background:var(--glass-bg);border:1px solid var(--glass-border)">No platforms selected</span>';
+    }
+
+    // Toggle switch styling + event
+    page.querySelectorAll('.social-share-card input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', function() {
+        const track = this.parentElement.querySelector('.toggle-track');
+        const thumb = this.parentElement.querySelector('.toggle-thumb');
+        if (this.checked) {
+          track.style.background = 'var(--teal)'; thumb.style.left = '22px';
+        } else {
+          track.style.background = 'var(--glass-border)'; thumb.style.left = '2px';
+        }
+        updateSocialPreview();
+      });
+    });
+
+    /* ─── Save Draft ─── */
+    page.querySelector('#save-draft-btn').addEventListener('click', () => {
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:30px;right:30px;padding:16px 24px;border-radius:16px;background:var(--teal);color:#fff;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.2);animation:fadeIn 0.3s';
+      toast.textContent = '💾 Draft saved successfully!';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    });
+
+    /* ─── Publish / Schedule ─── */
     page.querySelector('#publish-btn').addEventListener('click', () => {
       const title = page.querySelector('#job-title').value.trim();
       const dept = page.querySelector('#job-dept').value;
@@ -237,8 +495,221 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
         alert('Please fill in required fields: Job Title, Department, and Description.');
         return;
       }
-      alert('Job "' + title + '" published successfully! Candidates will be auto-ranked by AI.');
-      Router.navigate('/hr/applications');
+
+      const isScheduled = page.querySelector('input[name="publish-mode"][value="schedule"]').checked;
+      const schedDate = page.querySelector('#schedule-date')?.value;
+      const schedTime = page.querySelector('#schedule-time')?.value;
+      const li = page.querySelector('#share-linkedin').checked;
+      const fb = page.querySelector('#share-facebook').checked;
+      const tg = page.querySelector('#share-telegram').checked;
+
+      const btn = page.querySelector('#publish-btn');
+      btn.innerHTML = '⏳ Processing…'; btn.disabled = true; btn.style.opacity = '0.7';
+
+      setTimeout(() => {
+        btn.innerHTML = '✅ Done!'; btn.style.opacity = '1';
+
+        const socials = [li && 'LinkedIn', fb && 'Facebook', tg && 'Telegram'].filter(Boolean);
+        let msg = isScheduled && schedDate
+          ? '📅 "' + title + '" scheduled for ' + schedDate + ' at ' + (schedTime || '09:00')
+          : '🚀 "' + title + '" published successfully!';
+        if (socials.length > 0) msg += '\n📢 Shared to: ' + socials.join(', ');
+        if (uploadedPhoto) msg += '\n🖼️ Cover image attached';
+
+        const toast = document.createElement('div');
+        toast.style.cssText = 'position:fixed;bottom:30px;right:30px;padding:18px 26px;border-radius:18px;background:var(--teal);color:#fff;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.2);animation:fadeIn 0.3s;white-space:pre-line;max-width:380px;line-height:1.6';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.remove(); Router.navigate('/hr/jobs'); }, 3500);
+      }, 1800);
+    });
+
+    /* ═══════════ AI Job Assistant Chat ═══════════ */
+    const aiMsgs = page.querySelector('#ai-job-messages');
+    const aiInput = page.querySelector('#ai-job-input');
+    const aiSend = page.querySelector('#ai-job-send');
+
+    function aiAddUser(text) {
+      const d = document.createElement('div');
+      d.style.cssText = 'display:flex;justify-content:flex-end;animation:fadeIn 0.3s';
+      d.innerHTML = `<div style="background:linear-gradient(135deg,var(--red),#BE1E2D);color:#fff;border-radius:12px 0 12px 12px;padding:8px 12px;max-width:85%;font-size:11px;line-height:1.5">${text}</div>`;
+      aiMsgs.appendChild(d);
+      aiMsgs.scrollTop = aiMsgs.scrollHeight;
+    }
+
+    function aiAddBot(html) {
+      const d = document.createElement('div');
+      d.style.cssText = 'display:flex;gap:8px;align-items:flex-start;animation:fadeIn 0.3s';
+      d.innerHTML = `<div style="width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,var(--red),var(--teal));display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🤖</div>` +
+        `<div style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:0 12px 12px 12px;padding:10px 12px;max-width:90%;font-size:11px;line-height:1.6;color:var(--text-primary)">${html}</div>`;
+      aiMsgs.appendChild(d);
+      aiMsgs.scrollTop = aiMsgs.scrollHeight;
+    }
+
+    function aiShowTyping() {
+      const d = document.createElement('div');
+      d.id = 'ai-job-typing';
+      d.style.cssText = 'display:flex;gap:8px;align-items:flex-start;animation:fadeIn 0.2s';
+      d.innerHTML = `<div style="width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,var(--red),var(--teal));display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🤖</div>` +
+        `<div style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:0 12px 12px 12px;padding:8px 12px;font-size:11px;color:var(--text-tertiary)"><span class="typing-dots">Thinking<span>.</span><span>.</span><span>.</span></span></div>`;
+      aiMsgs.appendChild(d);
+      aiMsgs.scrollTop = aiMsgs.scrollHeight;
+    }
+    function aiRemoveTyping() { const t = page.querySelector('#ai-job-typing'); if (t) t.remove(); }
+
+    function getFormCtx() {
+      return {
+        title: page.querySelector('#job-title').value.trim(),
+        dept: page.querySelector('#job-dept').value,
+        type: page.querySelector('#job-type').value,
+      };
+    }
+
+    function aiRespond(query) {
+      const q = query.toLowerCase();
+      const ctx = getFormCtx();
+      const role = ctx.title || 'the position';
+      const dept = ctx.dept || 'your department';
+
+      /* Fill All Fields */
+      if (q.includes('fill all') || q.includes('fill everything') || q.includes('auto fill') || q.includes('complete all')) {
+        const title = ctx.title || 'Software Engineer';
+        const deptVal = ctx.dept || 'IT Department';
+        if (!ctx.title) { page.querySelector('#job-title').value = title; page.querySelector('#job-title').dispatchEvent(new Event('input')); }
+        if (!ctx.dept) { const sel = page.querySelector('#job-dept'); for (let o of sel.options) { if (o.text === deptVal) { o.selected = true; break; } } sel.dispatchEvent(new Event('change')); }
+        if (!ctx.type) { const sel = page.querySelector('#job-type'); sel.selectedIndex = 1; sel.dispatchEvent(new Event('change')); }
+
+        const descs = {
+          'IT Department': `We are seeking a skilled ${title} to join our ${deptVal}. You will work on building and maintaining critical systems, collaborating with cross-functional teams, and contributing to Metfone\u2019s digital transformation.\n\nResponsibilities:\n\u2022 Design, develop, and maintain high-quality solutions\n\u2022 Collaborate with product managers and designers\n\u2022 Write clean, testable, and efficient code\n\u2022 Participate in code reviews and knowledge sharing\n\u2022 Troubleshoot and debug production issues`,
+          'HR Department': `We are looking for a dedicated ${title} to strengthen our HR team. You will support recruitment, employee relations, and organizational development.\n\nResponsibilities:\n\u2022 Support end-to-end recruitment processes\n\u2022 Maintain employee records and HR documentation\n\u2022 Assist with onboarding and orientation programs\n\u2022 Handle employee inquiries and engagement\n\u2022 Prepare HR reports and analytics`,
+          'Marketing': `Join our Marketing team as a ${title}! Drive brand awareness, execute campaigns, and contribute to market leadership.\n\nResponsibilities:\n\u2022 Plan and execute campaigns across channels\n\u2022 Create engaging content for digital platforms\n\u2022 Analyze campaign performance and optimize ROI\n\u2022 Coordinate with agencies and vendors\n\u2022 Support event planning and brand activations`,
+          'Finance': `We seek an experienced ${title} for Finance. Maintain accurate financial records and support strategic planning.\n\nResponsibilities:\n\u2022 Prepare financial statements and reports\n\u2022 Manage accounts payable/receivable\n\u2022 Support budgeting and forecasting\n\u2022 Ensure regulatory compliance\n\u2022 Assist with audits`,
+          'Operations': `We are hiring a ${title} to optimize operational processes and ensure excellent service delivery.\n\nResponsibilities:\n\u2022 Oversee daily operations\n\u2022 Identify process improvements\n\u2022 Manage vendor relationships\n\u2022 Track KPIs and prepare reports\n\u2022 Coordinate cross-departmental initiatives`,
+        };
+        page.querySelector('#job-desc').value = descs[deptVal] || descs['IT Department'];
+
+        const reqSets = {
+          'IT Department': ['3+ years of relevant technical experience', "Bachelor's degree in Computer Science or related field", 'Strong problem-solving and analytical skills', 'Experience with agile methodologies', 'Excellent English communication'],
+          'HR Department': ['2+ years of HR experience', "Bachelor's in Human Resources or Business Admin", 'Knowledge of Cambodia labor laws', 'Strong interpersonal skills', 'Proficiency in HRIS systems'],
+          'Marketing': ['2+ years marketing experience', "Bachelor's in Marketing or Communications", 'Digital marketing tools & analytics experience', 'Strong copywriting and creativity', 'Proficient in Khmer and English'],
+          'Finance': ['3+ years accounting/finance experience', "Bachelor's in Accounting or Finance", 'Knowledge of IFRS standards', 'Advanced Excel and financial modeling', 'ACCA or CPA preferred'],
+          'Operations': ['3+ years operations management', "Bachelor's in Business or related field", 'Strong project management skills', 'Process optimization experience', 'Excellent leadership abilities'],
+        };
+        const reqs = reqSets[deptVal] || reqSets['IT Department'];
+        const reqList = page.querySelector('#req-list');
+        reqList.innerHTML = '';
+        reqs.forEach(r => {
+          const row = document.createElement('div');
+          row.className = 'req-item'; row.style.cssText = 'display:flex;gap:8px;align-items:center';
+          row.innerHTML = `<input type="text" value="${r}" style="flex:1"><button class="remove-req" style="width:32px;height:32px;border-radius:50%;background:rgba(237,28,36,0.08);color:var(--red);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">\u00d7</button>`;
+          reqList.appendChild(row);
+        });
+
+        const skillSets = { 'IT Department':'Python, JavaScript, SQL, Git, CI/CD, Agile, Cloud (AWS)', 'HR Department':'Recruitment, ATS Systems, MS Office, Payroll, Onboarding, Khmer & English', 'Marketing':'Google Analytics, Social Media, Copywriting, SEO, Adobe Suite', 'Finance':'Excel, SAP, Financial Reporting, Budgeting, IFRS', 'Operations':'Project Management, Lean/Six Sigma, ERP, KPI Tracking, Leadership' };
+        page.querySelector('#job-skills').value = skillSets[deptVal] || skillSets['IT Department'];
+        page.querySelector('#job-min-exp').value = deptVal === 'HR Department' ? '2' : '3';
+
+        // Check first 6 benefits
+        page.querySelectorAll('#benefits-grid input[type="checkbox"]').forEach((cb, i) => { if (i < 6) cb.checked = true; });
+
+        return `<p style="font-weight:700;color:var(--teal)">\u2705 All fields filled!</p>` +
+          `<ul style="margin:4px 0 0 14px;font-size:10px;line-height:1.8"><li>\u2713 Description with responsibilities</li><li>\u2713 ${reqs.length} key requirements</li><li>\u2713 Preferred skills</li><li>\u2713 Min experience set</li><li>\u2713 6 benefits selected</li></ul>` +
+          `<p style="margin-top:6px;font-size:10px;color:var(--text-tertiary)">\ud83d\udca1 Review and customize before publishing!</p>`;
+      }
+
+      /* Description */
+      if (q.includes('description') || q.includes('describe') || q.includes('write about')) {
+        page.querySelector('#job-desc').value = `We are seeking a talented ${role} to join our ${dept} at Metfone. This role is key to driving innovation and excellence.\n\nAs a ${role}, you will collaborate with cross-functional teams, contribute to strategic initiatives, and help shape Cambodia\u2019s telecom future.\n\nKey Responsibilities:\n\u2022 Lead and deliver projects within your domain\n\u2022 Collaborate with stakeholders to implement solutions\n\u2022 Mentor junior team members\n\u2022 Continuously improve processes\n\u2022 Report on progress and outcomes`;
+        return `<p style="font-weight:700;color:var(--teal)">\u2705 Description filled!</p><p style="margin-top:4px;font-size:10px">Professional description for <strong>${role}</strong> in <strong>${dept}</strong>.</p><p style="margin-top:4px;font-size:10px;color:var(--text-tertiary)">\ud83d\udca1 Ask "make it more formal" to adjust tone.</p>`;
+      }
+
+      /* Requirements */
+      if (q.includes('requirement') || q.includes('qualif') || q.includes('criteria')) {
+        const reqs2 = ['3+ years of relevant professional experience', "Bachelor's degree in a related field", 'Strong analytical and problem-solving abilities', 'Excellent communication in Khmer and English', 'Proven ability to work in fast-paced teams'];
+        const reqList2 = page.querySelector('#req-list'); reqList2.innerHTML = '';
+        reqs2.forEach(r => {
+          const row = document.createElement('div'); row.className = 'req-item'; row.style.cssText = 'display:flex;gap:8px;align-items:center';
+          row.innerHTML = `<input type="text" value="${r}" style="flex:1"><button class="remove-req" style="width:32px;height:32px;border-radius:50%;background:rgba(237,28,36,0.08);color:var(--red);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">\u00d7</button>`;
+          reqList2.appendChild(row);
+        });
+        return `<p style="font-weight:700;color:var(--teal)">\u2705 ${reqs2.length} requirements added!</p><ul style="margin:6px 0 0 14px;font-size:10px;line-height:1.8">${reqs2.map(r => `<li>${r}</li>`).join('')}</ul>`;
+      }
+
+      /* Skills */
+      if (q.includes('skill') || q.includes('competenc')) {
+        const skills = ctx.dept === 'IT Department' ? 'Python, JavaScript, SQL, Git, Cloud (AWS), Agile, System Design'
+          : ctx.dept === 'HR Department' ? 'Recruitment, ATS, Payroll, Onboarding, MS Office, Khmer & English'
+          : ctx.dept === 'Marketing' ? 'Google Analytics, Social Media, Copywriting, SEO, Content Strategy'
+          : ctx.dept === 'Finance' ? 'Excel, SAP, Financial Modeling, IFRS, Budgeting, Auditing'
+          : 'Leadership, Communication, Problem-Solving, Project Management, MS Office';
+        page.querySelector('#job-skills').value = skills;
+        return `<p style="font-weight:700;color:var(--teal)">\u2705 Skills filled!</p><p style="margin-top:4px;font-size:10px">${skills}</p>`;
+      }
+
+      /* Salary */
+      if (q.includes('salary') || q.includes('compensation') || q.includes('pay range')) {
+        const ranges = { 'IT Department':{min:1000,max:2000}, 'HR Department':{min:700,max:1200}, 'Marketing':{min:700,max:1300}, 'Finance':{min:1000,max:1800}, 'Operations':{min:800,max:1500} };
+        const rng = ranges[ctx.dept] || {min:800,max:1500};
+        const salInputs = page.querySelectorAll('input[type="number"][placeholder="Min"], input[type="number"][placeholder="Max"]');
+        if (salInputs.length >= 2) { salInputs[0].value = rng.min; salInputs[1].value = rng.max; }
+        return `<p style="font-weight:700;color:var(--teal)">\u2705 Salary set!</p><p style="margin-top:4px;font-size:10px">Range: <strong>$${rng.min} \u2013 $${rng.max}/month</strong> based on Cambodia market data for ${dept}.</p>`;
+      }
+
+      /* Benefits */
+      if (q.includes('benefit') || q.includes('perk')) {
+        page.querySelectorAll('#benefits-grid input[type="checkbox"]').forEach((cb, i) => { if (i < 6) cb.checked = true; });
+        return `<p style="font-weight:700;color:var(--teal)">\u2705 6 benefits selected!</p><p style="margin-top:4px;font-size:10px">Health Insurance, Annual Leave, Performance Bonus, Training, Meal & Transport Allowance.</p>`;
+      }
+
+      /* Formal tone */
+      if (q.includes('formal') || q.includes('professional') || q.includes('tone')) {
+        const cur = page.querySelector('#job-desc').value;
+        if (cur) {
+          page.querySelector('#job-desc').value = cur.replace(/We are seeking/g, 'Metfone invites applications from qualified professionals for the role of').replace(/you will/gi, 'the successful candidate will').replace(/Join our/gi, 'Metfone is pleased to announce an opening in our');
+          return `<p style="font-weight:700;color:var(--teal)">\u2705 Tone updated to formal!</p><p style="margin-top:4px;font-size:10px;color:var(--text-tertiary)">Description has been rewritten in a more professional tone.</p>`;
+        }
+        return `<p>No description yet. Ask me to "suggest a description" first!</p>`;
+      }
+
+      /* Experience */
+      if (q.includes('experience') || q.includes('years')) {
+        const yrs = ctx.dept === 'Finance' || ctx.dept === 'IT Department' ? 3 : 2;
+        page.querySelector('#job-min-exp').value = yrs;
+        return `<p style="font-weight:700;color:var(--teal)">\u2705 Experience set to ${yrs} years</p><p style="margin-top:4px;font-size:10px">Based on market standards for ${dept}.</p>`;
+      }
+
+      /* Catch-all help */
+      return `<p>I can help you fill the <strong>${role}</strong> posting:</p>` +
+        `<ul style="margin:6px 0 0 14px;font-size:10px;line-height:1.8;color:var(--text-secondary)">` +
+        `<li><strong>"Fill all fields"</strong> \u2014 auto-complete everything</li>` +
+        `<li><strong>"Suggest description"</strong> \u2014 write job description</li>` +
+        `<li><strong>"Suggest requirements"</strong> \u2014 add requirements</li>` +
+        `<li><strong>"Suggest skills"</strong> \u2014 fill preferred skills</li>` +
+        `<li><strong>"Salary range"</strong> \u2014 set competitive salary</li>` +
+        `<li><strong>"Benefits"</strong> \u2014 select common perks</li>` +
+        `<li><strong>"Make it formal"</strong> \u2014 adjust tone</li></ul>` +
+        `<p style="margin-top:6px;font-size:10px;color:var(--text-tertiary)">\ud83d\udca1 Set Job Title & Department first for better suggestions!</p>`;
+    }
+
+    function aiSendMsg(text) {
+      if (!text.trim()) return;
+      aiAddUser(text);
+      aiInput.value = '';
+      aiShowTyping();
+      setTimeout(() => {
+        aiRemoveTyping();
+        aiAddBot(aiRespond(text));
+      }, 600 + Math.random() * 800);
+    }
+
+    aiSend.addEventListener('click', () => aiSendMsg(aiInput.value));
+    aiInput.addEventListener('keydown', e => { if (e.key === 'Enter') aiSendMsg(aiInput.value); });
+    page.querySelectorAll('.ai-job-chip').forEach(chip => {
+      chip.addEventListener('click', () => aiSendMsg(chip.dataset.prompt));
+    });
+    page.querySelector('#ai-clear-chat').addEventListener('click', () => {
+      aiMsgs.innerHTML = '';
+      aiAddBot('Chat cleared! How can I help with your job posting? \ud83d\ude80');
     });
   });
 

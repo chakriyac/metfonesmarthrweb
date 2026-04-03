@@ -1,7 +1,8 @@
-/* ─── HR Home Page ─── */
+/* ─── HR Home → Redirect to Dashboard ─── */
 Router.register('/hr/home', function renderHrHome() {
+  Router.navigate('/hr/dashboard');
   const page = el('div', { className: 'app-layout fade-in' });
-  page.appendChild(hrSidebar('/hr/home'));
+  page.appendChild(hrSidebar('/hr/dashboard'));
 
   const main = el('div', { className: 'main-content' });
   main.innerHTML = `${bgOrbs()}

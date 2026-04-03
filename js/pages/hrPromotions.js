@@ -1,7 +1,8 @@
-/* ─── HR Internal Promotion — Match Staff to Positions ─── */
+/* ─── HR Promotions → Redirect to Talent Ranking ─── */
 Router.register('/hr/promotions', function renderHrPromotions() {
+  Router.navigate('/hr/candidates/rank');
   const page = el('div', { className: 'app-layout fade-in' });
-  page.appendChild(hrSidebar('/hr/promotions'));
+  page.appendChild(hrSidebar('/hr/candidates/rank'));
 
   const openPositions = [
     { id: 'rec-officer', title: 'Recruitment Officer', dept: 'HR Department', level: 'Mid-Level', reqs: ['3+ yrs HR experience', 'Communication skills', 'Khmer & English', 'Leadership'] },

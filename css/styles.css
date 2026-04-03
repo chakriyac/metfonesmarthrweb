@@ -931,3 +931,22 @@ body::before {
   .avatar-xl { width: 52px; height: 52px; font-size: 18px; }
   .hero-card .avatar-xl { width: 56px; height: 56px; }
 }
+
+/* ═══════════ Position Manage Page ═══════════ */
+.ai-prompt-chip {
+  padding: 6px 14px; border-radius: 12px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  white-space: nowrap; transition: all 0.2s; color: var(--text-secondary);
+}
+.ai-prompt-chip:hover { border-color: var(--teal); color: var(--teal); background: rgba(0,167,157,0.04); }
+.candidate-manage-row:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.ai-cand-chip:hover { background: rgba(0,167,157,0.04); }
+.typing-dots span { animation: blink 1.4s infinite both; }
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%, 80%, 100% { opacity: 0; } 40% { opacity: 1; } }
+
+/* ═══════════ Job Posts Page ═══════════ */
+.job-post-row:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.social-share-card:has(input:checked) { border-color: var(--teal); background: rgba(0,167,157,0.02); }

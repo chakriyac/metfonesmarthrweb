@@ -137,14 +137,12 @@ function seekerSidebar(active) {
 function hrSidebar(active) {
   const navItems = [
     { icon: '📊', label: 'Dashboard', route: '/hr/dashboard' },
-    { icon: '🏠', label: 'HR Home', route: '/hr/home' },
-    { icon: '📝', label: 'Post Job', route: '/hr/jobs/create' },
+    { icon: '📃', label: 'Jobs', route: '/hr/jobs' },
     { icon: '📋', label: 'Applications', route: '/hr/applications' },
-    { icon: '🏆', label: 'Rank Candidates', route: '/hr/candidates/rank' },
-    { icon: '⬆️', label: 'Promotions', route: '/hr/promotions' },
+    { icon: '🏆', label: 'Talent Ranking', route: '/hr/candidates/rank' },
     { icon: '📅', label: 'Attendance', route: '/hr/attendance' },
     { icon: '👥', label: 'Employees', route: '/hr/employees' },
-    { icon: '�', label: 'Staff Directory', route: '/hr/directory' },
+    { icon: '📒', label: 'Staff Directory', route: '/hr/directory' },
     { icon: '💬', label: 'Messages', route: '/hr/messages' },
     { icon: '👤', label: 'Profile', route: '/hr/profile' },
   ];
@@ -173,6 +171,7 @@ function employeeSidebar(active) {
 function managerSidebar(active) {
   const navItems = [
     { icon: '🏠', label: 'Dashboard', route: '/employee/dashboard' },
+    { icon: '👥', label: 'My Team', route: '/manager/team' },
     { icon: '✅', label: 'Check In/Out', route: '/employee/checkin' },
     { icon: '📝', label: 'Leave Approvals', route: '/manager/leave' },
     { icon: '📅', label: 'Attendance', route: '/employee/attendance' },

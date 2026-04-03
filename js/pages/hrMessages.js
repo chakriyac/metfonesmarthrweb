@@ -79,8 +79,6 @@ Router.register('/hr/messages', function renderHrMessages() {
     </div>`;
 
   page.appendChild(main);
-  document.getElementById('app').innerHTML = '';
-  document.getElementById('app').appendChild(page);
 
   /* ── render conversation list ── */
   function renderList(filter, search) {
@@ -132,10 +130,103 @@ Router.register('/hr/messages', function renderHrMessages() {
     const activeRow = document.querySelector(`.convo-row[data-id="${c.id}"]`);
     if (activeRow) activeRow.style.borderLeft = '3px solid var(--teal)';
 
-    const sampleMessages = [
-      { from: 'them', text: `Hi, I'm ${c.name}. I applied for the ${c.role} position.` },
-      { from: 'me', text: `Hello ${c.name.split(' ')[0]}! Thank you for your application. Let me review your profile.` },
-      { from: 'them', text: c.lastMsg },
+    const chatData = {
+      1: [
+        { from:'them', text:'Hello, I recently applied for the Senior Network Engineer position. I have over 8 years of experience in network infrastructure.', time:'Mar 28, 9:00 AM' },
+        { from:'me', text:'Hi Sokha! Thank you for applying. Your profile looks impressive. Could you tell us more about your experience with Cisco and Juniper equipment?', time:'Mar 28, 10:15 AM' },
+        { from:'them', text:'Sure! I have CCNP and JNCIP certifications. At my previous company, I managed a network serving 5,000+ users across 3 data centers.', time:'Mar 28, 11:30 AM' },
+        { from:'me', text:'That\'s excellent. We\'d like to schedule a technical assessment. Would next Tuesday at 10 AM work for you?', time:'Mar 29, 9:00 AM' },
+        { from:'them', text:'Tuesday at 10 AM works perfectly. Should I bring anything specific?', time:'Mar 29, 9:45 AM' },
+        { from:'me', text:'Just your laptop. We\'ll provide the lab environment. Also, could you send us an updated CV with your latest certifications?', time:'Mar 29, 10:20 AM' },
+        { from:'them', text:'Thank you! I have attached my updated CV as requested.', time:'Apr 3, 10:42 AM' },
+      ],
+      2: [
+        { from:'them', text:'Hi, I\'m Vanna Ros. I submitted my application for the Marketing Coordinator role last week.', time:'Mar 25, 2:00 PM' },
+        { from:'me', text:'Hello Vanna! We received your application. Your portfolio is very creative. We\'d like to invite you for an interview.', time:'Mar 26, 9:30 AM' },
+        { from:'them', text:'That\'s wonderful news! When would be a good time?', time:'Mar 26, 10:00 AM' },
+        { from:'me', text:'How about Thursday at 2 PM? It will be a 45-minute session with our marketing director and me.', time:'Mar 26, 11:00 AM' },
+        { from:'them', text:'Thursday at 2 PM sounds great. Will it be in-person or online?', time:'Mar 26, 11:30 AM' },
+        { from:'me', text:'It will be in-person at our Phnom Penh office, Room 3A. Please bring your portfolio.', time:'Mar 27, 9:00 AM' },
+        { from:'them', text:'Could you confirm the interview time for Thursday?', time:'Apr 3, 9:15 AM' },
+      ],
+      3: [
+        { from:'them', text:'Good morning, I applied for the Finance Analyst position. I have a CPA certification and 5 years of experience.', time:'Mar 20, 8:30 AM' },
+        { from:'me', text:'Good morning Bopha! Thank you for your interest. Your qualifications are strong. We\'ve shortlisted you for the next round.', time:'Mar 21, 10:00 AM' },
+        { from:'them', text:'Thank you so much! What does the next round involve?', time:'Mar 21, 10:30 AM' },
+        { from:'me', text:'It\'s a case study presentation. You\'ll have 3 days to prepare a financial analysis on a scenario we\'ll send you. About 20 minutes presentation + 10 minutes Q&A.', time:'Mar 21, 11:00 AM' },
+        { from:'them', text:'Understood. When will I receive the case study?', time:'Mar 21, 11:15 AM' },
+        { from:'me', text:'I\'ll email it to you by end of day today. The presentation is scheduled for next Wednesday.', time:'Mar 21, 2:00 PM' },
+        { from:'them', text:'I will prepare the presentation as discussed.', time:'Apr 2, 3:00 PM' },
+      ],
+      4: [
+        { from:'them', text:'Hi there! I\'m very interested in the Software Developer role. I specialize in full-stack development with React and Node.js.', time:'Mar 22, 9:00 AM' },
+        { from:'me', text:'Hello Piseth! Nice to hear from you. We noticed your GitHub profile — very active contributor!', time:'Mar 22, 10:00 AM' },
+        { from:'them', text:'Thank you! I try to contribute to open source when I can. I also built a few production apps using your tech stack.', time:'Mar 22, 10:30 AM' },
+        { from:'me', text:'That\'s great. We have a technical coding test we\'d like you to complete. It covers algorithms, system design, and a small project.', time:'Mar 23, 9:00 AM' },
+        { from:'them', text:'I\'d be happy to take the test. How long do I have?', time:'Mar 23, 9:30 AM' },
+        { from:'me', text:'You\'ll have 48 hours once you start. I\'ll send you the link shortly.', time:'Mar 23, 10:00 AM' },
+        { from:'them', text:'I completed the test yesterday. When will I hear back about results?', time:'Apr 1, 2:00 PM' },
+        { from:'me', text:'Our engineering team is reviewing it. We should have feedback by end of this week.', time:'Apr 1, 3:30 PM' },
+        { from:'them', text:'Hi, I wanted to follow up on my application status.', time:'Apr 2, 10:00 AM' },
+      ],
+      5: [
+        { from:'them', text:'Good afternoon! I\'m applying for the UI/UX Designer position. I\'ve been designing mobile apps for 4 years.', time:'Mar 15, 1:00 PM' },
+        { from:'me', text:'Hi Chantrea! Your Dribbble portfolio caught our attention. Beautiful work on those fintech apps.', time:'Mar 15, 2:30 PM' },
+        { from:'them', text:'Thank you! I\'m passionate about creating intuitive user experiences, especially for emerging markets.', time:'Mar 15, 3:00 PM' },
+        { from:'me', text:'We\'d love to see you do a design challenge. Can you redesign our employee dashboard in 5 days?', time:'Mar 16, 9:00 AM' },
+        { from:'them', text:'Absolutely! I\'ll start right away. Should I use Figma?', time:'Mar 16, 9:30 AM' },
+        { from:'me', text:'Yes, Figma is perfect. Here\'s the brief and brand guidelines.', time:'Mar 16, 10:00 AM' },
+        { from:'them', text:'I submitted the design challenge. I hope you like the direction!', time:'Mar 21, 5:00 PM' },
+        { from:'me', text:'Chantrea, the team loved your work! We\'d like to extend an official offer. I\'ll send the details to your email.', time:'Mar 25, 11:00 AM' },
+        { from:'them', text:'That\'s amazing! I\'m very excited!', time:'Mar 25, 11:30 AM' },
+        { from:'me', text:'The offer letter has been sent. Please review the salary, benefits, and start date, then let us know.', time:'Mar 26, 9:00 AM' },
+        { from:'them', text:'I accept the offer! When should I start?', time:'Mar 31, 10:00 AM' },
+      ],
+      6: [
+        { from:'them', text:'Hello, I\'m Dara Pich. I applied for the Customer Service Lead position. I have 6 years in customer experience management.', time:'Mar 18, 10:00 AM' },
+        { from:'me', text:'Hi Dara! Your experience managing a team of 20+ agents is exactly what we\'re looking for. Let\'s schedule an interview.', time:'Mar 19, 9:00 AM' },
+        { from:'them', text:'Great! I\'m available anytime next week.', time:'Mar 19, 9:30 AM' },
+        { from:'me', text:'How about Wednesday at 11 AM? It will be an in-person panel interview with our operations head.', time:'Mar 19, 10:00 AM' },
+        { from:'them', text:'Wednesday at 11 AM is perfect. I\'ll be there.', time:'Mar 19, 10:15 AM' },
+        { from:'me', text:'Great! Our office is at Metfone Tower, 3rd floor. Ask for Dara Samnang at reception.', time:'Mar 19, 11:00 AM' },
+        { from:'them', text:'Is there a dress code for the in-person interview?', time:'Mar 31, 2:00 PM' },
+      ],
+      7: [
+        { from:'them', text:'Hi, I\'m Kunthea Ly. I\'m applying for the HR Assistant role.', time:'Mar 30, 9:00 AM' },
+        { from:'me', text:'Hello Kunthea! Thank you for your application. Can you elaborate on your experience with HR software systems?', time:'Mar 30, 10:30 AM' },
+        { from:'them', text:'I have 3 years of experience in HR operations. I\'ve used SAP SuccessFactors, BambooHR, and managed payroll for 200+ employees.', time:'Mar 30, 11:00 AM' },
+        { from:'me', text:'That\'s solid experience. We use a custom HRIS, but the principles are the same. We\'ll review your application and get back to you within a week.', time:'Mar 30, 2:00 PM' },
+      ],
+      8: [
+        { from:'them', text:'Good morning! I noticed the Data Analyst opening and I\'m very interested. I have a Master\'s in Statistics.', time:'Mar 24, 8:00 AM' },
+        { from:'me', text:'Hi Ratana! A Master\'s in Statistics — impressive. What tools do you primarily work with?', time:'Mar 24, 9:30 AM' },
+        { from:'them', text:'I work extensively with Python, R, Tableau, and SQL. I also have experience with machine learning models for forecasting.', time:'Mar 24, 10:00 AM' },
+        { from:'me', text:'Excellent! We\'ve shortlisted you. The next step is a data analysis exercise. We\'ll send you a real dataset to analyze.', time:'Mar 25, 9:00 AM' },
+        { from:'them', text:'Looking forward to it! When should I expect the dataset?', time:'Mar 25, 9:30 AM' },
+        { from:'me', text:'I\'ll send it tomorrow morning. You\'ll have 72 hours to complete the analysis and submit a report.', time:'Mar 25, 10:00 AM' },
+        { from:'them', text:'Thank you for the update, looking forward to the next step.', time:'Mar 28, 11:00 AM' },
+      ],
+      9: [
+        { from:'them', text:'Hello, I saw the Project Manager position on your careers page. I have PMP certification and 7 years of PM experience.', time:'Mar 26, 9:00 AM' },
+        { from:'me', text:'Hi Sophal! PMP certified with 7 years — great background. What industries have you managed projects in?', time:'Mar 26, 10:30 AM' },
+        { from:'them', text:'Primarily telecom and IT services. I\'ve led delivery of 15+ projects with budgets up to $2M.', time:'Mar 26, 11:00 AM' },
+        { from:'me', text:'That\'s very relevant to what we do. Let me share your profile with the hiring manager.', time:'Mar 26, 2:00 PM' },
+        { from:'them', text:'Thank you! Also, could you let me know the salary range for this role?', time:'Mar 27, 10:00 AM' },
+      ],
+      10: [
+        { from:'them', text:'Hi! I applied for the QA Engineer position. I specialize in automated testing with Selenium and Cypress.', time:'Mar 20, 9:00 AM' },
+        { from:'me', text:'Hello Nary! Automation testing is critical for us. Do you have experience with CI/CD integration?', time:'Mar 20, 10:00 AM' },
+        { from:'them', text:'Yes! I\'ve set up test automation pipelines in Jenkins and GitHub Actions. My test suites run on every PR.', time:'Mar 20, 10:30 AM' },
+        { from:'me', text:'Perfect. We\'d like to invite you for a technical interview. It will be a 1-hour session covering testing strategies and a live coding exercise.', time:'Mar 21, 9:00 AM' },
+        { from:'them', text:'Sounds great! When would this be?', time:'Mar 21, 9:30 AM' },
+        { from:'me', text:'Next Friday at 3 PM, online via Google Meet. I\'ll send you the link the day before.', time:'Mar 21, 10:00 AM' },
+        { from:'them', text:'The technical test went well, I submitted it on time.', time:'Mar 26, 4:00 PM' },
+      ],
+    };
+
+    const messages = chatData[c.id] || [
+      { from:'them', text:`Hi, I'm ${c.name}. I applied for the ${c.role} position.`, time:'Today' },
+      { from:'me', text:`Hello ${c.name.split(' ')[0]}! Thank you for your application.`, time:'Today' },
     ];
 
     panel.innerHTML = `
@@ -157,28 +248,91 @@ Router.register('/hr/messages', function renderHrMessages() {
         </div>
 
         <!-- Messages area -->
-        <div style="flex:1;overflow-y:auto;padding:16px 0;display:flex;flex-direction:column;gap:14px">
-          ${sampleMessages.map(m => `
+        <div id="msgArea" style="flex:1;overflow-y:auto;padding:16px 0;display:flex;flex-direction:column;gap:14px">
+          ${messages.map(m => `
             <div class="chat-msg ${m.from === 'me' ? 'self' : ''}">
               <div class="avatar avatar-sm" style="background:${m.from === 'me' ? '#F0F9F8' : c.color};color:${m.from === 'me' ? '#00A79D' : c.textColor};font-size:9px;flex-shrink:0">${m.from === 'me' ? 'DS' : c.initials}</div>
-              <div class="bubble"><p>${m.text}</p></div>
+              <div>
+                <div class="bubble"><p>${m.text}</p></div>
+                <p style="font-size:10px;color:var(--text-tertiary);margin-top:3px;${m.from === 'me' ? 'text-align:right' : ''}">${m.time}</p>
+              </div>
             </div>`).join('')}
         </div>
 
         <!-- Input bar -->
         <div class="chat-input-bar" style="margin-top:8px">
           <button style="font-size:18px;color:var(--text-tertiary)">📎</button>
-          <input type="text" placeholder="Reply to ${c.name.split(' ')[0]}…" style="flex:1;border:none;background:none;font-size:13px;outline:none">
-          <button class="send-btn" style="background:var(--teal)">↑</button>
+          <input id="chatInput" type="text" placeholder="Reply to ${c.name.split(' ')[0]}…" style="flex:1;border:none;background:none;font-size:13px;outline:none">
+          <button id="sendBtn" class="send-btn" style="background:var(--teal)">↑</button>
         </div>
       </div>`;
+
+    /* Scroll to bottom */
+    const msgArea = document.getElementById('msgArea');
+    if (msgArea) msgArea.scrollTop = msgArea.scrollHeight;
+
+    /* Send message */
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const area = document.getElementById('msgArea');
+      if (!input || !area || !input.value.trim()) return;
+      const text = input.value.trim();
+      input.value = '';
+
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true });
+
+      area.insertAdjacentHTML('beforeend', `
+        <div class="chat-msg self" style="animation:fadeSlideUp 0.25s ease">
+          <div class="avatar avatar-sm" style="background:#F0F9F8;color:#00A79D;font-size:9px;flex-shrink:0">DS</div>
+          <div>
+            <div class="bubble"><p>${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</p></div>
+            <p style="font-size:10px;color:var(--text-tertiary);margin-top:3px;text-align:right">${timeStr}</p>
+          </div>
+        </div>`);
+      area.scrollTop = area.scrollHeight;
+
+      /* Fake reply after a short delay */
+      const replies = [
+        `Thank you for getting back to me, Dara!`,
+        `Sure, I'll send that over right away.`,
+        `That sounds good. I'm available anytime this week.`,
+        `Great, I'll prepare everything as discussed.`,
+        `Could you also share more details about the team structure?`,
+        `I appreciate the update. Looking forward to the next steps!`,
+        `Understood. I'll follow up with the documents by tomorrow.`,
+      ];
+      setTimeout(() => {
+        const reply = replies[Math.floor(Math.random() * replies.length)];
+        const replyTime = new Date().toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true });
+        area.insertAdjacentHTML('beforeend', `
+          <div class="chat-msg" style="animation:fadeSlideUp 0.25s ease">
+            <div class="avatar avatar-sm" style="background:${c.color};color:${c.textColor};font-size:9px;flex-shrink:0">${c.initials}</div>
+            <div>
+              <div class="bubble"><p>${reply}</p></div>
+              <p style="font-size:10px;color:var(--text-tertiary);margin-top:3px">${replyTime}</p>
+            </div>
+          </div>`);
+        area.scrollTop = area.scrollHeight;
+      }, 1200 + Math.random() * 1500);
+    }
+
+    const sendBtn = document.getElementById('sendBtn');
+    const chatInput = document.getElementById('chatInput');
+    if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+    if (chatInput) chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
   }
 
   renderList('all', '');
 
-  /* ── Filters ── */
-  const searchEl = document.getElementById('msgSearch');
-  const filterEl = document.getElementById('msgFilter');
-  if (searchEl) searchEl.addEventListener('input', () => renderList(filterEl.value, searchEl.value));
-  if (filterEl) filterEl.addEventListener('change', () => renderList(filterEl.value, searchEl.value));
+  /* ── Filters (deferred until DOM mounted) ── */
+  setTimeout(() => {
+    renderList('all', '');
+    const searchEl = document.getElementById('msgSearch');
+    const filterEl = document.getElementById('msgFilter');
+    if (searchEl) searchEl.addEventListener('input', () => renderList(filterEl.value, searchEl.value));
+    if (filterEl) filterEl.addEventListener('change', () => renderList(filterEl.value, searchEl.value));
+  }, 200);
+
+  return page;
 });
