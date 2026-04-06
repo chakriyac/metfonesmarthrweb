@@ -193,14 +193,15 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
           <p style="font-size:11px;color:var(--text-tertiary);margin-bottom:16px">Post this job automatically to your company's social pages</p>
 
           <!-- LinkedIn -->
-          <div class="social-share-card" style="padding:16px;border-radius:16px;border:1.5px solid var(--glass-border);margin-bottom:10px;transition:all 0.2s">
+          <div class="social-share-card" id="social-linkedin" style="padding:16px;border-radius:16px;border:1.5px solid var(--glass-border);margin-bottom:10px;transition:all 0.2s">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
               <div style="width:36px;height:36px;border-radius:10px;background:#0A66C2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800">in</div>
               <div style="flex:1">
                 <p style="font-size:13px;font-weight:700">LinkedIn</p>
-                <p style="font-size:10px;color:var(--text-tertiary)">Metfone Cambodia · 12.5K followers</p>
+                <p class="social-status" style="font-size:10px;color:var(--red);font-weight:600">⚠ Not connected</p>
               </div>
-              <label style="position:relative;width:44px;height:24px">
+              <button class="social-connect-btn" data-platform="linkedin" style="padding:7px 16px;border-radius:10px;border:1.5px solid #0A66C2;background:rgba(10,102,194,0.06);color:#0A66C2;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s">🔗 Connect</button>
+              <label style="position:relative;width:44px;height:24px;display:none" class="social-toggle-wrap">
                 <input type="checkbox" id="share-linkedin" style="display:none">
                 <span class="toggle-track" style="position:absolute;left:0;top:0;width:44px;height:24px;border-radius:12px;background:var(--glass-border);transition:0.3s;cursor:pointer"></span>
                 <span class="toggle-thumb" style="position:absolute;left:2px;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2);cursor:pointer"></span>
@@ -213,14 +214,15 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
           </div>
 
           <!-- Facebook -->
-          <div class="social-share-card" style="padding:16px;border-radius:16px;border:1.5px solid var(--glass-border);margin-bottom:10px;transition:all 0.2s">
+          <div class="social-share-card" id="social-facebook" style="padding:16px;border-radius:16px;border:1.5px solid var(--glass-border);margin-bottom:10px;transition:all 0.2s">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
               <div style="width:36px;height:36px;border-radius:10px;background:#1877F2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:800">f</div>
               <div style="flex:1">
                 <p style="font-size:13px;font-weight:700">Facebook Page</p>
-                <p style="font-size:10px;color:var(--text-tertiary)">Metfone Careers · 45.2K followers</p>
+                <p class="social-status" style="font-size:10px;color:var(--red);font-weight:600">⚠ Not connected</p>
               </div>
-              <label style="position:relative;width:44px;height:24px">
+              <button class="social-connect-btn" data-platform="facebook" style="padding:7px 16px;border-radius:10px;border:1.5px solid #1877F2;background:rgba(24,119,242,0.06);color:#1877F2;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s">🔗 Connect</button>
+              <label style="position:relative;width:44px;height:24px;display:none" class="social-toggle-wrap">
                 <input type="checkbox" id="share-facebook" style="display:none">
                 <span class="toggle-track" style="position:absolute;left:0;top:0;width:44px;height:24px;border-radius:12px;background:var(--glass-border);transition:0.3s;cursor:pointer"></span>
                 <span class="toggle-thumb" style="position:absolute;left:2px;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2);cursor:pointer"></span>
@@ -233,14 +235,15 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
           </div>
 
           <!-- Telegram -->
-          <div class="social-share-card" style="padding:16px;border-radius:16px;border:1.5px solid var(--glass-border);transition:all 0.2s">
+          <div class="social-share-card" id="social-telegram" style="padding:16px;border-radius:16px;border:1.5px solid var(--glass-border);transition:all 0.2s">
             <div style="display:flex;align-items:center;gap:10px">
               <div style="width:36px;height:36px;border-radius:10px;background:#2AABEE;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px">✈</div>
               <div style="flex:1">
                 <p style="font-size:13px;font-weight:700">Telegram Channel</p>
-                <p style="font-size:10px;color:var(--text-tertiary)">@MetfoneJobs · 8.1K subscribers</p>
+                <p class="social-status" style="font-size:10px;color:var(--red);font-weight:600">⚠ Not connected</p>
               </div>
-              <label style="position:relative;width:44px;height:24px">
+              <button class="social-connect-btn" data-platform="telegram" style="padding:7px 16px;border-radius:10px;border:1.5px solid #2AABEE;background:rgba(42,171,238,0.06);color:#2AABEE;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s">🔗 Connect</button>
+              <label style="position:relative;width:44px;height:24px;display:none" class="social-toggle-wrap">
                 <input type="checkbox" id="share-telegram" style="display:none">
                 <span class="toggle-track" style="position:absolute;left:0;top:0;width:44px;height:24px;border-radius:12px;background:var(--glass-border);transition:0.3s;cursor:pointer"></span>
                 <span class="toggle-thumb" style="position:absolute;left:2px;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2);cursor:pointer"></span>
@@ -449,7 +452,13 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
       });
     });
 
-    /* ─── Social Sharing Toggles ─── */
+    /* ─── Social Sharing – Connect & Toggles ─── */
+    const socialPlatforms = {
+      linkedin: { name:'LinkedIn', color:'#0A66C2', icon:'in', connected:false, page:'', followers:'' },
+      facebook: { name:'Facebook Page', color:'#1877F2', icon:'f', connected:false, page:'', followers:'' },
+      telegram: { name:'Telegram Channel', color:'#2AABEE', icon:'✈', connected:false, page:'', followers:'' },
+    };
+
     function updateSocialPreview() {
       const li = page.querySelector('#share-linkedin').checked;
       const fb = page.querySelector('#share-facebook').checked;
@@ -463,7 +472,7 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
       page.querySelector('#preview-social-icons').innerHTML = icons.length > 0 ? icons.join('') : '<span style="font-size:10px;color:var(--text-tertiary);padding:3px 8px;border-radius:6px;background:var(--glass-bg);border:1px solid var(--glass-border)">No platforms selected</span>';
     }
 
-    // Toggle switch styling + event
+    /* Toggle switch styling + event (only works after connected) */
     page.querySelectorAll('.social-share-card input[type="checkbox"]').forEach(cb => {
       cb.addEventListener('change', function() {
         const track = this.parentElement.querySelector('.toggle-track');
@@ -476,6 +485,187 @@ Router.register('/hr/jobs/create', function renderHrJobCreate() {
         updateSocialPreview();
       });
     });
+
+    /* Connect button → opens linking modal */
+    page.querySelectorAll('.social-connect-btn').forEach(btn => {
+      btn.onclick = () => openSocialConnectModal(btn.dataset.platform);
+    });
+
+    function openSocialConnectModal(platform) {
+      const existing = document.getElementById('socialConnectModal');
+      if (existing) existing.remove();
+
+      const p = socialPlatforms[platform];
+      const fieldConfigs = {
+        linkedin: {
+          fields: [
+            { id:'sc-page-url', label:'LinkedIn Company Page URL', placeholder:'https://www.linkedin.com/company/metfone', icon:'🔗' },
+            { id:'sc-page-name', label:'Page / Company Name', placeholder:'Metfone Cambodia', icon:'🏢' },
+          ],
+          authLabel: 'Sign in with LinkedIn',
+          authNote: 'You\'ll be redirected to LinkedIn to authorize Metfone Smart HR to post on behalf of your company page.',
+          perms: ['Post job updates on your company page','View page follower count','Manage job postings'],
+        },
+        facebook: {
+          fields: [
+            { id:'sc-page-url', label:'Facebook Page URL', placeholder:'https://www.facebook.com/MetfoneCareers', icon:'🔗' },
+            { id:'sc-page-name', label:'Page Name', placeholder:'Metfone Careers', icon:'📄' },
+          ],
+          authLabel: 'Continue with Facebook',
+          authNote: 'You\'ll be redirected to Facebook to grant page posting permission to Metfone Smart HR.',
+          perms: ['Publish posts to your Page','Upload photos and job cards','View Page insights & followers'],
+        },
+        telegram: {
+          fields: [
+            { id:'sc-page-url', label:'Telegram Channel Username', placeholder:'@MetfoneJobs', icon:'@' },
+            { id:'sc-page-name', label:'Channel Name', placeholder:'Metfone Jobs Cambodia', icon:'📢' },
+            { id:'sc-bot-token', label:'Bot Token (from @BotFather)', placeholder:'123456789:ABCdefGHIjklMNOpqrsTUVwxyz', icon:'🤖' },
+          ],
+          authLabel: 'Verify Channel Connection',
+          authNote: 'Add the Metfone HR Bot as admin to your channel, then paste the bot token above.',
+          perms: ['Send messages to channel','Post job cards with image','Pin important job posts'],
+        },
+      };
+      const cfg = fieldConfigs[platform];
+
+      const overlay = document.createElement('div');
+      overlay.id = 'socialConnectModal';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);animation:fadeIn 0.3s ease';
+      overlay.innerHTML = `
+        <div style="width:500px;max-width:95vw;max-height:90vh;background:var(--card-bg,#fff);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,0.18);overflow:hidden;display:flex;flex-direction:column;animation:slideUp 0.35s cubic-bezier(0.25,0.1,0.25,1)">
+          <!-- Header -->
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,${p.color}08,${p.color}03)">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:40px;height:40px;border-radius:12px;background:${p.color};display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:800">${p.icon}</div>
+                <div>
+                  <h3 style="font-size:15px;font-weight:700">Connect ${p.name}</h3>
+                  <p style="font-size:11px;color:var(--text-tertiary)">Link your account to share job postings</p>
+                </div>
+              </div>
+              <button id="sc-close" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-tertiary)">✕</button>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div style="overflow-y:auto;flex:1;padding:20px 24px">
+            <!-- Step Indicator -->
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px">
+              <div style="display:flex;align-items:center;gap:4px">
+                <span style="width:24px;height:24px;border-radius:50%;background:${p.color};color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+                <span style="font-size:11px;font-weight:600;color:${p.color}">Page Details</span>
+              </div>
+              <div style="flex:1;height:2px;background:var(--glass-border);border-radius:1px"></div>
+              <div style="display:flex;align-items:center;gap:4px">
+                <span style="width:24px;height:24px;border-radius:50%;background:var(--glass-border);color:var(--text-tertiary);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">2</span>
+                <span style="font-size:11px;font-weight:600;color:var(--text-tertiary)">Authorize</span>
+              </div>
+            </div>
+
+            ${cfg.fields.map(f => `
+              <div style="margin-bottom:14px">
+                <label style="font-size:10px;font-weight:700;color:var(--text-tertiary);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px">${f.icon} ${f.label}</label>
+                <input id="${f.id}" type="text" placeholder="${f.placeholder}" style="width:100%;padding:11px 14px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg);transition:border-color 0.2s">
+              </div>
+            `).join('')}
+
+            <!-- Permissions -->
+            <div style="margin-top:18px;padding:14px 16px;border-radius:14px;background:rgba(0,167,157,0.03);border:1px solid rgba(0,167,157,0.1)">
+              <p style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px">🔒 Permissions Required</p>
+              ${cfg.perms.map(pm => `
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+                  <span style="color:var(--teal);font-size:11px">✓</span>
+                  <span style="font-size:11px;color:var(--text-secondary)">${pm}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Auth Note -->
+            <div style="margin-top:14px;padding:12px 14px;border-radius:12px;background:rgba(232,124,30,0.04);border:1px solid rgba(232,124,30,0.1)">
+              <p style="font-size:11px;color:var(--text-secondary);line-height:1.5">ℹ️ ${cfg.authNote}</p>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div style="padding:14px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between">
+            <button id="sc-cancel" style="padding:10px 20px;border-radius:12px;border:1.5px solid var(--glass-border);background:transparent;font-size:12px;font-weight:600;cursor:pointer;color:var(--text-secondary)">Cancel</button>
+            <button id="sc-authorize" style="padding:10px 24px;border-radius:12px;border:none;background:${p.color};color:#fff;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 4px 14px ${p.color}40;transition:all 0.15s">${p.icon === 'in' ? '🔗' : p.icon === 'f' ? '🔗' : '🤖'} ${cfg.authLabel}</button>
+          </div>
+        </div>
+        <style>@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}</style>
+      `;
+
+      document.body.appendChild(overlay);
+
+      const closeSC = () => { overlay.style.opacity='0'; overlay.style.transition='opacity 0.2s'; setTimeout(()=>overlay.remove(),200); };
+      overlay.querySelector('#sc-close').onclick = closeSC;
+      overlay.querySelector('#sc-cancel').onclick = closeSC;
+      overlay.onclick = (e) => { if (e.target === overlay) closeSC(); };
+
+      /* Authorize / Connect */
+      overlay.querySelector('#sc-authorize').onclick = () => {
+        const pageUrl = overlay.querySelector('#sc-page-url').value.trim();
+        const pageName = overlay.querySelector('#sc-page-name').value.trim();
+        if (!pageUrl) { overlay.querySelector('#sc-page-url').style.borderColor = 'var(--red)'; overlay.querySelector('#sc-page-url').focus(); return; }
+        if (!pageName) { overlay.querySelector('#sc-page-name').style.borderColor = 'var(--red)'; overlay.querySelector('#sc-page-name').focus(); return; }
+        if (platform === 'telegram') {
+          const botToken = overlay.querySelector('#sc-bot-token').value.trim();
+          if (!botToken) { overlay.querySelector('#sc-bot-token').style.borderColor = 'var(--red)'; overlay.querySelector('#sc-bot-token').focus(); return; }
+        }
+
+        const authBtn = overlay.querySelector('#sc-authorize');
+        authBtn.innerHTML = '<span style="display:inline-block;animation:spin 0.8s linear infinite">⏳</span> Connecting…';
+        authBtn.style.opacity = '0.7';
+        authBtn.disabled = true;
+
+        /* Simulate OAuth / connection delay */
+        setTimeout(() => {
+          /* Update step indicator */
+          const steps = overlay.querySelectorAll('[style*="border-radius:50%"]');
+          if (steps[3]) { steps[3].style.background = p.color; steps[3].style.color = '#fff'; }
+
+          authBtn.innerHTML = '✅ Connected Successfully!';
+          authBtn.style.background = 'var(--teal)';
+          authBtn.style.opacity = '1';
+
+          /* Update platform state */
+          socialPlatforms[platform].connected = true;
+          socialPlatforms[platform].page = pageName;
+          socialPlatforms[platform].followers = platform === 'linkedin' ? '12.5K followers'
+            : platform === 'facebook' ? '45.2K followers' : '8.1K subscribers';
+
+          /* Update the card in the page */
+          const card = page.querySelector('#social-' + platform);
+          const statusEl = card.querySelector('.social-status');
+          const connectBtn = card.querySelector('.social-connect-btn');
+          const toggleWrap = card.querySelector('.social-toggle-wrap');
+
+          statusEl.textContent = '✅ ' + pageName + ' · ' + socialPlatforms[platform].followers;
+          statusEl.style.color = 'var(--teal)';
+          connectBtn.style.display = 'none';
+          toggleWrap.style.display = 'block';
+
+          /* Add disconnect link */
+          const disconnectLink = document.createElement('button');
+          disconnectLink.style.cssText = 'background:none;border:none;font-size:10px;color:var(--text-tertiary);cursor:pointer;text-decoration:underline;margin-top:2px;display:block';
+          disconnectLink.textContent = 'Disconnect';
+          disconnectLink.onclick = () => {
+            socialPlatforms[platform].connected = false;
+            statusEl.textContent = '⚠ Not connected';
+            statusEl.style.color = 'var(--red)';
+            connectBtn.style.display = 'inline-flex';
+            toggleWrap.style.display = 'none';
+            disconnectLink.remove();
+            /* Uncheck toggle */
+            const cb = card.querySelector('input[type="checkbox"]');
+            if (cb.checked) { cb.checked = false; cb.dispatchEvent(new Event('change')); }
+          };
+          statusEl.parentElement.appendChild(disconnectLink);
+
+          setTimeout(() => closeSC(), 1000);
+        }, 1500);
+      };
+    }
 
     /* ─── Save Draft ─── */
     page.querySelector('#save-draft-btn').addEventListener('click', () => {

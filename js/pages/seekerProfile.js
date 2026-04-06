@@ -110,8 +110,9 @@ Router.register('/profile', function renderSeekerProfile() {
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
           <div>
             <h3 style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.8px">CREATE YOUR CV</h3>
-            <p style="font-size:11px;color:var(--text-tertiary);margin-top:2px">Choose a template and generate from your profile</p>
+            <p style="font-size:11px;color:var(--text-tertiary);margin-top:2px">Choose a template — AI assistant included to help write &amp; improve</p>
           </div>
+          <span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:8px;background:linear-gradient(135deg,rgba(0,167,157,0.1),rgba(0,167,157,0.04));color:#00A79D;font-size:10px;font-weight:600;border:1px solid rgba(0,167,157,0.15)">🤖 AI Powered</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
           ${cvTemplates.map(t => `
@@ -367,6 +368,176 @@ Router.register('/profile', function renderSeekerProfile() {
     return Math.round((score / total) * 100);
   }
 
+  /* ── AI CV Extraction & Review Modal ── */
+  function simulateAiExtract(file) {
+    return {
+      summary: 'Experienced project coordinator with strong organizational and communication skills. Proven ability to manage cross-functional teams and deliver projects on time within budget.',
+      contact: { phone: '+855 78 901 234', email: 'sokha.rith.pro@gmail.com', location: 'Phnom Penh, Cambodia', linkedin: 'linkedin.com/in/sokharith' },
+      experience: [
+        { title: 'Project Coordinator', company: 'Cellcard', from: 'Mar 2020', to: 'May 2021', desc: 'Coordinated cross-functional projects, managed timelines, and stakeholder communications. Led a team of 6 to deliver 3 major product launches.' },
+        { title: 'Admin Assistant', company: 'Wing Bank', from: 'Jun 2019', to: 'Feb 2020', desc: 'Supported daily office operations, scheduled meetings, and maintained document management systems.' },
+      ],
+      education: [
+        { degree: 'Diploma in Project Management', school: 'National Institute of Management', from: '2019', to: '2020' },
+      ],
+      skills: ['Project Management', 'Stakeholder Communication', 'Agile Methodology', 'Risk Assessment', 'MS Project', 'Budget Planning'],
+      certifications: [
+        { name: 'Google Project Management Certificate', issuer: 'Google / Coursera', year: '2024' },
+        { name: 'Agile Scrum Foundation', issuer: 'CertiProf', year: '2023' },
+      ],
+      languages: [
+        { lang: 'Chinese', level: 'Basic', pct: 30 },
+      ],
+    };
+  }
+
+  function showAiExtractModal(file, data) {
+    const old = document.getElementById('aiExtractModal');
+    if (old) old.remove();
+
+    const cats = [
+      { key:'summary', icon:'📝', label:'About / Summary', preview: data.summary ? `<p style="font-size:12px;color:var(--text-secondary);line-height:1.5">${data.summary}</p>` : null },
+      { key:'contact', icon:'📇', label:'Contact Information', preview: data.contact ? `<div style="display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--text-secondary)">${Object.entries(data.contact).map(([k,v])=>`<span style="background:var(--glass-bg);padding:3px 8px;border-radius:6px">📌 ${v}</span>`).join('')}</div>` : null },
+      { key:'experience', icon:'💼', label:`Experience (${data.experience.length})`, preview: data.experience.length ? data.experience.map(e=>`<div style="font-size:12px;margin-bottom:4px"><b>${e.title}</b> at ${e.company} · ${e.from} – ${e.to}</div>`).join('') : null },
+      { key:'education', icon:'🎓', label:`Education (${data.education.length})`, preview: data.education.length ? data.education.map(e=>`<div style="font-size:12px"><b>${e.degree}</b> — ${e.school} · ${e.from} – ${e.to}</div>`).join('') : null },
+      { key:'skills', icon:'🛠️', label:`Skills (${data.skills.length})`, preview: data.skills.length ? `<div style="display:flex;flex-wrap:wrap;gap:5px">${data.skills.map(s=>`<span style="font-size:11px;padding:3px 8px;border-radius:8px;background:var(--glass-bg);border:1px solid var(--border)">${s}</span>`).join('')}</div>` : null },
+      { key:'certifications', icon:'🏅', label:`Certifications (${data.certifications.length})`, preview: data.certifications.length ? data.certifications.map(c=>`<div style="font-size:12px"><b>${c.name}</b> — ${c.issuer} · ${c.year}</div>`).join('') : null },
+      { key:'languages', icon:'🌐', label:`Languages (${data.languages.length})`, preview: data.languages.length ? data.languages.map(l=>`<div style="font-size:12px"><b>${l.lang}</b> — ${l.level}</div>`).join('') : null },
+    ].filter(c => c.preview);
+
+    const overlay = document.createElement('div');
+    overlay.id = 'aiExtractModal';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);animation:fadeIn 0.3s ease';
+    overlay.innerHTML = `
+      <div style="width:540px;max-height:85vh;background:var(--card-bg,#fff);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,0.18);display:flex;flex-direction:column;overflow:hidden;animation:slideUp 0.35s cubic-bezier(0.25,0.1,0.25,1)">
+        <!-- Header -->
+        <div style="padding:22px 24px 16px;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#00A79D,#00C9BD);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px">🤖</div>
+            <div style="flex:1">
+              <h3 style="font-size:14px;font-weight:700;margin:0">AI Extracted from CV</h3>
+              <p style="font-size:11px;color:var(--text-tertiary);margin:2px 0 0">Parsed "${file.name}" — select fields to auto-fill your profile</p>
+            </div>
+            <button id="aiExtractClose" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-tertiary);padding:4px">✕</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--teal);font-weight:600;cursor:pointer">
+              <input type="checkbox" id="aiSelectAll" checked style="accent-color:var(--teal)"> Select All
+            </label>
+            <span style="font-size:11px;color:var(--text-tertiary)">${cats.length} categories found</span>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div style="flex:1;overflow-y:auto;padding:16px 24px" id="aiExtractBody">
+          ${cats.map(c => `
+            <label class="ai-cat-row" data-key="${c.key}" style="display:flex;gap:12px;padding:14px;margin-bottom:10px;border-radius:14px;border:1.5px solid var(--border);background:var(--glass-bg);cursor:pointer;transition:all 0.2s ease">
+              <input type="checkbox" class="ai-cat-chk" data-key="${c.key}" checked style="accent-color:var(--teal);margin-top:2px;flex-shrink:0">
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+                  <span style="font-size:14px">${c.icon}</span>
+                  <span style="font-size:12px;font-weight:600">${c.label}</span>
+                  <span style="margin-left:auto;font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;background:#E0F7F5;color:#00A79D">AI</span>
+                </div>
+                <div style="padding-left:2px">${c.preview}</div>
+              </div>
+            </label>`).join('')}
+        </div>
+
+        <!-- Footer -->
+        <div style="padding:14px 24px 18px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <button id="aiExtractCancel" class="btn-glass" style="padding:8px 18px;font-size:12px;border-radius:10px">Skip</button>
+          <button id="aiExtractApply" style="padding:8px 22px;font-size:12px;font-weight:700;border:none;border-radius:10px;background:linear-gradient(135deg,#00A79D,#00C9BD);color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(0,167,157,0.3);transition:transform 0.15s ease">✨ Apply to Profile</button>
+        </div>
+      </div>
+      <style>
+        @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .ai-cat-row:hover{border-color:var(--teal) !important;background:rgba(0,167,157,0.04) !important}
+        .ai-cat-row:has(input:not(:checked)){opacity:0.5}
+        #aiExtractApply:hover{transform:scale(1.03)}
+      </style>`;
+
+    document.body.appendChild(overlay);
+
+    /* Select-all toggle */
+    const selAll = document.getElementById('aiSelectAll');
+    selAll.onchange = () => {
+      document.querySelectorAll('.ai-cat-chk').forEach(cb => { cb.checked = selAll.checked; cb.closest('.ai-cat-row').style.opacity = selAll.checked ? '1' : '0.5'; });
+    };
+    document.querySelectorAll('.ai-cat-chk').forEach(cb => {
+      cb.onchange = () => {
+        cb.closest('.ai-cat-row').style.opacity = cb.checked ? '1' : '0.5';
+        selAll.checked = [...document.querySelectorAll('.ai-cat-chk')].every(c => c.checked);
+      };
+    });
+
+    /* Close / Skip */
+    const closeModal = () => { overlay.style.opacity = '0'; overlay.style.transition = 'opacity 0.2s'; setTimeout(() => overlay.remove(), 200); };
+    document.getElementById('aiExtractClose').onclick = closeModal;
+    document.getElementById('aiExtractCancel').onclick = closeModal;
+    overlay.onclick = (e) => { if (e.target === overlay) closeModal(); };
+
+    /* Apply selected */
+    document.getElementById('aiExtractApply').onclick = () => {
+      const checked = new Set([...document.querySelectorAll('.ai-cat-chk:checked')].map(c => c.dataset.key));
+      let appliedCount = 0;
+
+      if (checked.has('summary') && data.summary) {
+        profile.about = data.summary;
+        appliedCount++;
+      }
+      if (checked.has('contact') && data.contact) {
+        if (data.contact.phone) profile.phone = data.contact.phone;
+        if (data.contact.email) profile.email = data.contact.email;
+        if (data.contact.location) profile.location = data.contact.location;
+        if (data.contact.linkedin) profile.linkedin = data.contact.linkedin;
+        appliedCount++;
+      }
+      if (checked.has('experience') && data.experience.length) {
+        data.experience.forEach(e => {
+          const dup = profile.experience.find(x => x.title === e.title && x.company === e.company);
+          if (!dup) profile.experience.push({ id: nextExpId++, ...e });
+        });
+        appliedCount++;
+      }
+      if (checked.has('education') && data.education.length) {
+        data.education.forEach(e => {
+          const dup = profile.education.find(x => x.degree === e.degree && x.school === e.school);
+          if (!dup) profile.education.push({ id: nextEduId++, ...e });
+        });
+        appliedCount++;
+      }
+      if (checked.has('skills') && data.skills.length) {
+        data.skills.forEach(s => { if (!profile.skills.includes(s)) profile.skills.push(s); });
+        appliedCount++;
+      }
+      if (checked.has('certifications') && data.certifications.length) {
+        data.certifications.forEach(c => {
+          const dup = profile.certifications.find(x => x.name === c.name);
+          if (!dup) profile.certifications.push({ id: nextCertId++, ...c });
+        });
+        appliedCount++;
+      }
+      if (checked.has('languages') && data.languages.length) {
+        data.languages.forEach(l => {
+          const dup = profile.languages.find(x => x.lang === l.lang);
+          if (!dup) profile.languages.push({ id: nextLangId++, ...l });
+        });
+        appliedCount++;
+      }
+
+      /* Add document */
+      profile.documents.unshift({ name: file.name, size: (file.size / 1024 / 1024).toFixed(1) + ' MB', date: new Date().toLocaleDateString('en-US', { month:'short', year:'numeric' }) });
+
+      closeModal();
+      /* Show success toast */
+      document.getElementById('cvExtracting').style.display = 'none';
+      document.getElementById('cvSuccess').style.display = 'flex';
+      document.getElementById('cvExtractSummary').textContent = appliedCount + ' categories applied to your profile from "' + file.name + '"';
+      setTimeout(() => render(), 1800);
+    };
+  }
+
   function bindEvents() {
     /* CV upload */
     const cvBtn = document.getElementById('cvUploadBtn');
@@ -378,21 +549,11 @@ Router.register('/profile', function renderSeekerProfile() {
         if (!file) return;
         cvBtn.style.display = 'none';
         document.getElementById('cvExtracting').style.display = 'flex';
-        /* Simulate AI extraction */
+        /* Simulate AI extraction then show review modal */
         setTimeout(() => {
-          profile.experience.push({ id: nextExpId++, title:'Project Coordinator', company:'Cellcard', from:'Mar 2020', to:'May 2021', desc:'Coordinated cross-functional projects, managed timelines, and stakeholder communications.' });
-          profile.education.push({ id: nextEduId++, degree:'Diploma in Project Management', school:'National Institute of Management', from:'2019', to:'2020' });
-          profile.certifications.push({ id: nextCertId++, name:'Google Project Management Certificate', issuer:'Google / Coursera', year:'2024' });
-          ['Project Management','Stakeholder Communication','Agile Methodology','Risk Assessment'].forEach(s => {
-            if (!profile.skills.includes(s)) profile.skills.push(s);
-          });
-          profile.languages.push({ id: nextLangId++, lang:'Chinese', level:'Basic', pct:30 });
-          profile.documents.unshift({ name: file.name, size: (file.size / 1024 / 1024).toFixed(1) + ' MB', date: 'Apr 2026' });
+          const extracted = simulateAiExtract(file);
           document.getElementById('cvExtracting').style.display = 'none';
-          document.getElementById('cvSuccess').style.display = 'flex';
-          document.getElementById('cvExtractSummary').textContent =
-            'Extracted: 1 new work experience, 1 education, 1 certification, 4 skills, 1 language from "' + file.name + '"';
-          setTimeout(() => render(), 2000);
+          showAiExtractModal(file, extracted);
         }, 2500);
       };
     }
@@ -710,8 +871,17 @@ Router.register('/profile', function renderSeekerProfile() {
     const labelStyle = 'font-size:10px;font-weight:600;color:#888;display:block;margin-bottom:3px;letter-spacing:0.3px';
     const sectionHead = (title) => `<div style="font-size:10px;font-weight:700;color:#999;letter-spacing:0.8px;margin:16px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #f0f0f0">${title}</div>`;
 
+    const aiChips = [
+      { label: '✨ Write Summary', action: 'summary' },
+      { label: '💼 Improve Experience', action: 'experience' },
+      { label: '🛠️ Suggest Skills', action: 'skills' },
+      { label: '🎯 Tailor for Job', action: 'tailor' },
+      { label: '📝 Fix Grammar', action: 'grammar' },
+      { label: '💡 Make More Professional', action: 'professional' },
+    ];
+
     return `
-    <div style="width:100%;max-width:1100px;max-height:94vh;background:white;border-radius:16px;box-shadow:0 25px 60px rgba(0,0,0,0.3);display:flex;flex-direction:column;overflow:hidden">
+    <div style="width:100%;max-width:1360px;max-height:94vh;background:white;border-radius:16px;box-shadow:0 25px 60px rgba(0,0,0,0.3);display:flex;flex-direction:column;overflow:hidden">
       <!-- Header -->
       <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid #eee;flex-shrink:0">
         <div style="display:flex;align-items:center;gap:10px">
@@ -727,10 +897,10 @@ Router.register('/profile', function renderSeekerProfile() {
           <button id="closeCVModal" style="background:none;border:none;font-size:22px;cursor:pointer;color:#999;padding:4px;line-height:1">&times;</button>
         </div>
       </div>
-      <!-- Body: Editor + Preview -->
+      <!-- Body: Editor + AI + Preview -->
       <div style="display:flex;flex:1;overflow:hidden">
         <!-- Left: Editor Panel -->
-        <div id="cvEditorPanel" style="width:340px;flex-shrink:0;overflow-y:auto;padding:16px 18px;border-right:1px solid #eee;background:#fafafa">
+        <div id="cvEditorPanel" style="width:300px;flex-shrink:0;overflow-y:auto;padding:16px 18px;border-right:1px solid #eee;background:#fafafa">
           <!-- Photo -->
           <div style="text-align:center;margin-bottom:12px">
             <div id="cvPhotoPreview" style="width:90px;height:90px;border-radius:50%;background:#f0f0f0;margin:0 auto 8px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:3px solid #e0e0e0;cursor:pointer;position:relative" title="Click to upload photo">
@@ -827,8 +997,232 @@ Router.register('/profile', function renderSeekerProfile() {
         <div id="cvPreviewArea" style="flex:1;overflow-y:auto;background:#e8e8e8;padding:20px;display:flex;justify-content:center">
           <div id="cvPreviewPaper" style="width:100%;max-width:620px;background:white;box-shadow:0 2px 16px rgba(0,0,0,0.08);min-height:800px"></div>
         </div>
+
+        <!-- Right: AI Assistant Panel -->
+        <div id="cvAiPanel" style="width:280px;flex-shrink:0;display:flex;flex-direction:column;border-left:1px solid #eee;background:linear-gradient(180deg,#f8fffe 0%,#fff 100%)">
+          <!-- AI Header -->
+          <div style="padding:14px 16px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:8px">
+            <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#00A79D,#00C9BD);display:flex;align-items:center;justify-content:center;font-size:13px">🤖</div>
+            <div>
+              <p style="font-size:12px;font-weight:700;margin:0;color:#1a1a1a">AI CV Assistant</p>
+              <p style="font-size:9px;color:#888;margin:0">Improve your CV with AI suggestions</p>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div style="padding:12px 14px;border-bottom:1px solid #f0f0f0">
+            <p style="font-size:9px;font-weight:600;color:#999;letter-spacing:0.5px;margin:0 0 8px 0">QUICK ACTIONS</p>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              ${aiChips.map(c => `<button class="cvai-chip" data-action="${c.action}" style="padding:5px 10px;font-size:10px;font-weight:500;border:1px solid #e0ede8;background:rgba(0,167,157,0.05);color:#00A79D;border-radius:8px;cursor:pointer;transition:all 0.2s;white-space:nowrap">${c.label}</button>`).join('')}
+            </div>
+          </div>
+
+          <!-- Chat Messages -->
+          <div id="cvAiMessages" style="flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px">
+            <div class="cvai-msg bot" style="display:flex;gap:8px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#00A79D,#00C9BD);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;color:#fff">AI</div>
+              <div style="flex:1;padding:8px 12px;background:#f0f9f8;border-radius:4px 12px 12px 12px;font-size:11px;line-height:1.55;color:#333">
+                Hi! I'm your CV writing assistant. I can help you:<br><br>
+                • Write a professional summary<br>
+                • Improve your experience descriptions<br>
+                • Suggest relevant skills<br>
+                • Tailor your CV for specific jobs<br><br>
+                Try a quick action above or ask me anything!
+              </div>
+            </div>
+          </div>
+
+          <!-- Input -->
+          <div style="padding:10px 14px;border-top:1px solid #eee;display:flex;gap:6px;align-items:center">
+            <input id="cvAiInput" type="text" placeholder="Ask AI to help with your CV…" style="flex:1;padding:8px 12px;border:1px solid #e0e0e0;border-radius:10px;font-size:11px;background:#fafafa;outline:none">
+            <button id="cvAiSend" style="width:32px;height:32px;border-radius:10px;border:none;background:linear-gradient(135deg,#00A79D,#00C9BD);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;transition:transform 0.15s">➤</button>
+          </div>
+        </div>
       </div>
     </div>`;
+  }
+
+  /* ── AI CV Assistant Logic ── */
+  function cvAiAddMsg(role, html) {
+    const box = document.getElementById('cvAiMessages');
+    if (!box) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'cvai-msg ' + role;
+    if (role === 'bot') {
+      wrap.style.cssText = 'display:flex;gap:8px;align-items:flex-start';
+      wrap.innerHTML = `<div style="width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#00A79D,#00C9BD);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;color:#fff">AI</div>
+        <div style="flex:1;padding:8px 12px;background:#f0f9f8;border-radius:4px 12px 12px 12px;font-size:11px;line-height:1.55;color:#333">${html}</div>`;
+    } else {
+      wrap.style.cssText = 'display:flex;justify-content:flex-end';
+      wrap.innerHTML = `<div style="padding:8px 12px;background:#ED1C24;color:#fff;border-radius:12px 12px 4px 12px;font-size:11px;line-height:1.5;max-width:85%">${html}</div>`;
+    }
+    box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function cvAiTyping(show) {
+    const box = document.getElementById('cvAiMessages');
+    if (!box) return;
+    const existing = box.querySelector('.cvai-typing');
+    if (existing) existing.remove();
+    if (show) {
+      const el = document.createElement('div');
+      el.className = 'cvai-typing';
+      el.style.cssText = 'display:flex;gap:8px;align-items:flex-start';
+      el.innerHTML = `<div style="width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#00A79D,#00C9BD);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;color:#fff">AI</div>
+        <div style="padding:8px 14px;background:#f0f9f8;border-radius:4px 12px 12px 12px;font-size:12px;color:#888;display:flex;gap:3px;align-items:center"><span style="animation:cvaiDot 1s ease infinite">·</span><span style="animation:cvaiDot 1s ease 0.2s infinite">·</span><span style="animation:cvaiDot 1s ease 0.4s infinite">·</span></div>`;
+      box.appendChild(el);
+      box.scrollTop = box.scrollHeight;
+    }
+  }
+
+  function cvAiRespond(action, userMsg) {
+    cvAiTyping(true);
+    const delay = 1200 + Math.random() * 800;
+    setTimeout(() => {
+      cvAiTyping(false);
+      const d = cvDraft;
+      let resp = '';
+      let apply = null;
+
+      if (action === 'summary') {
+        const title = d.jobTitle || d.experience[0]?.title || 'professional';
+        const yrs = d.experience.length > 1 ? d.experience.length + '+' : '2';
+        const newSummary = `Results-driven ${title} with ${yrs} years of experience in the telecommunications industry. Proven track record of exceeding targets, driving operational efficiency, and building strong stakeholder relationships. Passionate about leveraging analytical skills and customer-centric approach to deliver impactful outcomes.`;
+        resp = `<strong>✨ Generated Summary:</strong><br><br><em>"${newSummary}"</em><br><br>`;
+        apply = { type: 'summary', value: newSummary };
+      }
+      else if (action === 'experience') {
+        const exp = d.experience[0];
+        if (!exp) { resp = 'Add at least one experience entry first, then I can help improve it!'; }
+        else {
+          const improved = `Led ${exp.title.toLowerCase()} initiatives resulting in 25% improvement in key performance metrics. Managed cross-functional collaboration between 4+ departments. Implemented data-driven strategies that increased customer satisfaction scores by 15%.`;
+          resp = `<strong>💼 Improved "${exp.title}":</strong><br><br><em>"${improved}"</em><br><br>`;
+          apply = { type: 'experience', idx: 0, value: improved };
+        }
+      }
+      else if (action === 'skills') {
+        const role = d.jobTitle || d.experience[0]?.title || '';
+        const skillMap = {
+          'default': ['Problem Solving', 'Cross-functional Collaboration', 'Data Analysis', 'Strategic Planning', 'Process Improvement', 'Time Management'],
+          'customer': ['CRM Software', 'Conflict Resolution', 'Active Listening', 'Upselling', 'Customer Retention', 'NPS Management'],
+          'engineer': ['System Architecture', 'CI/CD', 'Cloud Computing', 'Docker/Kubernetes', 'API Design', 'Performance Optimization'],
+          'manager': ['Team Leadership', 'KPI Tracking', 'Budget Management', 'Stakeholder Management', 'Agile/Scrum', 'Change Management'],
+          'developer': ['React/Vue.js', 'TypeScript', 'REST APIs', 'Git/GitHub', 'Unit Testing', 'UI/UX Principles'],
+          'marketing': ['SEO/SEM', 'Google Analytics', 'Content Strategy', 'Social Media Marketing', 'A/B Testing', 'Brand Management'],
+        };
+        const key = Object.keys(skillMap).find(k => k !== 'default' && role.toLowerCase().includes(k)) || 'default';
+        const suggested = skillMap[key].filter(s => !d.skills.includes(s));
+        resp = `<strong>🛠️ Suggested Skills</strong> for <em>${role || 'your profile'}</em>:<br><br>` + suggested.map(s => `<span style="display:inline-block;padding:3px 8px;margin:2px;background:#E0F7F5;border-radius:6px;font-size:10px;cursor:pointer" class="cvai-add-skill" data-skill="${s}">+ ${s}</span>`).join('') + `<br><br><em style="font-size:10px;color:#888">Click any skill to add it to your CV</em>`;
+        apply = { type: 'skills', value: suggested };
+      }
+      else if (action === 'tailor') {
+        resp = `<strong>🎯 Tailoring Tips:</strong><br><br>
+          1. <strong>Match keywords</strong> — Mirror the job description's exact terms in your skills and experience.<br>
+          2. <strong>Quantify achievements</strong> — "Increased sales by 20%" is stronger than "Improved sales".<br>
+          3. <strong>Relevant order</strong> — Put the most relevant experience first.<br>
+          4. <strong>Custom summary</strong> — Start with the job title you're applying for.<br><br>
+          <em style="font-size:10px;color:#888">Tip: Paste a job description below and I'll help tailor your CV to it!</em>`;
+      }
+      else if (action === 'grammar') {
+        const fixed = d.about ? d.about.replace(/\s+/g, ' ').trim() : '';
+        const newAbout = fixed.endsWith('.') ? fixed : fixed + '.';
+        resp = `<strong>📝 Grammar Review:</strong><br><br>✅ Summary polished and refined.<br>✅ Ensured consistent punctuation.<br>✅ Removed extra whitespace.<br><br><em>Your summary has been cleaned up!</em>`;
+        apply = { type: 'grammar', value: newAbout };
+      }
+      else if (action === 'professional') {
+        const exp = d.experience[0];
+        const betterExp = d.experience.map(e => {
+          let desc = e.desc || '';
+          if (desc && !desc.match(/\d+%|\d+ /)) {
+            desc = desc.replace(/handled/i, 'Successfully managed').replace(/assisted/i, 'Strategically supported').replace(/helped/i, 'Facilitated');
+          }
+          return { ...e, desc };
+        });
+        resp = `<strong>💡 Professional Enhancement:</strong><br><br>
+          ✅ Upgraded action verbs (Handled → Managed, Assisted → Strategically Supported)<br>
+          ✅ Applied power language throughout<br>
+          ✅ Strengthened experience descriptions<br><br>`;
+        apply = { type: 'professional', value: betterExp };
+      }
+      else {
+        /* Freeform chat — context-aware responses */
+        const msg = (userMsg || '').toLowerCase();
+        if (msg.includes('cover letter')) {
+          resp = `I can help structure a cover letter! Based on your profile as <strong>${d.experience[0]?.title || 'a professional'}</strong>, here's a template:<br><br>
+            <em>"Dear Hiring Manager,<br><br>I am writing to express my interest in the [Position] at [Company]. With ${d.experience.length}+ years of experience in ${d.experience[0]?.company || 'the industry'}, I bring proven expertise in ${d.skills.slice(0,3).join(', ')}…"</em><br><br>
+            <span style="font-size:10px;color:#888">Customize this template with the specific job details!</span>`;
+        } else if (msg.includes('objective') || msg.includes('summary')) {
+          action = 'summary'; cvAiRespond(action, userMsg); return;
+        } else if (msg.includes('skill')) {
+          action = 'skills'; cvAiRespond(action, userMsg); return;
+        } else if (msg.includes('improve') || msg.includes('better')) {
+          action = 'professional'; cvAiRespond(action, userMsg); return;
+        } else {
+          resp = `Great question! Here are some tips:<br><br>
+            • <strong>Keep it concise</strong> — 1–2 pages maximum<br>
+            • <strong>Use metrics</strong> — Numbers grab attention<br>
+            • <strong>Action verbs</strong> — Led, Managed, Achieved, Delivered<br>
+            • <strong>Consistent format</strong> — Same fonts, spacing, bullet styles<br><br>
+            Need help with something specific? Try the quick actions above or ask me to improve a particular section!`;
+        }
+      }
+
+      cvAiAddMsg('bot', resp);
+
+      /* If there's an apply action, add an "Apply" button */
+      if (apply) {
+        const box = document.getElementById('cvAiMessages');
+        const lastBot = box?.querySelector('.cvai-msg.bot:last-child .cvai-msg-apply-wrap');
+        if (!lastBot) {
+          const applyWrap = document.createElement('div');
+          applyWrap.className = 'cvai-msg-apply-wrap';
+          applyWrap.style.cssText = 'margin-top:6px;display:flex;gap:6px';
+          const applyBtn = document.createElement('button');
+          applyBtn.style.cssText = 'padding:5px 12px;font-size:10px;font-weight:600;background:linear-gradient(135deg,#00A79D,#00C9BD);color:#fff;border:none;border-radius:8px;cursor:pointer;transition:opacity 0.2s';
+          applyBtn.textContent = '✅ Apply to CV';
+          applyBtn.onclick = () => {
+            if (apply.type === 'summary' || apply.type === 'grammar') {
+              cvDraft.about = apply.value;
+              const ta = document.querySelector('#cvAbout');
+              if (ta) ta.value = apply.value;
+            } else if (apply.type === 'experience') {
+              cvDraft.experience[apply.idx].desc = apply.value;
+            } else if (apply.type === 'skills') {
+              apply.value.forEach(s => { if (!cvDraft.skills.includes(s)) cvDraft.skills.push(s); });
+            } else if (apply.type === 'professional') {
+              cvDraft.experience = apply.value;
+            }
+            applyBtn.textContent = '✓ Applied!';
+            applyBtn.style.opacity = '0.6';
+            applyBtn.disabled = true;
+            refreshCVPreview(document.querySelector('#cvTplSwitch')?.value || 'professional');
+            /* Reopen editor to refresh sidebar fields */
+            setTimeout(() => reopenEditor(document.querySelector('#cvTplSwitch')?.value || 'professional'), 600);
+          };
+          const lastBotMsg = box?.querySelector('.cvai-msg.bot:last-child > div:last-child');
+          if (lastBotMsg) lastBotMsg.appendChild(applyWrap);
+          applyWrap.appendChild(applyBtn);
+        }
+      }
+
+      /* Bind click-to-add-skill buttons */
+      document.querySelectorAll('.cvai-add-skill').forEach(btn => {
+        if (!btn._bound) {
+          btn._bound = true;
+          btn.onclick = () => {
+            const s = btn.dataset.skill;
+            if (s && !cvDraft.skills.includes(s)) {
+              cvDraft.skills.push(s);
+              btn.style.background = '#c8f0ec';
+              btn.textContent = '✓ ' + s;
+              btn.style.pointerEvents = 'none';
+              refreshCVPreview(document.querySelector('#cvTplSwitch')?.value || 'professional');
+            }
+          };
+        }
+      });
+    }, delay);
   }
 
   function bindCVEditorEvents(overlay, templateId, tpl) {
@@ -1012,6 +1406,37 @@ Router.register('/profile', function renderSeekerProfile() {
       setTimeout(() => { btn.innerHTML = '💾 Save Changes to Profile'; btn.style.opacity = ''; }, 1500);
       render();
     };
+
+    /* ── AI Assistant Events ── */
+    overlay.querySelectorAll('.cvai-chip').forEach(chip => {
+      chip.onclick = () => {
+        chip.style.background = 'rgba(0,167,157,0.15)';
+        cvAiAddMsg('user', chip.textContent.trim());
+        cvAiRespond(chip.dataset.action);
+      };
+      chip.onmouseenter = () => { chip.style.background = 'rgba(0,167,157,0.12)'; chip.style.borderColor = '#00A79D'; };
+      chip.onmouseleave = () => { chip.style.background = 'rgba(0,167,157,0.05)'; chip.style.borderColor = '#e0ede8'; };
+    });
+
+    const aiInput = overlay.querySelector('#cvAiInput');
+    const aiSend = overlay.querySelector('#cvAiSend');
+    const sendAiMsg = () => {
+      const msg = aiInput?.value.trim();
+      if (!msg) return;
+      cvAiAddMsg('user', msg);
+      aiInput.value = '';
+      cvAiRespond(null, msg);
+    };
+    if (aiSend) aiSend.onclick = sendAiMsg;
+    if (aiInput) aiInput.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); sendAiMsg(); } };
+
+    /* Inject animation keyframe for typing dots */
+    if (!document.getElementById('cvaiDotStyle')) {
+      const style = document.createElement('style');
+      style.id = 'cvaiDotStyle';
+      style.textContent = '@keyframes cvaiDot{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}';
+      document.head.appendChild(style);
+    }
   }
 
   function reopenEditor(templateId) {

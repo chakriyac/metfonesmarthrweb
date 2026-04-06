@@ -126,12 +126,14 @@ function seekerSidebar(active) {
     { icon: '🏠', label: 'Home', route: '/home' },
     { icon: '📋', label: 'Applications', route: '/applications' },
     { icon: '📍', label: 'Tracking', route: '/tracking' },
-    { icon: '', label: 'Profile', route: '/profile' },
+    { icon: '🔔', label: 'Notifications', route: '/notifications' },
+    { icon: '💬', label: 'AI Assistant', route: '/chat/ai' },
+    { icon: '👤', label: 'Profile', route: '/profile' },
   ];
   return sidebarTemplate(navItems, active, {
     initials: 'SC', name: 'Sokha Chan', role: 'Job Seeker',
     color: '#FDE8E8', textColor: '#ED1C24'
-  });
+  }, 'JOB SEEKER');
 }
 
 function hrSidebar(active) {
@@ -139,7 +141,8 @@ function hrSidebar(active) {
     { icon: '📊', label: 'Dashboard', route: '/hr/dashboard' },
     { icon: '📃', label: 'Jobs', route: '/hr/jobs' },
     { icon: '📋', label: 'Applications', route: '/hr/applications' },
-    { icon: '🏆', label: 'Talent Ranking', route: '/hr/candidates/rank' },
+    { icon: '�', label: 'Interviews', route: '/hr/interviews' },
+    { icon: '�🏆', label: 'Talent Ranking', route: '/hr/candidates/rank' },
     { icon: '📅', label: 'Attendance', route: '/hr/attendance' },
     { icon: '👥', label: 'Employees', route: '/hr/employees' },
     { icon: '📒', label: 'Staff Directory', route: '/hr/directory' },

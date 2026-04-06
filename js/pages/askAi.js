@@ -1,7 +1,7 @@
 /* ─── Ask AI Chat Page ─── */
 Router.register('/chat/ai', function renderAskAi() {
   const page = el('div', { className: 'app-layout fade-in' });
-  page.appendChild(seekerSidebar('/chat/hr'));
+  page.appendChild(seekerSidebar('/chat/ai'));
 
   const main = el('div', { className: 'main-content' });
 

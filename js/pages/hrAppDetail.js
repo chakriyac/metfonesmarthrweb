@@ -329,6 +329,68 @@ Router.register('/hr/applications/:id', function renderHrAppDetail(candidateId) 
           </div>
         </div>
 
+        <!-- ═══════════ Group Interview Panel — Invite & Schedule ═══════════ -->
+        <div class="card card-lg" style="margin-bottom:16px;border:1px solid rgba(0,167,157,0.15)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <div style="width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,rgba(0,167,157,0.15),rgba(108,99,255,0.12));display:flex;align-items:center;justify-content:center;font-size:18px">📋</div>
+            <div style="flex:1">
+              <h3 style="font-size:14px;font-weight:700">Group Interview Panel</h3>
+              <p style="font-size:11px;color:var(--text-tertiary)">Invite interviewers from HR, department heads &amp; team members to evaluate <strong>${c.name}</strong></p>
+            </div>
+            <button id="btn-schedule-group" style="padding:6px 14px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#00C9BD);color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;transition:transform 0.15s">
+              📅 Schedule Interview
+            </button>
+          </div>
+
+          <!-- Scheduled Interview Info (initially hidden) -->
+          <div id="group-interview-info" style="display:none;margin-bottom:16px;padding:14px 16px;border-radius:14px;background:rgba(0,167,157,0.04);border:1px solid rgba(0,167,157,0.12)">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <span style="font-size:14px">✅</span>
+              <p style="font-size:12px;font-weight:700;color:var(--teal)">Group Interview Scheduled</p>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+              <div><p style="font-size:9px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.5px">DATE</p><p id="gi-date" style="font-size:12px;font-weight:600">—</p></div>
+              <div><p style="font-size:9px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.5px">TIME</p><p id="gi-time" style="font-size:12px;font-weight:600">—</p></div>
+              <div><p style="font-size:9px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.5px">LOCATION</p><p id="gi-location" style="font-size:12px;font-weight:600">—</p></div>
+            </div>
+          </div>
+
+          <!-- Search & Invite -->
+          <div style="margin-bottom:14px">
+            <label style="font-size:11px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.6px;display:block;margin-bottom:8px">INVITE PANEL MEMBERS</label>
+            <div style="position:relative">
+              <input id="panel-search" type="text" placeholder="Search by name, role, or department…" style="width:100%;padding:10px 14px 10px 34px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg);outline:none;transition:border 0.2s">
+              <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text-tertiary)">🔍</span>
+              <div id="panel-search-results" style="display:none;position:absolute;top:100%;left:0;right:0;margin-top:4px;background:var(--card-bg,#fff);border:1px solid var(--glass-border);border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,0.12);z-index:50;max-height:240px;overflow-y:auto"></div>
+            </div>
+          </div>
+
+          <!-- Quick Invite Buttons -->
+          <div style="margin-bottom:14px">
+            <p style="font-size:10px;font-weight:600;color:var(--text-tertiary);margin-bottom:6px">QUICK INVITE BY ROLE</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <button class="quick-invite-role" data-role="hr" style="padding:5px 12px;border-radius:10px;border:1.5px solid rgba(237,28,36,0.2);background:rgba(237,28,36,0.04);color:var(--red);font-size:10px;font-weight:600;cursor:pointer;transition:all 0.2s">👤 HR Team</button>
+              <button class="quick-invite-role" data-role="dept-head" style="padding:5px 12px;border-radius:10px;border:1.5px solid rgba(0,167,157,0.2);background:rgba(0,167,157,0.04);color:var(--teal);font-size:10px;font-weight:600;cursor:pointer;transition:all 0.2s">🏢 ${c.dept} Head</button>
+              <button class="quick-invite-role" data-role="team-lead" style="padding:5px 12px;border-radius:10px;border:1.5px solid rgba(232,124,30,0.2);background:rgba(232,124,30,0.04);color:var(--orange);font-size:10px;font-weight:600;cursor:pointer;transition:all 0.2s">⭐ Team Lead</button>
+              <button class="quick-invite-role" data-role="senior" style="padding:5px 12px;border-radius:10px;border:1.5px solid rgba(108,99,255,0.2);background:rgba(108,99,255,0.04);color:#6C63FF;font-size:10px;font-weight:600;cursor:pointer;transition:all 0.2s">👨‍💻 Senior Staff</button>
+            </div>
+          </div>
+
+          <!-- Invited Panel Members -->
+          <div style="margin-bottom:12px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+              <label style="font-size:11px;font-weight:600;color:var(--text-tertiary);letter-spacing:0.6px">INVITED PANEL (<span id="panel-count">0</span>)</label>
+              <button id="btn-send-invites" style="padding:4px 12px;border-radius:8px;background:linear-gradient(135deg,var(--teal),#00C9BD);color:#fff;font-size:10px;font-weight:700;border:none;cursor:pointer;display:none;transition:all 0.2s">📧 Send All Invites</button>
+            </div>
+            <div id="invited-panel-list" style="display:flex;flex-direction:column;gap:8px">
+              <div style="padding:20px;text-align:center;border-radius:14px;border:2px dashed var(--glass-border);color:var(--text-tertiary);font-size:12px">
+                <p style="font-size:20px;margin-bottom:4px">👥</p>
+                <p>Search above or use quick-invite to add panel members</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- ═══════════ Collaborative Interview Evaluation ═══════════ -->
         <div class="card card-lg" style="margin-bottom:16px;border:1px solid rgba(237,28,36,0.12)">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
@@ -548,7 +610,7 @@ Router.register('/hr/applications/:id', function renderHrAppDetail(candidateId) 
           <div style="display:flex;flex-direction:column;gap:8px">
             <button class="btn-outline-red" style="width:100%" id="btn-sidebar-reject">Reject</button>
             <button class="btn-dark" style="width:100%" id="btn-sidebar-next">Next Stage →</button>
-            <button class="btn-glass" style="width:100%">📅 Schedule Interview</button>
+            <button class="btn-glass" style="width:100%" id="btn-sidebar-schedule">📅 Schedule Interview</button>
           </div>
         </div>
 
@@ -1181,6 +1243,522 @@ ${lastGeneratedQuestions.map((q,i) => `<div class="q-block">
 <p class="footer">Generated by Metfone Smart HR &middot; Confidential &middot; ${new Date().toLocaleDateString()}</p>
 </body></html>`;
     }
+
+    /* ─── Group Interview Panel – Invite & Schedule Logic ─── */
+    const companyEmployees = [
+      { id:'ds', init:'DS', name:'Dara Samnang', role:'HR Officer', dept:'HR Department', bg:'#FDE8E8', color:'#ED1C24', email:'dara.s@metfone.com' },
+      { id:'vm', init:'VM', name:'Mr. Vin', role:'IT Manager', dept:'IT Department', bg:'#F0F9F8', color:'#00A79D', email:'vin@metfone.com' },
+      { id:'kd', init:'KD', name:'Mr. Khem', role:'Marketing Director', dept:'Marketing', bg:'#FFF8F0', color:'#E87C1E', email:'khem@metfone.com' },
+      { id:'lm', init:'LM', name:'Ms. Lim', role:'Operations Manager', dept:'Operations', bg:'#F0F9F8', color:'#00A79D', email:'lim@metfone.com' },
+      { id:'mn', init:'MN', name:'Ms. Noun', role:'Mobile Team Lead', dept:'IT Department', bg:'#FFF8F0', color:'#E87C1E', email:'noun@metfone.com' },
+      { id:'bp', init:'BP', name:'Mr. Pan', role:'BI Manager', dept:'Business Intelligence', bg:'#F0F0FF', color:'#6C63FF', email:'pan@metfone.com' },
+      { id:'sm', init:'SM', name:'Sopheap Meas', role:'Senior Developer', dept:'IT Department', bg:'#F0F9F8', color:'#00A79D', email:'sopheap.m@metfone.com' },
+      { id:'vd', init:'VD', name:'Visal Deth', role:'HR Specialist', dept:'HR Department', bg:'#FDE8E8', color:'#ED1C24', email:'visal.d@metfone.com' },
+      { id:'cl', init:'CL', name:'Chanthy Lim', role:'Senior Analyst', dept:'Business Intelligence', bg:'#F0F0FF', color:'#6C63FF', email:'chanthy.l@metfone.com' },
+      { id:'rk', init:'RK', name:'Rathana Kim', role:'QA Lead', dept:'IT Department', bg:'#F0F9F8', color:'#00A79D', email:'rathana.k@metfone.com' },
+      { id:'ps', init:'PS', name:'Phally Sorn', role:'Finance Manager', dept:'Finance', bg:'#FFF8F0', color:'#E87C1E', email:'phally.s@metfone.com' },
+      { id:'tk', init:'TK', name:'Theary Kong', role:'Training Lead', dept:'HR Department', bg:'#FDE8E8', color:'#ED1C24', email:'theary.k@metfone.com' },
+    ];
+    const invitedPanel = [];
+    let invitesSent = false;
+
+    const roleMap2 = { hr:'HR Department', 'dept-head': c.dept, 'team-lead': c.dept, senior: c.dept };
+
+    function renderInvitedPanel() {
+      const list = page.querySelector('#invited-panel-list');
+      const count = page.querySelector('#panel-count');
+      const sendBtn = page.querySelector('#btn-send-invites');
+      if (!list) return;
+      count.textContent = invitedPanel.length;
+      sendBtn.style.display = invitedPanel.length > 0 && !invitesSent ? 'inline-flex' : 'none';
+      if (invitedPanel.length === 0) {
+        list.innerHTML = `<div style="padding:20px;text-align:center;border-radius:14px;border:2px dashed var(--glass-border);color:var(--text-tertiary);font-size:12px"><p style="font-size:20px;margin-bottom:4px">👥</p><p>Search above or use quick-invite to add panel members</p></div>`;
+        return;
+      }
+      list.innerHTML = invitedPanel.map(m => {
+        const statusColors = { pending:'rgba(232,124,30,0.08)', accepted:'rgba(0,167,157,0.08)', declined:'rgba(237,28,36,0.08)' };
+        const statusText = { pending:'⏳ Pending', accepted:'✅ Accepted', declined:'❌ Declined' };
+        const statusFg = { pending:'var(--orange)', accepted:'var(--teal)', declined:'var(--red)' };
+        return `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:var(--glass-bg);border:1px solid var(--glass-border);transition:all 0.2s">
+          <div class="avatar avatar-sm" style="background:${m.bg};color:${m.color};font-weight:700;font-size:10px">${m.init}</div>
+          <div style="flex:1;min-width:0">
+            <p style="font-size:12px;font-weight:700">${m.name}</p>
+            <p style="font-size:10px;color:var(--text-tertiary)">${m.role} · ${m.dept}</p>
+          </div>
+          ${invitesSent
+            ? `<span style="padding:3px 10px;border-radius:8px;font-size:10px;font-weight:700;background:${statusColors[m.status]};color:${statusFg[m.status]}">${statusText[m.status]}</span>`
+            : `<span style="font-size:10px;color:var(--text-tertiary);font-weight:600">Ready</span>`
+          }
+          ${!invitesSent ? `<button class="panel-remove" data-id="${m.id}" style="background:none;border:none;font-size:13px;cursor:pointer;color:var(--text-tertiary);padding:2px">✕</button>` : ''}
+        </div>`;
+      }).join('');
+
+      /* remove buttons */
+      list.querySelectorAll('.panel-remove').forEach(btn => {
+        btn.onclick = () => {
+          const idx = invitedPanel.findIndex(m => m.id === btn.dataset.id);
+          if (idx >= 0) invitedPanel.splice(idx, 1);
+          renderInvitedPanel();
+        };
+      });
+    }
+
+    function addToPanel(emp) {
+      if (invitedPanel.find(m => m.id === emp.id)) return;
+      invitedPanel.push({ ...emp, status:'pending' });
+      renderInvitedPanel();
+    }
+
+    /* Search */
+    const searchInput = page.querySelector('#panel-search');
+    const searchResults = page.querySelector('#panel-search-results');
+    if (searchInput && searchResults) {
+      searchInput.addEventListener('input', () => {
+        const q = searchInput.value.toLowerCase().trim();
+        if (q.length < 1) { searchResults.style.display = 'none'; return; }
+        const matches = companyEmployees.filter(e => !invitedPanel.find(m => m.id === e.id) && (e.name.toLowerCase().includes(q) || e.role.toLowerCase().includes(q) || e.dept.toLowerCase().includes(q)));
+        if (matches.length === 0) {
+          searchResults.innerHTML = '<div style="padding:14px;text-align:center;font-size:12px;color:var(--text-tertiary)">No matching employees found</div>';
+        } else {
+          searchResults.innerHTML = matches.map(e => `
+            <div class="search-result-item" data-id="${e.id}" style="display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background 0.15s;border-bottom:1px solid var(--glass-border)">
+              <div class="avatar avatar-sm" style="background:${e.bg};color:${e.color};font-weight:700;font-size:10px;width:30px;height:30px">${e.init}</div>
+              <div style="flex:1;min-width:0">
+                <p style="font-size:12px;font-weight:600">${e.name}</p>
+                <p style="font-size:10px;color:var(--text-tertiary)">${e.role} · ${e.dept}</p>
+              </div>
+              <span style="font-size:10px;color:var(--teal);font-weight:600">+ Invite</span>
+            </div>`).join('');
+        }
+        searchResults.style.display = 'block';
+        searchResults.querySelectorAll('.search-result-item').forEach(item => {
+          item.onmouseenter = () => item.style.background = 'rgba(0,167,157,0.04)';
+          item.onmouseleave = () => item.style.background = '';
+          item.onclick = () => {
+            const emp = companyEmployees.find(e => e.id === item.dataset.id);
+            if (emp) addToPanel(emp);
+            searchInput.value = '';
+            searchResults.style.display = 'none';
+          };
+        });
+      });
+      searchInput.addEventListener('blur', () => setTimeout(() => searchResults.style.display = 'none', 200));
+      searchInput.addEventListener('focus', () => { if (searchInput.value.trim()) searchInput.dispatchEvent(new Event('input')); });
+    }
+
+    /* Quick-invite by role */
+    page.querySelectorAll('.quick-invite-role').forEach(btn => {
+      btn.onclick = () => {
+        const role = btn.dataset.role;
+        let toInvite = [];
+        if (role === 'hr') toInvite = companyEmployees.filter(e => e.dept === 'HR Department');
+        else if (role === 'dept-head') toInvite = companyEmployees.filter(e => e.dept === c.dept && (e.role.includes('Manager') || e.role.includes('Director') || e.role.includes('Head')));
+        else if (role === 'team-lead') toInvite = companyEmployees.filter(e => e.dept === c.dept && (e.role.includes('Lead') || e.role.includes('Senior')));
+        else if (role === 'senior') toInvite = companyEmployees.filter(e => e.dept === c.dept && e.role.includes('Senior'));
+        if (toInvite.length === 0) toInvite = companyEmployees.filter(e => e.dept === (roleMap2[role] || c.dept)).slice(0, 2);
+        toInvite.forEach(e => addToPanel(e));
+        btn.style.background = role === 'hr' ? 'rgba(237,28,36,0.12)' : role === 'dept-head' ? 'rgba(0,167,157,0.12)' : role === 'team-lead' ? 'rgba(232,124,30,0.12)' : 'rgba(108,99,255,0.12)';
+        btn.textContent = '✓ ' + btn.textContent.replace('✓ ','');
+      };
+    });
+
+    /* Send invites button */
+    const sendInvBtn = page.querySelector('#btn-send-invites');
+    if (sendInvBtn) sendInvBtn.onclick = () => {
+      invitesSent = true;
+      /* Simulate varying statuses after 1s */
+      invitedPanel.forEach((m, i) => {
+        if (i === 0) m.status = 'accepted';
+        else if (i === invitedPanel.length - 1) m.status = 'pending';
+        else m.status = Math.random() > 0.2 ? 'accepted' : 'pending';
+      });
+      sendInvBtn.textContent = '✓ Invites Sent!';
+      sendInvBtn.style.opacity = '0.6';
+      setTimeout(() => {
+        renderInvitedPanel();
+        sendInvBtn.style.display = 'none';
+      }, 1200);
+    };
+
+    /* Schedule Group Interview Modal */
+    const scheduleBtn = page.querySelector('#btn-schedule-group');
+    if (scheduleBtn) scheduleBtn.onclick = () => {
+      const existing = document.getElementById('groupInterviewModal');
+      if (existing) existing.remove();
+
+      const overlay = document.createElement('div');
+      overlay.id = 'groupInterviewModal';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);animation:fadeIn 0.3s ease';
+      overlay.innerHTML = `
+        <div style="width:480px;max-height:85vh;background:var(--card-bg,#fff);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,0.18);overflow:hidden;animation:slideUp 0.35s cubic-bezier(0.25,0.1,0.25,1)">
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border)">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="font-size:22px">📅</span>
+                <h3 style="font-size:15px;font-weight:700">Schedule Group Interview</h3>
+              </div>
+              <button id="gi-close" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-tertiary)">✕</button>
+            </div>
+            <p style="font-size:11px;color:var(--text-tertiary);margin-top:4px">For <strong>${c.name}</strong> — ${c.pos} · ${c.dept}</p>
+          </div>
+          <div style="padding:20px 24px;overflow-y:auto;max-height:60vh">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+              <div>
+                <label style="font-size:10px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px">DATE *</label>
+                <input id="gi-input-date" type="date" value="2026-04-10" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg)">
+              </div>
+              <div>
+                <label style="font-size:10px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px">TIME *</label>
+                <input id="gi-input-time" type="time" value="10:00" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg)">
+              </div>
+            </div>
+            <div style="margin-bottom:16px">
+              <label style="font-size:10px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px">DURATION</label>
+              <select id="gi-input-duration" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg)">
+                <option>30 minutes</option><option selected>45 minutes</option><option>1 hour</option><option>1.5 hours</option><option>2 hours</option>
+              </select>
+            </div>
+            <div style="margin-bottom:16px">
+              <label style="font-size:10px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px">INTERVIEW TYPE</label>
+              <div style="display:flex;gap:8px" id="gi-type-btns">
+                <button data-type="in-person" class="gi-type active" style="flex:1;padding:10px;border-radius:12px;border:1.5px solid var(--teal);background:rgba(0,167,157,0.06);color:var(--teal);font-size:11px;font-weight:700;cursor:pointer">🏢 In-Person</button>
+                <button data-type="video" class="gi-type" style="flex:1;padding:10px;border-radius:12px;border:1.5px solid var(--glass-border);background:transparent;color:var(--text-secondary);font-size:11px;font-weight:700;cursor:pointer">📹 Video Call</button>
+                <button data-type="hybrid" class="gi-type" style="flex:1;padding:10px;border-radius:12px;border:1.5px solid var(--glass-border);background:transparent;color:var(--text-secondary);font-size:11px;font-weight:700;cursor:pointer">🔄 Hybrid</button>
+              </div>
+            </div>
+            <div style="margin-bottom:16px">
+              <label style="font-size:10px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px">LOCATION / MEETING LINK</label>
+              <input id="gi-input-location" type="text" value="Conference Room 3A, Metfone HQ" placeholder="Room name or Google Meet / Zoom link" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg)">
+            </div>
+            <div style="margin-bottom:16px">
+              <label style="font-size:10px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px">INTERVIEW AGENDA (optional)</label>
+              <textarea id="gi-input-agenda" rows="3" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg);font-family:inherit;resize:vertical" placeholder="e.g.&#10;1. Introduction (5 min)&#10;2. Technical Questions (15 min)&#10;3. Behavioral Questions (10 min)&#10;4. Q&A with candidate (10 min)"></textarea>
+            </div>
+            <div style="margin-bottom:16px;padding:12px 14px;border-radius:12px;background:rgba(0,167,157,0.04);border:1px solid rgba(0,167,157,0.1)">
+              <p style="font-size:10px;font-weight:600;color:var(--teal);margin-bottom:6px">PANEL MEMBERS (${invitedPanel.length})</p>
+              ${invitedPanel.length > 0
+                ? `<div style="display:flex;flex-wrap:wrap;gap:6px">${invitedPanel.map(m => `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:8px;background:#fff;border:1px solid var(--glass-border);font-size:11px"><span style="font-weight:700;color:${m.color}">${m.init}</span> ${m.name.split(' ')[0]}</span>`).join('')}</div>`
+                : `<p style="font-size:11px;color:var(--text-tertiary)">No panel members invited yet — add them from the panel above</p>`
+              }
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;background:rgba(232,124,30,0.04);border:1px solid rgba(232,124,30,0.1);margin-bottom:6px">
+              <input type="checkbox" id="gi-notify" checked style="accent-color:var(--orange);width:14px;height:14px">
+              <div>
+                <p style="font-size:11px;font-weight:600">Send calendar invites & email notification</p>
+                <p style="font-size:10px;color:var(--text-tertiary)">All panel members + ${c.name} will receive the schedule</p>
+              </div>
+            </div>
+          </div>
+          <div style="padding:14px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between">
+            <button id="gi-cancel" style="padding:10px 20px;border-radius:12px;border:1.5px solid var(--glass-border);background:transparent;font-size:12px;font-weight:600;cursor:pointer;color:var(--text-secondary)">Cancel</button>
+            <button id="gi-confirm" style="padding:10px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--teal),#00C9BD);color:#fff;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(0,167,157,0.3);transition:transform 0.15s">📅 Confirm & Schedule</button>
+          </div>
+        </div>
+        <style>@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}</style>`;
+
+      document.body.appendChild(overlay);
+
+      /* Modal type toggle */
+      overlay.querySelectorAll('.gi-type').forEach(btn => {
+        btn.onclick = () => {
+          overlay.querySelectorAll('.gi-type').forEach(b => { b.style.borderColor = 'var(--glass-border)'; b.style.background = 'transparent'; b.style.color = 'var(--text-secondary)'; b.classList.remove('active'); });
+          btn.style.borderColor = 'var(--teal)'; btn.style.background = 'rgba(0,167,157,0.06)'; btn.style.color = 'var(--teal)'; btn.classList.add('active');
+          const locInput = overlay.querySelector('#gi-input-location');
+          if (btn.dataset.type === 'video') locInput.value = 'https://meet.google.com/abc-defg-hij';
+          else if (btn.dataset.type === 'in-person') locInput.value = 'Conference Room 3A, Metfone HQ';
+          else locInput.value = 'Room 3A + Google Meet link';
+        };
+      });
+
+      /* Close */
+      const closeModal = () => { overlay.style.opacity = '0'; overlay.style.transition = 'opacity 0.2s'; setTimeout(() => overlay.remove(), 200); };
+      overlay.querySelector('#gi-close').onclick = closeModal;
+      overlay.querySelector('#gi-cancel').onclick = closeModal;
+      overlay.onclick = (e) => { if (e.target === overlay) closeModal(); };
+
+      /* Confirm */
+      overlay.querySelector('#gi-confirm').onclick = () => {
+        const dateVal = overlay.querySelector('#gi-input-date').value;
+        const timeVal = overlay.querySelector('#gi-input-time').value;
+        const locVal = overlay.querySelector('#gi-input-location').value;
+        const durationVal = overlay.querySelector('#gi-input-duration').value;
+        const d = new Date(dateVal + 'T' + timeVal);
+        const formatted = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' });
+
+        /* Show scheduled info */
+        const infoBox = page.querySelector('#group-interview-info');
+        if (infoBox) {
+          infoBox.style.display = 'block';
+          page.querySelector('#gi-date').textContent = formatted;
+          page.querySelector('#gi-time').textContent = timeVal + ' (' + durationVal + ')';
+          page.querySelector('#gi-location').textContent = locVal;
+        }
+
+        /* Update schedule button */
+        scheduleBtn.innerHTML = '✅ Scheduled';
+        scheduleBtn.style.background = 'rgba(0,167,157,0.1)';
+        scheduleBtn.style.color = 'var(--teal)';
+
+        closeModal();
+
+        /* Auto-send invites if not yet sent */
+        if (!invitesSent && invitedPanel.length > 0) {
+          invitesSent = true;
+          invitedPanel.forEach((m, i) => {
+            if (i === 0) m.status = 'accepted';
+            else m.status = Math.random() > 0.3 ? 'accepted' : 'pending';
+          });
+          setTimeout(() => renderInvitedPanel(), 500);
+        }
+      };
+    };
+
+    /* ─── Schedule Interview from Sidebar ─── */
+    const sidebarScheduleBtn = page.querySelector('#btn-sidebar-schedule');
+    if (sidebarScheduleBtn) sidebarScheduleBtn.onclick = () => {
+      const existing = document.getElementById('scheduleInterviewModal');
+      if (existing) existing.remove();
+
+      const panelStaff = [
+        { id:'ds2',init:'DS',name:'Dara Samnang',role:'HR Officer',dept:'HR Department',bg:'#FDE8E8',color:'#ED1C24' },
+        { id:'vd2',init:'VD',name:'Visal Deth',role:'HR Specialist',dept:'HR Department',bg:'#FDE8E8',color:'#ED1C24' },
+        { id:'tk2',init:'TK',name:'Theary Kong',role:'Training Lead',dept:'HR Department',bg:'#FDE8E8',color:'#ED1C24' },
+        { id:'vm2',init:'VM',name:'Mr. Vin',role:'IT Manager',dept:'IT Department',bg:'#F0F9F8',color:'#00A79D' },
+        { id:'mn2',init:'MN',name:'Ms. Noun',role:'Mobile Team Lead',dept:'IT Department',bg:'#FFF8F0',color:'#E87C1E' },
+        { id:'sm2',init:'SM',name:'Sopheap Meas',role:'Senior Developer',dept:'IT Department',bg:'#F0F9F8',color:'#00A79D' },
+        { id:'rk2',init:'RK',name:'Rathana Kim',role:'QA Lead',dept:'IT Department',bg:'#F0F9F8',color:'#00A79D' },
+        { id:'kd2',init:'KD',name:'Mr. Khem',role:'Marketing Director',dept:'Marketing',bg:'#FFF8F0',color:'#E87C1E' },
+        { id:'lm2',init:'LM',name:'Ms. Lim',role:'Operations Manager',dept:'Operations',bg:'#F0F9F8',color:'#00A79D' },
+        { id:'bp2',init:'BP',name:'Mr. Pan',role:'BI Manager',dept:'Business Intelligence',bg:'#F0F0FF',color:'#6C63FF' },
+        { id:'cl2',init:'CL',name:'Chanthy Lim',role:'Senior Analyst',dept:'Business Intelligence',bg:'#F0F0FF',color:'#6C63FF' },
+        { id:'ps2',init:'PS',name:'Phally Sorn',role:'Finance Manager',dept:'Finance',bg:'#FFF8F0',color:'#E87C1E' },
+        { id:'pm2',init:'PM',name:'Phearun Mak',role:'Product Manager',dept:'Product',bg:'#F0F0FF',color:'#6C63FF' },
+      ];
+      const siInvited = [];
+
+      /* Auto-suggest: HR officer + dept head */
+      const hrOfficer = panelStaff.find(s => s.id === 'ds2');
+      if (hrOfficer) siInvited.push({ ...hrOfficer });
+      const deptHead = panelStaff.find(s => s.dept === c.dept && (s.role.includes('Manager') || s.role.includes('Director') || s.role.includes('Head')));
+      if (deptHead && deptHead.id !== 'ds2') siInvited.push({ ...deptHead });
+
+      const overlay = document.createElement('div');
+      overlay.id = 'scheduleInterviewModal';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);animation:fadeIn 0.3s ease';
+
+      function buildPanelListHTML() {
+        if (siInvited.length === 0) return '<div style="padding:14px;text-align:center;border-radius:12px;border:2px dashed var(--glass-border);color:var(--text-tertiary);font-size:11px"><p style="font-size:16px;margin-bottom:4px">👥</p><p>Search or quick-invite panel members</p></div>';
+        return siInvited.map(function(m) {
+          return '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:var(--glass-bg);border:1px solid var(--glass-border)" data-panel-id="' + m.id + '">' +
+            '<div class="avatar avatar-sm" style="background:' + m.bg + ';color:' + m.color + ';font-weight:700;font-size:9px;width:26px;height:26px">' + m.init + '</div>' +
+            '<div style="flex:1;min-width:0"><p style="font-size:11px;font-weight:600">' + m.name + '</p><p style="font-size:9px;color:var(--text-tertiary)">' + m.role + '</p></div>' +
+            '<button class="si-panel-rm" data-rid="' + m.id + '" style="background:none;border:none;font-size:11px;cursor:pointer;color:var(--text-tertiary);padding:2px">✕</button>' +
+          '</div>';
+        }).join('');
+      }
+
+      overlay.innerHTML =
+        '<div style="width:560px;max-width:95vw;max-height:90vh;background:var(--card-bg,#fff);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,0.18);overflow:hidden;display:flex;flex-direction:column;animation:slideUp 0.35s cubic-bezier(0.25,0.1,0.25,1)">' +
+          /* Header */
+          '<div style="padding:20px 24px;border-bottom:1px solid var(--border)">' +
+            '<div style="display:flex;align-items:center;justify-content:space-between">' +
+              '<div style="display:flex;align-items:center;gap:10px">' +
+                '<span style="font-size:22px">📅</span>' +
+                '<div><h3 style="font-size:15px;font-weight:700">Schedule Interview</h3>' +
+                '<p style="font-size:11px;color:var(--text-tertiary)">For <strong>' + c.name + '</strong> — ' + c.pos + ' · ' + c.dept + '</p></div>' +
+              '</div>' +
+              '<button id="si-close" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-tertiary)">✕</button>' +
+            '</div>' +
+          '</div>' +
+          /* Body */
+          '<div style="overflow-y:auto;flex:1;padding:20px 24px">' +
+            /* Candidate card */
+            '<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;background:' + c.bg + ';border:1px solid rgba(0,0,0,0.04);margin-bottom:18px">' +
+              '<div class="avatar avatar-md" style="background:rgba(255,255,255,0.7);color:' + c.color + ';font-weight:700">' + c.init + '</div>' +
+              '<div style="flex:1"><p style="font-size:13px;font-weight:700">' + c.name + '</p><p style="font-size:11px;color:var(--text-tertiary)">' + c.pos + ' · Match: ' + c.matchPct + '% · Score: ' + c.score + '</p></div>' +
+              '<span style="padding:4px 12px;border-radius:8px;font-size:10px;font-weight:700;background:rgba(255,255,255,0.7);color:' + c.color + '">' + c.status + '</span>' +
+            '</div>' +
+            /* Date/Time/Duration */
+            '<p style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px">① Schedule</p>' +
+            '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px">' +
+              '<div><label style="font-size:10px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px">DATE *</label>' +
+              '<input id="si-date" type="date" value="2026-04-10" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg)"></div>' +
+              '<div><label style="font-size:10px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px">TIME *</label>' +
+              '<input id="si-time" type="time" value="10:00" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg)"></div>' +
+              '<div><label style="font-size:10px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px">DURATION</label>' +
+              '<select id="si-duration" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg)">' +
+                '<option>30 minutes</option><option selected>45 minutes</option><option>1 hour</option><option>1.5 hours</option><option>2 hours</option>' +
+              '</select></div>' +
+            '</div>' +
+            /* Type & Location */
+            '<p style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px">② Type & Location</p>' +
+            '<div style="display:flex;gap:8px;margin-bottom:10px" id="si-type-btns">' +
+              '<button data-type="in-person" class="si-type active" style="flex:1;padding:10px;border-radius:12px;border:1.5px solid var(--teal);background:rgba(0,167,157,0.06);color:var(--teal);font-size:11px;font-weight:700;cursor:pointer">🏢 In-Person</button>' +
+              '<button data-type="video" class="si-type" style="flex:1;padding:10px;border-radius:12px;border:1.5px solid var(--glass-border);background:transparent;color:var(--text-secondary);font-size:11px;font-weight:700;cursor:pointer">📹 Video Call</button>' +
+              '<button data-type="hybrid" class="si-type" style="flex:1;padding:10px;border-radius:12px;border:1.5px solid var(--glass-border);background:transparent;color:var(--text-secondary);font-size:11px;font-weight:700;cursor:pointer">🔄 Hybrid</button>' +
+            '</div>' +
+            '<input id="si-location" type="text" value="Conference Room 3A, Metfone HQ" placeholder="Room name or meeting link" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg);margin-bottom:18px">' +
+            /* Interview Panel */
+            '<p style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px">③ Interview Panel</p>' +
+            '<div style="position:relative;margin-bottom:10px">' +
+              '<input id="si-staff-search" type="text" placeholder="🔍 Search employees by name, role, or department…" style="width:100%;padding:10px 14px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg)">' +
+              '<div id="si-staff-results" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--card-bg,#fff);border:1.5px solid var(--glass-border);border-radius:12px;margin-top:4px;max-height:160px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.1);z-index:10"></div>' +
+            '</div>' +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">' +
+              '<button class="si-quick-role" data-role="hr" style="padding:5px 10px;border-radius:10px;border:1.5px solid rgba(237,28,36,0.2);background:rgba(237,28,36,0.04);font-size:10px;font-weight:700;cursor:pointer;color:var(--red)">👔 HR Team</button>' +
+              '<button class="si-quick-role" data-role="dept" style="padding:5px 10px;border-radius:10px;border:1.5px solid rgba(0,167,157,0.2);background:rgba(0,167,157,0.04);font-size:10px;font-weight:700;cursor:pointer;color:var(--teal)">🏢 Dept Head</button>' +
+              '<button class="si-quick-role" data-role="lead" style="padding:5px 10px;border-radius:10px;border:1.5px solid rgba(232,124,30,0.2);background:rgba(232,124,30,0.04);font-size:10px;font-weight:700;cursor:pointer;color:var(--orange)">⭐ Team Lead</button>' +
+            '</div>' +
+            '<div id="si-panel-list" style="display:flex;flex-direction:column;gap:6px;margin-bottom:18px">' + buildPanelListHTML() + '</div>' +
+            /* Agenda */
+            '<p style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px">④ Agenda (optional)</p>' +
+            '<textarea id="si-agenda" rows="3" style="width:100%;padding:10px 12px;border:1.5px solid var(--glass-border);border-radius:12px;font-size:12px;background:var(--glass-bg);font-family:inherit;resize:vertical;margin-bottom:14px" placeholder="e.g.&#10;1. Introduction (5 min)&#10;2. Technical Questions (15 min)&#10;3. Behavioral Questions (10 min)&#10;4. Q&amp;A (10 min)"></textarea>' +
+            /* Notify */
+            '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;background:rgba(232,124,30,0.04);border:1px solid rgba(232,124,30,0.1)">' +
+              '<input type="checkbox" id="si-notify" checked style="accent-color:var(--orange);width:14px;height:14px">' +
+              '<div><p style="font-size:11px;font-weight:600">Send calendar invite & email notification</p>' +
+              '<p style="font-size:10px;color:var(--text-tertiary)">Panel members + ' + c.name + ' will receive the schedule</p></div>' +
+            '</div>' +
+          '</div>' +
+          /* Footer */
+          '<div style="padding:14px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-shrink:0">' +
+            '<button id="si-cancel" style="padding:10px 20px;border-radius:12px;border:1.5px solid var(--glass-border);background:transparent;font-size:12px;font-weight:600;cursor:pointer;color:var(--text-secondary)">Cancel</button>' +
+            '<button id="si-confirm" style="padding:10px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--teal),#00C9BD);color:#fff;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(0,167,157,0.3)">📅 Schedule Interview</button>' +
+          '</div>' +
+        '</div>' +
+        '<style>@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}</style>';
+
+      document.body.appendChild(overlay);
+
+      /* Close */
+      var closeSI = function() { overlay.style.opacity = '0'; overlay.style.transition = 'opacity 0.2s'; setTimeout(function() { overlay.remove(); }, 200); };
+      overlay.querySelector('#si-close').onclick = closeSI;
+      overlay.querySelector('#si-cancel').onclick = closeSI;
+      overlay.onclick = function(ev) { if (ev.target === overlay) closeSI(); };
+
+      /* Type toggle */
+      overlay.querySelectorAll('.si-type').forEach(function(btn) {
+        btn.onclick = function() {
+          overlay.querySelectorAll('.si-type').forEach(function(b) { b.style.borderColor = 'var(--glass-border)'; b.style.background = 'transparent'; b.style.color = 'var(--text-secondary)'; b.classList.remove('active'); });
+          btn.style.borderColor = 'var(--teal)'; btn.style.background = 'rgba(0,167,157,0.06)'; btn.style.color = 'var(--teal)'; btn.classList.add('active');
+          var loc = overlay.querySelector('#si-location');
+          if (btn.dataset.type === 'video') loc.value = 'https://meet.google.com/abc-defg-hij';
+          else if (btn.dataset.type === 'in-person') loc.value = 'Conference Room 3A, Metfone HQ';
+          else loc.value = 'Room 3A + Google Meet link';
+        };
+      });
+
+      /* Render panel list + bind remove */
+      function refreshPanelList() {
+        var listEl = overlay.querySelector('#si-panel-list');
+        listEl.innerHTML = buildPanelListHTML();
+        listEl.querySelectorAll('.si-panel-rm').forEach(function(rb) {
+          rb.onclick = function() {
+            var idx = siInvited.findIndex(function(m) { return m.id === rb.dataset.rid; });
+            if (idx >= 0) siInvited.splice(idx, 1);
+            refreshPanelList();
+          };
+        });
+      }
+      refreshPanelList();
+
+      function addSIPanel(emp) {
+        if (siInvited.find(function(m) { return m.id === emp.id; })) return;
+        siInvited.push({ id:emp.id, init:emp.init, name:emp.name, role:emp.role, dept:emp.dept, bg:emp.bg, color:emp.color });
+        refreshPanelList();
+      }
+
+      /* Staff search */
+      var siSearch = overlay.querySelector('#si-staff-search');
+      var siResults = overlay.querySelector('#si-staff-results');
+      siSearch.addEventListener('input', function() {
+        var q = siSearch.value.toLowerCase().trim();
+        if (q.length < 1) { siResults.style.display = 'none'; return; }
+        var matches = panelStaff.filter(function(e) { return !siInvited.find(function(m) { return m.id === e.id; }) && (e.name.toLowerCase().indexOf(q) >= 0 || e.role.toLowerCase().indexOf(q) >= 0 || e.dept.toLowerCase().indexOf(q) >= 0); });
+        if (matches.length === 0) {
+          siResults.innerHTML = '<div style="padding:12px;text-align:center;font-size:11px;color:var(--text-tertiary)">No matching employees</div>';
+        } else {
+          siResults.innerHTML = matches.map(function(e) {
+            return '<div class="si-search-item" data-id="' + e.id + '" style="display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background 0.15s;border-bottom:1px solid var(--glass-border)">' +
+              '<div class="avatar avatar-sm" style="background:' + e.bg + ';color:' + e.color + ';font-weight:700;font-size:9px;width:26px;height:26px">' + e.init + '</div>' +
+              '<div style="flex:1"><p style="font-size:11px;font-weight:600">' + e.name + '</p><p style="font-size:9px;color:var(--text-tertiary)">' + e.role + ' · ' + e.dept + '</p></div>' +
+              '<span style="font-size:10px;color:var(--teal);font-weight:600">+ Invite</span></div>';
+          }).join('');
+        }
+        siResults.style.display = 'block';
+        siResults.querySelectorAll('.si-search-item').forEach(function(item) {
+          item.onmouseenter = function() { item.style.background = 'rgba(0,167,157,0.04)'; };
+          item.onmouseleave = function() { item.style.background = ''; };
+          item.onclick = function() {
+            var emp = panelStaff.find(function(e) { return e.id === item.dataset.id; });
+            if (emp) addSIPanel(emp);
+            siSearch.value = ''; siResults.style.display = 'none';
+          };
+        });
+      });
+      siSearch.addEventListener('blur', function() { setTimeout(function() { siResults.style.display = 'none'; }, 200); });
+
+      /* Quick role invite */
+      overlay.querySelectorAll('.si-quick-role').forEach(function(btn) {
+        btn.onclick = function() {
+          var role = btn.dataset.role;
+          var toInvite = [];
+          if (role === 'hr') toInvite = panelStaff.filter(function(e) { return e.dept === 'HR Department'; });
+          else if (role === 'dept') toInvite = panelStaff.filter(function(e) { return e.dept === c.dept && (e.role.indexOf('Manager') >= 0 || e.role.indexOf('Director') >= 0 || e.role.indexOf('Head') >= 0); });
+          else if (role === 'lead') toInvite = panelStaff.filter(function(e) { return e.dept === c.dept && (e.role.indexOf('Lead') >= 0 || e.role.indexOf('Senior') >= 0); });
+          if (toInvite.length === 0) toInvite = panelStaff.filter(function(e) { return e.dept === c.dept; }).slice(0, 2);
+          toInvite.forEach(function(e) { addSIPanel(e); });
+          btn.textContent = '✓ ' + btn.textContent.replace('✓ ', '');
+        };
+      });
+
+      /* Confirm schedule */
+      overlay.querySelector('#si-confirm').onclick = function() {
+        var dateVal = overlay.querySelector('#si-date').value;
+        var timeVal = overlay.querySelector('#si-time').value;
+        if (!dateVal || !timeVal) { alert('Please select a date and time'); return; }
+        if (siInvited.length === 0) { alert('Please invite at least one panel member'); return; }
+
+        var confirmBtn = overlay.querySelector('#si-confirm');
+        confirmBtn.innerHTML = '<span style="display:inline-block;animation:spin 0.8s linear infinite">⏳</span> Scheduling…';
+        confirmBtn.style.opacity = '0.7';
+        confirmBtn.disabled = true;
+
+        setTimeout(function() {
+          confirmBtn.innerHTML = '✅ Interview Scheduled!';
+          confirmBtn.style.background = 'var(--teal)';
+          confirmBtn.style.opacity = '1';
+
+          /* Update sidebar button */
+          var d = new Date(dateVal + 'T' + timeVal);
+          var formatted = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+          sidebarScheduleBtn.innerHTML = '✅ ' + formatted + ' · ' + timeVal;
+          sidebarScheduleBtn.style.background = 'rgba(0,167,157,0.08)';
+          sidebarScheduleBtn.style.color = 'var(--teal)';
+          sidebarScheduleBtn.style.borderColor = 'rgba(0,167,157,0.2)';
+
+          /* Update stage to Interview */
+          var stageSelect = page.querySelector('#stage-select');
+          if (stageSelect) {
+            for (var i = 0; i < stageSelect.options.length; i++) {
+              if (stageSelect.options[i].text === 'Interview') { stageSelect.selectedIndex = i; break; }
+            }
+          }
+
+          /* Show toast */
+          var toast = document.createElement('div');
+          toast.style.cssText = 'position:fixed;bottom:30px;right:30px;padding:16px 24px;border-radius:16px;background:var(--teal);color:#fff;font-size:13px;font-weight:700;z-index:99999;box-shadow:0 8px 30px rgba(0,0,0,0.2);animation:fadeIn 0.3s';
+          toast.innerHTML = '📅 Interview scheduled for <strong>' + c.name + '</strong> on ' + formatted + ' at ' + timeVal + '<br><span style="font-size:11px;font-weight:400;opacity:0.85">' + siInvited.length + ' panel member' + (siInvited.length > 1 ? 's' : '') + ' invited</span>';
+          document.body.appendChild(toast);
+          setTimeout(function() { toast.remove(); }, 4000);
+
+          setTimeout(function() { closeSI(); }, 800);
+        }, 1500);
+      };
+    };
+
+    /* Initial render of empty invited panel */
+    renderInvitedPanel();
 
     const dlDocBtn = page.querySelector('#btn-download-doc');
     if (dlDocBtn) dlDocBtn.addEventListener('click', () => {
